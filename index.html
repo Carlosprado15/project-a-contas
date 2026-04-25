@@ -12,34 +12,6 @@
 <link id="pwaManifest" rel="manifest">
 <link id="appleTouchIcon" rel="apple-touch-icon">
 <title>PROJECT A — Finance Management</title>
-<script>
-  // Bloqueio imediato antes de renderizar qualquer coisa
-  document.documentElement.style.display = 'none';
-
-  (function() {
-    const autorizado = localStorage.getItem('visto_pelo_dono');
-    const params = new URLSearchParams(window.location.search);
-    const chave = params.get('v');
-
-    // Se já é dono ou se tem uma chave nova no link
-    if (autorizado === 'true' || chave) {
-      if (chave) localStorage.setItem('visto_pelo_dono', 'true');
-      
-      // Libera a visualização do site
-      document.documentElement.style.display = 'block';
-    } else {
-      // Se não tem chave e não é dono, mostra o bloqueio
-      document.documentElement.style.display = 'block';
-      document.documentElement.innerHTML = `
-        <body style="background:#000; color:#00FFFF; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; margin:0;">
-          <div style="text-align:center; border:2px solid #00FFFF; padding:40px;">
-            <h1>⚠️ ACESSO RESTRITO</h1>
-            <p>Este link expirou ou já foi usado.</p>
-          </div>
-        </body>`;
-    }
-  })();
-</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
@@ -58,6 +30,7 @@ html, body {
   background:#000; overflow:hidden;
   user-select:none; -webkit-user-select:none;
 }
+
 /* Estilo do Alerta de Navegador */
 #browser-alert {
     display: none;
@@ -81,9 +54,8 @@ html, body {
 .alert-content h2 { color: #00f2ff; font-family: 'Orbitron', sans-serif; margin-bottom: 15px; }
 .alert-content p { color: #ccc; line-height: 1.6; font-size: 14px; }
 .alert-btn { margin-top: 25px; background: #00f2ff; color: black; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
-/* ═══════════════════════════════
-   SPLIT BACKGROUND
-═══════════════════════════════ */
+
+/* SPLIT BACKGROUND */
 .app-shell {
   position:fixed; inset:0;
   display:flex; flex-direction:column;
@@ -102,9 +74,7 @@ html, body {
   pointer-events:none;
 }
 
-/* ═══════════════════════════════
-   HEADER
-═══════════════════════════════ */
+/* HEADER */
 .header {
   position:relative; z-index:10;
   padding:14px 20px 8px; text-align:center;
@@ -123,9 +93,7 @@ html, body {
 .emblem-svg { width:100%; height:100%; filter:drop-shadow(0 4px 12px rgba(0,0,0,.8)); }
 .tagline { font-size:11px; letter-spacing:2.5px; color:#aaa; text-transform:uppercase; margin-bottom:2px; }
 
-/* ═══════════════════════════════
-   SPA SCREENS
-═══════════════════════════════ */
+/* SPA SCREENS */
 .screen {
   flex:1; overflow-y:auto; overflow-x:hidden;
   position:relative; z-index:5;
@@ -138,9 +106,7 @@ html, body {
 .screen::-webkit-scrollbar-track { background:rgba(255,255,255,.05); }
 .screen::-webkit-scrollbar-thumb { background:rgba(0,255,255,.3); border-radius:2px; }
 
-/* ═══════════════════════════════
-   ADD BUTTON
-═══════════════════════════════ */
+/* ADD BUTTON */
 .add-btn {
   width:100%;
   background:repeating-linear-gradient(45deg,#111 0,#111 2px,#191919 2px,#191919 4px);
@@ -159,9 +125,7 @@ html, body {
 .add-btn-label { font-size:20px; font-weight:600; color:#e0e0e0; letter-spacing:1px; display:block; margin-top:4px; }
 .add-btn-sub   { font-size:12px; color:#888; letter-spacing:1px; display:block; margin-top:2px; }
 
-/* ═══════════════════════════════
-   SECTION LABELS
-═══════════════════════════════ */
+/* SECTION LABELS */
 .section-label {
   font-size:11px; font-weight:700; letter-spacing:3px; color:#999; text-transform:uppercase;
   margin:4px 0 8px 2px; padding-bottom:4px; border-bottom:1px solid rgba(255,255,255,.08);
@@ -172,9 +136,7 @@ html, body {
   padding-bottom:8px; border-bottom:1px solid rgba(0,255,255,.15);
 }
 
-/* ═══════════════════════════════
-   BILL CARDS (Home)
-═══════════════════════════════ */
+/* BILL CARDS */
 .bill-card {
   width:100%;
   background:linear-gradient(135deg,rgba(40,40,40,.95) 0%,rgba(55,55,55,.9) 30%,rgba(35,35,35,.95) 60%,rgba(50,50,50,.9) 100%);
@@ -221,8 +183,6 @@ html, body {
 }
 .bill-card.paid .bill-name   { color:#aaa; }
 .bill-card.paid .bill-amount { color:rgba(0,200,200,.4); text-shadow:none; text-decoration:line-through; }
-.bill-card.paid .bill-name.blurred   { filter:blur(12px); }
-.bill-card.paid .bill-amount.blurred { filter:blur(12px); }
 
 .paid-check {
   width:28px; height:28px; flex-shrink:0;
@@ -260,9 +220,7 @@ html, body {
 /* Empty state */
 .empty-state { text-align:center; padding:22px; color:#444; font-size:13px; letter-spacing:1px; }
 
-/* ═══════════════════════════════
-   SCREEN 1 — PAGAMENTOS
-═══════════════════════════════ */
+/* SCREEN 1 — PAGAMENTOS */
 .filter-row { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
 .filter-btn {
   background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
@@ -298,9 +256,7 @@ html, body {
 .badge-paid    { background:rgba(0,200,83,.12); color:#00e676; border:1px solid rgba(0,200,83,.25); }
 .badge-overdue { background:rgba(255,50,50,.15); color:#ff5252; border:1px solid rgba(255,50,50,.3); }
 
-/* ═══════════════════════════════
-   SCREEN 2 — CALENDÁRIO
-═══════════════════════════════ */
+/* SCREEN 2 — CALENDÁRIO */
 .cal-nav {
   display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;
 }
@@ -362,9 +318,7 @@ html, body {
 .cal-event-name   { font-size:14px; font-weight:600; color:#ddd; }
 .cal-event-amount { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--cyan); margin-top:1px; }
 
-/* ═══════════════════════════════
-   SCREEN 3 — RESUMO FINANCEIRO
-═══════════════════════════════ */
+/* SCREEN 3 — RESUMO FINANCEIRO */
 .summary-grid {
   display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;
 }
@@ -412,9 +366,7 @@ html, body {
 .cat-cnt  { font-size:11px; color:#555; margin-right:12px; }
 .cat-tot  { font-family:'Share Tech Mono',monospace; font-size:13px; color:var(--cyan); }
 
-/* ═══════════════════════════════
-   SCREEN 4 — CONFIGURAÇÕES
-═══════════════════════════════ */
+/* SCREEN 4 — CONFIGURAÇÕES */
 .cfg-section { margin-bottom:18px; }
 .cfg-section-title {
   font-size:9px; font-weight:700; letter-spacing:3px; color:#555; text-transform:uppercase;
@@ -469,9 +421,7 @@ html, body {
   margin-top:10px; line-height:1.7;
 }
 
-/* ═══════════════════════════════
-   FOOTER
-═══════════════════════════════ */
+/* FOOTER */
 .footer {
   flex-shrink:0; position:relative; z-index:10;
   background:linear-gradient(180deg,rgba(10,10,10,.98) 0%,rgba(0,0,0,1) 100%);
@@ -495,9 +445,7 @@ html, body {
 .f-icon svg { width:100%; height:100%; }
 .f-label { font-size:10px; letter-spacing:1px; color:#666; margin-top:3px; text-transform:uppercase; }
 
-/* ═══════════════════════════════
-   MODAL
-═══════════════════════════════ */
+/* MODAL */
 .modal-overlay {
   position:fixed; inset:0; z-index:100;
   background:rgba(0,0,0,.85); backdrop-filter:blur(4px);
@@ -556,9 +504,7 @@ html, body {
 @keyframes vPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
 .voice-status { font-family:'Share Tech Mono',monospace; font-size:11px; color:#cc88ff; text-align:center; margin-top:8px; min-height:16px; letter-spacing:1px; }
 
-/* ═══════════════════════════════
-   TOAST
-═══════════════════════════════ */
+/* TOAST */
 .toast {
   position:fixed; top:20px; left:50%; transform:translateX(-50%);
   background:rgba(0,40,50,.95); border:1px solid rgba(0,255,255,.3);
@@ -571,7 +517,7 @@ html, body {
 </style>
 </head>
 <body>
-  <div id="browser-alert">
+<div id="browser-alert">
     <div class="alert-content">
         <h2>💡 DICA DE ACESSO</h2>
         <p>Para o <b>Comando de Voz</b> e os <b>Lembretes</b> funcionarem 100%, você precisa abrir no seu navegador padrão.</p>
@@ -580,8 +526,6 @@ html, body {
     </div>
 </div>
 <div class="app-shell">
-
-  <!-- ════════ HEADER ════════ -->
   <header class="header">
     <div class="logo-text">PROJECT</div>
     <div class="logo-sub">FINANCE MANAGEMENT</div>
@@ -589,20 +533,20 @@ html, body {
       <svg class="emblem-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="eOR" cx="50%" cy="35%" r="60%">
-            <stop offset="0%"   stop-color="#f0f0f0"/><stop offset="30%" stop-color="#b0b0b0"/>
-            <stop offset="60%"  stop-color="#d8d8d8"/><stop offset="100%" stop-color="#606060"/>
+            <stop offset="0%" stop-color="#f0f0f0"/><stop offset="30%" stop-color="#b0b0b0"/>
+            <stop offset="60%" stop-color="#d8d8d8"/><stop offset="100%" stop-color="#606060"/>
           </radialGradient>
           <radialGradient id="eIR" cx="50%" cy="30%" r="65%">
-            <stop offset="0%"   stop-color="#e8e8e8"/><stop offset="40%" stop-color="#888"/>
-            <stop offset="70%"  stop-color="#c0c0c0"/><stop offset="100%" stop-color="#505050"/>
+            <stop offset="0%" stop-color="#e8e8e8"/><stop offset="40%" stop-color="#888"/>
+            <stop offset="70%" stop-color="#c0c0c0"/><stop offset="100%" stop-color="#505050"/>
           </radialGradient>
           <radialGradient id="eBG" cx="50%" cy="30%" r="70%">
-            <stop offset="0%"   stop-color="#3a3a3a"/><stop offset="60%" stop-color="#1a1a1a"/>
+            <stop offset="0%" stop-color="#3a3a3a"/><stop offset="60%" stop-color="#1a1a1a"/>
             <stop offset="100%" stop-color="#080808"/>
           </radialGradient>
           <linearGradient id="eLA" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stop-color="#f0f0f0"/><stop offset="30%" stop-color="#c0c0c0"/>
-            <stop offset="60%"  stop-color="#e8e8e8"/><stop offset="100%" stop-color="#808080"/>
+            <stop offset="0%" stop-color="#f0f0f0"/><stop offset="30%" stop-color="#c0c0c0"/>
+            <stop offset="60%" stop-color="#e8e8e8"/><stop offset="100%" stop-color="#808080"/>
           </linearGradient>
           <filter id="eSH"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,.9)"/></filter>
           <filter id="eGL"><feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
@@ -617,16 +561,16 @@ html, body {
     <div class="tagline">Organize. Acompanhe. Pague em Dia.</div>
   </header>
 
-  <!-- ════════ SCREEN 0 — INÍCIO ════════ -->
+  <!-- SCREEN 0 — INÍCIO -->
   <div class="screen active" id="screen-0">
     <button class="add-btn" onclick="openModal()">
       <span class="add-btn-icon">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle">
           <defs>
             <linearGradient id="mG" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#f0f0f0"/>
-              <stop offset="40%"  stop-color="#b0b0b0"/>
-              <stop offset="70%"  stop-color="#e0e0e0"/>
+              <stop offset="0%" stop-color="#f0f0f0"/>
+              <stop offset="40%" stop-color="#b0b0b0"/>
+              <stop offset="70%" stop-color="#e0e0e0"/>
               <stop offset="100%" stop-color="#808080"/>
             </linearGradient>
           </defs>
@@ -659,7 +603,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ════════ SCREEN 1 — PAGAMENTOS ════════ -->
+  <!-- SCREEN 1 — PAGAMENTOS -->
   <div class="screen" id="screen-1">
     <div class="page-header">TODOS OS PAGAMENTOS</div>
     <div class="filter-row">
@@ -671,7 +615,7 @@ html, body {
     <div id="pagList"></div>
   </div>
 
-  <!-- ════════ SCREEN 2 — CALENDÁRIO ════════ -->
+  <!-- SCREEN 2 — CALENDÁRIO -->
   <div class="screen" id="screen-2">
     <div class="cal-nav">
       <button class="cal-nav-btn" onclick="calShift(-1)">‹</button>
@@ -688,7 +632,7 @@ html, body {
     <div id="calEvents"></div>
   </div>
 
-  <!-- ════════ SCREEN 3 — CONTAS / RESUMO ════════ -->
+  <!-- SCREEN 3 — RESUMO FINANCEIRO -->
   <div class="screen" id="screen-3">
     <div class="page-header">RESUMO FINANCEIRO</div>
     <div class="summary-grid" id="summaryCards"></div>
@@ -698,7 +642,7 @@ html, body {
     <div id="catBreakdown"></div>
   </div>
 
-  <!-- ════════ SCREEN 4 — CONFIGURAÇÕES ════════ -->
+  <!-- SCREEN 4 — CONFIGURAÇÕES -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
 
@@ -759,7 +703,7 @@ html, body {
     </p>
   </div>
 
-  <!-- ════════ FOOTER ════════ -->
+  <!-- FOOTER -->
   <nav class="footer">
     <div class="footer-btn active" onclick="goTab(0,this)">
       <div class="f-icon">
@@ -805,7 +749,7 @@ html, body {
   </nav>
 </div>
 
-<!-- ════════ MODAL ════════ -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -840,7 +784,7 @@ html, body {
     <div class="voice-status" id="voiceStatus"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">CANCELAR</button>
-      <button class="btn-save"   onclick="saveBill()">SALVAR</button>
+      <button class="btn-save" onclick="saveBill()">SALVAR</button>
     </div>
   </div>
 </div>
@@ -848,266 +792,253 @@ html, body {
 <div class="toast" id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════════
-   DATA & PERSISTENCE
-══════════════════════════════════════════════ */
-let bills    = [];
-let settings = { blur:true, alerts:true, sound:true, vibrate:true };
+/* DATA & PERSISTENCE */
+let bills = [];
+let settings = { blur: true, alerts: true, sound: true, vibrate: true };
 const firedAlerts = new Set(JSON.parse(localStorage.getItem('pA_fired') || '[]'));
 
-const saveFA = () => localStorage.setItem('pA_fired',    JSON.stringify([...firedAlerts]));
-const saveS  = () => localStorage.setItem('pA_settings', JSON.stringify(settings));
-const saveB  = () => localStorage.setItem('pA_bills',    JSON.stringify(bills));
+const saveFA = () => localStorage.setItem('pA_fired', JSON.stringify([...firedAlerts]));
+const saveS = () => localStorage.setItem('pA_settings', JSON.stringify(settings));
+const saveB = () => localStorage.setItem('pA_bills', JSON.stringify(bills));
 
 function loadSettings() {
-  try { const s = JSON.parse(localStorage.getItem('pA_settings')); if(s) settings = {...settings,...s}; } catch(e){}
+    try { const s = JSON.parse(localStorage.getItem('pA_settings')); if (s) settings = { ...settings, ...s }; } catch (e) {}
 }
-function loadBills() {
-  try {
-    // migrate old key if present
-    const raw = localStorage.getItem('pA_bills') || localStorage.getItem('projectA_bills_v2');
-    if (raw) {
-      const cutoff = Date.now() - 90*24*60*60*1000;
-      bills = JSON.parse(raw).filter(b => !b.paid || (b.paidAt && b.paidAt > cutoff));
-    }
-  } catch(e) { bills = []; }
-  if (!bills.length) seedDefaults();
-}
-function seedDefaults() {
-  const now = new Date();
-  const iso = d => d.toISOString().split('T')[0];
-  const add = n => { const d = new Date(now); d.setDate(d.getDate()+n); return d; };
-  bills = [
-    { id:uid(), name:'Conta de Água',    amount:null,   dueDate:iso(add(3)),  category:'agua',       paid:false, blurred:true },
-    { id:uid(), name:'Condomínio',       amount:320.90, dueDate:iso(add(5)),  category:'condominio', paid:false, blurred:true },
-    { id:uid(), name:'Aluguel',          amount:120.50, dueDate:iso(add(7)),  category:'aluguel',    paid:false, blurred:true },
-    { id:uid(), name:'Conta de Energia', amount:215.90, dueDate:iso(add(10)), category:'energia',    paid:false, blurred:true },
-    { id:uid(), name:'Energia Elétrica', amount:210.40, dueDate:iso(add(-5)), category:'energia', paid:true, paidAt:Date.now()-5*86400000, blurred:true, paidDate:iso(add(-5)) },
-    { id:uid(), name:'Plano de Saúde',   amount:450.00, dueDate:iso(add(-3)), category:'saude',   paid:true, paidAt:Date.now()-3*86400000, blurred:true, paidDate:iso(add(-3)) },
-  ];
-  saveB();
-}
-const uid = () => Math.random().toString(36).slice(2,10);
 
-/* ── helpers ── */
-const CAT_COLOR = { agua:'#4fc3f7', energia:'#ffe066', aluguel:'#b0b0b0', condominio:'#c0c0c0', saude:'#f48fb1', internet:'#80b0ff', outros:'#aaa' };
-const CAT_LABEL = { agua:'Água', energia:'Energia', aluguel:'Aluguel', condominio:'Condomínio', saude:'Saúde', internet:'Internet', outros:'Outros' };
-const MONTHS_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+function loadBills() {
+    try {
+        const raw = localStorage.getItem('pA_bills');
+        if (raw) {
+            const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
+            bills = JSON.parse(raw).filter(b => !b.paid || (b.paidAt && b.paidAt > cutoff));
+        }
+    } catch (e) { bills = []; }
+    if (!bills.length) seedDefaults();
+}
+
+function seedDefaults() {
+    const now = new Date();
+    const iso = d => d.toISOString().split('T')[0];
+    const add = n => { const d = new Date(now); d.setDate(d.getDate() + n); return d; };
+    bills = [
+        { id: uid(), name: 'Conta de Água', amount: null, dueDate: iso(add(3)), category: 'agua', paid: false, blurred: true },
+        { id: uid(), name: 'Condomínio', amount: 320.90, dueDate: iso(add(5)), category: 'condominio', paid: false, blurred: true },
+        { id: uid(), name: 'Aluguel', amount: 120.50, dueDate: iso(add(7)), category: 'aluguel', paid: false, blurred: true },
+        { id: uid(), name: 'Conta de Energia', amount: 215.90, dueDate: iso(add(10)), category: 'energia', paid: false, blurred: true },
+        { id: uid(), name: 'Energia Elétrica', amount: 210.40, dueDate: iso(add(-5)), category: 'energia', paid: true, paidAt: Date.now() - 5 * 86400000, blurred: true, paidDate: iso(add(-5)) },
+        { id: uid(), name: 'Plano de Saúde', amount: 450.00, dueDate: iso(add(-3)), category: 'saude', paid: true, paidAt: Date.now() - 3 * 86400000, blurred: true, paidDate: iso(add(-3)) },
+    ];
+    saveB();
+}
+
+const uid = () => Math.random().toString(36).slice(2, 10);
+
+/* helpers */
+const CAT_COLOR = { agua: '#4fc3f7', energia: '#ffe066', aluguel: '#b0b0b0', condominio: '#c0c0c0', saude: '#f48fb1', internet: '#80b0ff', outros: '#aaa' };
+const CAT_LABEL = { agua: 'Água', energia: 'Energia', aluguel: 'Aluguel', condominio: 'Condomínio', saude: 'Saúde', internet: 'Internet', outros: 'Outros' };
+const MONTHS_PT = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
 const ICONS = {
-  agua:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="#4fc3f7"/></svg>`,
-  energia:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 2v11h3v9l7-12h-4l4-8z" fill="#ffe066"/></svg>`,
-  aluguel:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#d0d0d0"/></svg>`,
-  condominio:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M17 11V3H7v4H3v14h8v-4h2v4h8V11h-4zm-6 6H9v-2h2v2zm0-4H9v-2h2v2zm0-4H9V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2z" fill="#c0c0c0"/></svg>`,
-  saude:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f48fb1"/></svg>`,
-  internet:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" fill="#80b0ff"/></svg>`,
-  outros:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z" fill="#aaa"/></svg>`,
+    agua: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="#4fc3f7"/></svg>`,
+    energia: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 2v11h3v9l7-12h-4l4-8z" fill="#ffe066"/></svg>`,
+    aluguel: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#d0d0d0"/></svg>`,
+    condominio: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M17 11V3H7v4H3v14h8v-4h2v4h8V11h-4zm-6 6H9v-2h2v2zm0-4H9v-2h2v2zm0-4H9V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2z" fill="#c0c0c0"/></svg>`,
+    saude: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f48fb1"/></svg>`,
+    internet: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" fill="#80b0ff"/></svg>`,
+    outros: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z" fill="#aaa"/></svg>`,
 };
 
-const fmtAmt  = v => v == null ? 'R$ …' : 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const fmtDate = iso => { if(!iso) return ''; const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`; };
-const isOD    = b  => !b.paid && b.dueDate < new Date().toISOString().split('T')[0];
-const esc     = s  => String(s).replace(/[<>&"]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+const fmtAmt = v => v == null ? 'R$ …' : 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtDate = iso => { if (!iso) return ''; const [y, m, d] = iso.split('-'); return `${d}/${m}/${y}`; };
+const isOD = b => !b.paid && b.dueDate < new Date().toISOString().split('T')[0];
+const esc = s => String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
 
-/* ══════════════════════════════════════════════
-   NAVIGATION — SPA
-══════════════════════════════════════════════ */
+/* NAVIGATION — SPA */
 let currentTab = 0;
 
 function goTab(idx, btn) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.footer-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('screen-' + idx).classList.add('active');
-  btn.classList.add('active');
-  currentTab = idx;
-  if (idx === 1) renderPag();
-  if (idx === 2) renderCal();
-  if (idx === 3) renderSummary();
-  if (idx === 4) renderCfg();
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.footer-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('screen-' + idx).classList.add('active');
+    btn.classList.add('active');
+    currentTab = idx;
+    if (idx === 1) renderPag();
+    if (idx === 2) renderCal();
+    if (idx === 3) renderSummary();
+    if (idx === 4) renderCfg();
 }
 
-/* ══════════════════════════════════════════════
-   SCREEN 0 — HOME
-══════════════════════════════════════════════ */
+/* SCREEN 0 — HOME */
 function render() {
-  const upcoming = bills.filter(b=>!b.paid).sort((a,b)=>a.dueDate>b.dueDate?1:-1);
-  const paid     = bills.filter(b=> b.paid).sort((a,b)=>b.paidAt-a.paidAt);
+    const upcoming = bills.filter(b => !b.paid).sort((a, b) => a.dueDate > b.dueDate ? 1 : -1);
+    const paid = bills.filter(b => b.paid).sort((a, b) => b.paidAt - a.paidAt);
 
-  const ul = document.getElementById('upcomingList');
-  ul.innerHTML = '';
-  if (!upcoming.length) ul.innerHTML = '<div class="empty-state">Nenhum vencimento pendente.</div>';
-  else upcoming.forEach(b => ul.appendChild(makeCard(b)));
+    const ul = document.getElementById('upcomingList');
+    ul.innerHTML = '';
+    if (!upcoming.length) ul.innerHTML = '<div class="empty-state">Nenhum vencimento pendente.</div>';
+    else upcoming.forEach(b => ul.appendChild(makeCard(b)));
 
-  const pl = document.getElementById('paidList');
-  pl.innerHTML = '';
-  if (!paid.length) pl.innerHTML = '<div class="empty-state">Nenhuma conta paga ainda.</div>';
-  else paid.forEach(b => pl.appendChild(makeCard(b)));
+    const pl = document.getElementById('paidList');
+    pl.innerHTML = '';
+    if (!paid.length) pl.innerHTML = '<div class="empty-state">Nenhuma conta paga ainda.</div>';
+    else paid.forEach(b => pl.appendChild(makeCard(b)));
 
-  // keep other open tabs fresh
-  if (currentTab === 1) renderPag();
-  if (currentTab === 3) renderSummary();
+    if (currentTab === 1) renderPag();
+    if (currentTab === 3) renderSummary();
 }
 
 function makeCard(b) {
-  const card = document.createElement('div');
-  card.className = 'bill-card' + (b.paid ? ' paid' : '');
-  const bc   = b.blurred ? ' blurred' : '';
-  const icon = ICONS[b.category] || ICONS.outros;
-  const date = b.paid && b.paidDate ? 'Pago em '+fmtDate(b.paidDate) : 'Vence em '+fmtDate(b.dueDate);
+    const card = document.createElement('div');
+    card.className = 'bill-card' + (b.paid ? ' paid' : '');
+    const bc = b.blurred ? ' blurred' : '';
+    const icon = ICONS[b.category] || ICONS.outros;
+    const date = b.paid && b.paidDate ? 'Pago em ' + fmtDate(b.paidDate) : 'Vence em ' + fmtDate(b.dueDate);
 
-  if (b.paid) {
-    card.innerHTML = `
+    if (b.paid) {
+        card.innerHTML = `
       <div class="paid-check"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#00e676"/></svg></div>
       <div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div>
       <div class="bill-amount${bc}">${fmtAmt(b.amount)}</div>`;
-  } else {
-    card.innerHTML = `
+    } else {
+        card.innerHTML = `
       <div class="bill-icon">${icon}</div>
       <div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div>
       <div class="bill-amount${bc}">${fmtAmt(b.amount)}</div>
       <button class="pay-btn" onclick="event.stopPropagation();payBill('${b.id}')">PAGAR</button>`;
-  }
+    }
 
-  card.addEventListener('click', e => {
-    if (e.target.classList.contains('pay-btn')) return;
-    const bill = bills.find(x=>x.id===b.id); if(!bill) return;
-    bill.blurred = !bill.blurred; saveB();
-    card.querySelectorAll('.bill-name,.bill-amount').forEach(el=>el.classList.toggle('blurred',bill.blurred));
-  });
-  return card;
+    card.addEventListener('click', e => {
+        if (e.target.classList.contains('pay-btn')) return;
+        const bill = bills.find(x => x.id === b.id); if (!bill) return;
+        bill.blurred = !bill.blurred; saveB();
+        card.querySelectorAll('.bill-name,.bill-amount').forEach(el => el.classList.toggle('blurred', bill.blurred));
+    });
+    return card;
 }
 
 function payBill(id) {
-  const b = bills.find(x=>x.id===id); if(!b) return;
-  b.paid=true; b.paidAt=Date.now(); b.paidDate=new Date().toISOString().split('T')[0];
-  saveB(); render();
-  showToast('✓ '+b.name+' marcada como paga!');
-  doVibrate(); if(settings.sound) playBeep();
+    const b = bills.find(x => x.id === id); if (!b) return;
+    b.paid = true; b.paidAt = Date.now(); b.paidDate = new Date().toISOString().split('T')[0];
+    saveB(); render();
+    showToast('✓ ' + b.name + ' marcada como paga!');
+    doVibrate(); if (settings.sound) playBeep();
 }
 
-/* ══════════════════════════════════════════════
-   SCREEN 1 — PAGAMENTOS
-══════════════════════════════════════════════ */
+/* SCREEN 1 — PAGAMENTOS */
 let pagFilter = 'all';
 
 function setFilter(btn, f) {
-  pagFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderPag();
+    pagFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPag();
 }
 
 function renderPag() {
-  const today = new Date().toISOString().split('T')[0];
-  let list = [...bills].sort((a,b)=>{
-    if (!a.paid && b.paid) return -1; if (a.paid && !b.paid) return 1;
-    return a.dueDate>b.dueDate?1:-1;
-  });
-  if (pagFilter==='pending') list = list.filter(b=>!b.paid && b.dueDate>=today);
-  if (pagFilter==='paid')    list = list.filter(b=> b.paid);
-  if (pagFilter==='overdue') list = list.filter(b=>!b.paid && b.dueDate<today);
+    const today = new Date().toISOString().split('T')[0];
+    let list = [...bills].sort((a, b) => {
+        if (!a.paid && b.paid) return -1; if (a.paid && !b.paid) return 1;
+        return a.dueDate > b.dueDate ? 1 : -1;
+    });
+    if (pagFilter === 'pending') list = list.filter(b => !b.paid && b.dueDate >= today);
+    if (pagFilter === 'paid') list = list.filter(b => b.paid);
+    if (pagFilter === 'overdue') list = list.filter(b => !b.paid && b.dueDate < today);
 
-  const el = document.getElementById('pagList');
-  el.innerHTML = '';
-  if (!list.length) { el.innerHTML='<div class="empty-state">Nenhuma conta neste filtro.</div>'; return; }
+    const el = document.getElementById('pagList');
+    el.innerHTML = '';
+    if (!list.length) { el.innerHTML = '<div class="empty-state">Nenhuma conta neste filtro.</div>'; return; }
 
-  list.forEach(b => {
-    const overdue = isOD(b);
-    const [badge, cls] = b.paid ? ['PAGO','paid'] : overdue ? ['VENCIDO','overdue'] : ['PENDENTE','pending'];
-    const row = document.createElement('div'); row.className='pag-row';
-    row.innerHTML=`
-      <div class="pag-dot" style="background:${CAT_COLOR[b.category]||'#aaa'};box-shadow:0 0 6px ${CAT_COLOR[b.category]||'#aaa'}"></div>
+    list.forEach(b => {
+        const overdue = isOD(b);
+        const [badge, cls] = b.paid ? ['PAGO', 'paid'] : overdue ? ['VENCIDO', 'overdue'] : ['PENDENTE', 'pending'];
+        const row = document.createElement('div'); row.className = 'pag-row';
+        row.innerHTML = `
+      <div class="pag-dot" style="background:${CAT_COLOR[b.category] || '#aaa'};box-shadow:0 0 6px ${CAT_COLOR[b.category] || '#aaa'}"></div>
       <div class="pag-info">
         <div class="pag-name">${esc(b.name)}</div>
-        <div class="pag-date">${b.paid?'Pago em '+fmtDate(b.paidDate):'Vence '+fmtDate(b.dueDate)}</div>
+        <div class="pag-date">${b.paid ? 'Pago em ' + fmtDate(b.paidDate) : 'Vence ' + fmtDate(b.dueDate)}</div>
       </div>
       <div class="pag-amt">${fmtAmt(b.amount)}</div>
       <div class="pag-badge badge-${cls}">${badge}</div>`;
-    el.appendChild(row);
-  });
+        el.appendChild(row);
+    });
 }
 
-/* ══════════════════════════════════════════════
-   SCREEN 2 — CALENDÁRIO
-══════════════════════════════════════════════ */
+/* SCREEN 2 — CALENDÁRIO */
 let calY, calM;
 
-function calInit() { const n=new Date(); calY=n.getFullYear(); calM=n.getMonth(); }
-function calShift(d) { calM+=d; if(calM<0){calM=11;calY--;} if(calM>11){calM=0;calY++;} renderCal(); }
+function calInit() { const n = new Date(); calY = n.getFullYear(); calM = n.getMonth(); }
+function calShift(d) { calM += d; if (calM < 0) { calM = 11; calY--; } if (calM > 11) { calM = 0; calY++; } renderCal(); }
 
 function renderCal() {
-  const todayStr = new Date().toISOString().split('T')[0];
-  document.getElementById('calTitle').textContent = MONTHS_PT[calM]+' '+calY;
+    const todayStr = new Date().toISOString().split('T')[0];
+    document.getElementById('calTitle').textContent = MONTHS_PT[calM] + ' ' + calY;
 
-  const firstDay    = new Date(calY,calM,1).getDay();
-  const daysInMonth = new Date(calY,calM+1,0).getDate();
+    const firstDay = new Date(calY, calM, 1).getDay();
+    const daysInMonth = new Date(calY, calM + 1, 0).getDate();
 
-  // map day -> bills for this month
-  const dueDays = {};
-  bills.filter(b=>!b.paid && b.dueDate).forEach(b=>{
-    const [y,m,d] = b.dueDate.split('-').map(Number);
-    if (y===calY && m===calM+1) { if(!dueDays[d]) dueDays[d]=[]; dueDays[d].push(b); }
-  });
+    const dueDays = {};
+    bills.filter(b => !b.paid && b.dueDate).forEach(b => {
+        const [y, m, d] = b.dueDate.split('-').map(Number);
+        if (y === calY && m === calM + 1) { if (!dueDays[d]) dueDays[d] = []; dueDays[d].push(b); }
+    });
 
-  const grid = document.getElementById('calGrid');
-  grid.innerHTML = '';
-  for (let i=0;i<firstDay;i++) { const c=document.createElement('div'); c.className='cal-cell'; grid.appendChild(c); }
-  for (let d=1;d<=daysInMonth;d++) {
-    const iso = calY+'-'+String(calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    const od  = dueDays[d] && iso < todayStr;
-    const c   = document.createElement('div');
-    c.className = 'cal-cell'+(iso===todayStr?' today':'')+(dueDays[d]?(od?' overdue-day':' has-bill'):'');
-    c.textContent = d;
-    if (dueDays[d]) { const dot=document.createElement('div'); dot.className='cal-dot'; c.appendChild(dot); }
-    grid.appendChild(c);
-  }
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < firstDay; i++) { const c = document.createElement('div'); c.className = 'cal-cell'; grid.appendChild(c); }
+    for (let d = 1; d <= daysInMonth; d++) {
+        const iso = calY + '-' + String(calM + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+        const od = dueDays[d] && iso < todayStr;
+        const c = document.createElement('div');
+        c.className = 'cal-cell' + (iso === todayStr ? ' today' : '') + (dueDays[d] ? (od ? ' overdue-day' : ' has-bill') : '');
+        c.textContent = d;
+        if (dueDays[d]) { const dot = document.createElement('div'); dot.className = 'cal-dot'; c.appendChild(dot); }
+        grid.appendChild(c);
+    }
 
-  // event list
-  const ev = document.getElementById('calEvents');
-  ev.innerHTML='';
-  const monthBills = bills.filter(b=>{
-    if(!b.dueDate||b.paid) return false;
-    const[y,m]=b.dueDate.split('-').map(Number); return y===calY&&m===calM+1;
-  }).sort((a,b)=>a.dueDate>b.dueDate?1:-1);
+    const ev = document.getElementById('calEvents');
+    ev.innerHTML = '';
+    const monthBills = bills.filter(b => {
+        if (!b.dueDate || b.paid) return false;
+        const [y, m] = b.dueDate.split('-').map(Number); return y === calY && m === calM + 1;
+    }).sort((a, b) => a.dueDate > b.dueDate ? 1 : -1);
 
-  if (!monthBills.length) { ev.innerHTML='<div class="empty-state">Sem vencimentos neste mês.</div>'; return; }
-  monthBills.forEach(b=>{
-    const [,,d] = b.dueDate.split('-');
-    const past  = b.dueDate < todayStr;
-    const row   = document.createElement('div'); row.className='cal-event-row';
-    row.innerHTML=`
-      <div class="cal-event-day${past?' past':''}">${parseInt(d,10)}</div>
+    if (!monthBills.length) { ev.innerHTML = '<div class="empty-state">Sem vencimentos neste mês.</div>'; return; }
+    monthBills.forEach(b => {
+        const [,, d] = b.dueDate.split('-');
+        const past = b.dueDate < todayStr;
+        const row = document.createElement('div'); row.className = 'cal-event-row';
+        row.innerHTML = `
+      <div class="cal-event-day${past ? ' past' : ''}">${parseInt(d, 10)}</div>
       <div class="cal-event-info">
         <div class="cal-event-name">${esc(b.name)}</div>
         <div class="cal-event-amount">${fmtAmt(b.amount)}</div>
       </div>
-      <div style="font-size:9px;letter-spacing:1px;color:${past?'#ff5252':'#555'};margin-left:8px">${past?'VENCIDO':'PENDENTE'}</div>`;
-    ev.appendChild(row);
-  });
+      <div style="font-size:9px;letter-spacing:1px;color:${past ? '#ff5252' : '#555'};margin-left:8px">${past ? 'VENCIDO' : 'PENDENTE'}</div>`;
+        ev.appendChild(row);
+    });
 }
 
-/* ══════════════════════════════════════════════
-   SCREEN 3 — RESUMO FINANCEIRO
-══════════════════════════════════════════════ */
+/* SCREEN 3 — RESUMO FINANCEIRO */
 function renderSummary() {
-  const pending  = bills.filter(b=>!b.paid);
-  const paid     = bills.filter(b=> b.paid);
-  const overdue  = bills.filter(b=>isOD(b));
-  const tPending = pending.reduce((s,b)=>s+(b.amount||0),0);
-  const tPaid    = paid.reduce((s,b)=>s+(b.amount||0),0);
-  const tOverdue = overdue.reduce((s,b)=>s+(b.amount||0),0);
-  const tTotal   = tPending + tPaid;
+    const pending = bills.filter(b => !b.paid);
+    const paid = bills.filter(b => b.paid);
+    const overdue = bills.filter(b => isOD(b));
+    const tPending = pending.reduce((s, b) => s + (b.amount || 0), 0);
+    const tPaid = paid.reduce((s, b) => s + (b.amount || 0), 0);
+    const tOverdue = overdue.reduce((s, b) => s + (b.amount || 0), 0);
+    const tTotal = tPending + tPaid;
 
-  document.getElementById('summaryCards').innerHTML=`
+    document.getElementById('summaryCards').innerHTML = `
     <div class="summary-card">
       <div class="s-label">Pendente</div>
       <div class="s-value">${fmtAmt(tPending)}</div>
-      <div class="s-sub">${pending.length} conta${pending.length!==1?'s':''}</div>
+      <div class="s-sub">${pending.length} conta${pending.length !== 1 ? 's' : ''}</div>
     </div>
     <div class="summary-card">
       <div class="s-label">Pago</div>
       <div class="s-value green">${fmtAmt(tPaid)}</div>
-      <div class="s-sub">${paid.length} conta${paid.length!==1?'s':''}</div>
+      <div class="s-sub">${paid.length} conta${paid.length !== 1 ? 's' : ''}</div>
     </div>
     <div class="summary-card">
       <div class="s-label">Vencido</div>
@@ -1117,12 +1048,12 @@ function renderSummary() {
     <div class="summary-card">
       <div class="s-label">Total Geral</div>
       <div class="s-value">${fmtAmt(tTotal)}</div>
-      <div class="s-sub">${bills.length} conta${bills.length!==1?'s':''}</div>
+      <div class="s-sub">${bills.length} conta${bills.length !== 1 ? 's' : ''}</div>
     </div>`;
 
-  const pPaid = tTotal>0 ? Math.round(tPaid/tTotal*100) : 0;
-  const pPend = tTotal>0 ? Math.round(tPending/tTotal*100) : 0;
-  document.getElementById('summaryBars').innerHTML=`
+    const pPaid = tTotal > 0 ? Math.round(tPaid / tTotal * 100) : 0;
+    const pPend = tTotal > 0 ? Math.round(tPending / tTotal * 100) : 0;
+    document.getElementById('summaryBars').innerHTML = `
     <div class="bar-wrap">
       <div class="bar-lbl"><span>Pago</span><span>${pPaid}%</span></div>
       <div class="bar-track"><div class="bar-fill" style="width:${pPaid}%"></div></div>
@@ -1132,245 +1063,225 @@ function renderSummary() {
       <div class="bar-track"><div class="bar-fill red" style="width:${pPend}%"></div></div>
     </div>`;
 
-  const catMap = {};
-  bills.forEach(b=>{ if(!catMap[b.category]) catMap[b.category]={count:0,total:0}; catMap[b.category].count++; catMap[b.category].total+=b.amount||0; });
-  const cb = document.getElementById('catBreakdown'); cb.innerHTML='';
-  Object.entries(catMap).sort((a,b)=>b[1].total-a[1].total).forEach(([cat,{count,total}])=>{
-    const row=document.createElement('div'); row.className='cat-row';
-    row.innerHTML=`
-      <div class="cat-dot" style="background:${CAT_COLOR[cat]||'#aaa'};box-shadow:0 0 5px ${CAT_COLOR[cat]||'#aaa'}"></div>
-      <div class="cat-name">${CAT_LABEL[cat]||cat}</div>
+    const catMap = {};
+    bills.forEach(b => { if (!catMap[b.category]) catMap[b.category] = { count: 0, total: 0 }; catMap[b.category].count++; catMap[b.category].total += b.amount || 0; });
+    const cb = document.getElementById('catBreakdown'); cb.innerHTML = '';
+    Object.entries(catMap).sort((a, b) => b[1].total - a[1].total).forEach(([cat, { count, total }]) => {
+        const row = document.createElement('div'); row.className = 'cat-row';
+        row.innerHTML = `
+      <div class="cat-dot" style="background:${CAT_COLOR[cat] || '#aaa'};box-shadow:0 0 5px ${CAT_COLOR[cat] || '#aaa'}"></div>
+      <div class="cat-name">${CAT_LABEL[cat] || cat}</div>
       <div class="cat-cnt">${count}×</div>
       <div class="cat-tot">${fmtAmt(total)}</div>`;
-    cb.appendChild(row);
-  });
-  if (!Object.keys(catMap).length) cb.innerHTML='<div class="empty-state">Sem dados.</div>';
+        cb.appendChild(row);
+    });
+    if (!Object.keys(catMap).length) cb.innerHTML = '<div class="empty-state">Sem dados.</div>';
 }
 
-/* ══════════════════════════════════════════════
-   SCREEN 4 — CONFIGURAÇÕES
-══════════════════════════════════════════════ */
+/* SCREEN 4 — CONFIGURAÇÕES */
 function renderCfg() {
-  [['blur','tBlur'],['alerts','tAlerts'],['sound','tSound'],['vibrate','tVibrate']].forEach(([k,id])=>{
-    const el=document.getElementById(id); if(el) el.classList.toggle('on',settings[k]);
-  });
-  const paid=bills.filter(b=>b.paid).length;
-  const el=document.getElementById('cfgCount'); if(el) el.textContent=paid+' registro'+(paid!==1?'s':'');
-}
-function togSetting(k) {
-  settings[k]=!settings[k]; saveS(); renderCfg();
-  showToast(k.charAt(0).toUpperCase()+k.slice(1)+': '+(settings[k]?'Ativado':'Desativado'));
-}
-function reqNotif() {
-  if(!('Notification' in window)){showToast('⚠ Notificações não disponíveis');return;}
-  Notification.requestPermission().then(p=>showToast(p==='granted'?'✓ Notificações ativadas!':'⚠ Permissão negada'));
-}
-function clearAll() {
-  if(!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return;
-  bills=[]; saveB(); render(); renderCfg(); showToast('✓ Dados apagados');
+    [['blur', 'tBlur'], ['alerts', 'tAlerts'], ['sound', 'tSound'], ['vibrate', 'tVibrate']].forEach(([k, id]) => {
+        const el = document.getElementById(id); if (el) el.classList.toggle('on', settings[k]);
+    });
+    const paid = bills.filter(b => b.paid).length;
+    const el = document.getElementById('cfgCount'); if (el) el.textContent = paid + ' registro' + (paid !== 1 ? 's' : '');
 }
 
-/* ══════════════════════════════════════════════
-   MODAL
-══════════════════════════════════════════════ */
+function togSetting(k) {
+    settings[k] = !settings[k]; saveS(); renderCfg();
+    showToast(k.charAt(0).toUpperCase() + k.slice(1) + ': ' + (settings[k] ? 'Ativado' : 'Desativado'));
+}
+
+function reqNotif() {
+    if (!('Notification' in window)) { showToast('⚠ Notificações não disponíveis'); return; }
+    Notification.requestPermission().then(p => showToast(p === 'granted' ? '✓ Notificações ativadas!' : '⚠ Permissão negada'));
+}
+
+function clearAll() {
+    if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return;
+    bills = []; saveB(); render(); renderCfg(); showToast('✓ Dados apagados');
+}
+
+/* MODAL */
 function openModal() {
-  document.getElementById('inpDate').value = new Date().toISOString().split('T')[0];
-  document.getElementById('inpName').value  = '';
-  document.getElementById('inpValue').value = '';
-  document.getElementById('voiceStatus').textContent = '';
-  document.getElementById('modalOverlay').classList.add('open');
-  setTimeout(()=>startVoice(), 450);
+    document.getElementById('inpDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('inpName').value = '';
+    document.getElementById('inpValue').value = '';
+    document.getElementById('voiceStatus').textContent = '';
+    document.getElementById('modalOverlay').classList.add('open');
+    setTimeout(() => startVoice(), 450);
 }
+
 function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  if (isListening) stopVoice();
+    document.getElementById('modalOverlay').classList.remove('open');
+    if (isListening) stopVoice();
 }
-function overlayClick(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+
+function overlayClick(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 
 function saveBill() {
-  const name  = document.getElementById('inpName').value.trim();
-  const value = parseFloat(document.getElementById('inpValue').value);
-  const date  = document.getElementById('inpDate').value;
-  const cat   = document.getElementById('inpCat').value;
-  if (!name) { showToast('⚠ Digite o nome da conta'); return; }
-  if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
-  bills.push({ id:uid(), name, amount:isNaN(value)?null:value, dueDate:date, category:cat, paid:false, blurred:settings.blur });
-  saveB(); render(); closeModal();
-  showToast('✓ Conta adicionada!');
-  scheduleAlerts();
-  if(window._swReg) navigator.serviceWorker.ready.then(()=>pushAlertsToSW(window._swReg));
+    const name = document.getElementById('inpName').value.trim();
+    const value = parseFloat(document.getElementById('inpValue').value);
+    const date = document.getElementById('inpDate').value;
+    const cat = document.getElementById('inpCat').value;
+    if (!name) { showToast('⚠ Digite o nome da conta'); return; }
+    if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
+    bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid: false, blurred: settings.blur });
+    saveB(); render(); closeModal();
+    showToast('✓ Conta adicionada!');
+    scheduleAlerts();
+    if (window._swReg) navigator.serviceWorker.ready.then(() => pushAlertsToSW(window._swReg));
 }
 
-/* ══════════════════════════════════════════════
-   VOICE RECOGNITION
-══════════════════════════════════════════════ */
-let recognition=null, isListening=false;
+/* VOICE RECOGNITION */
+let recognition = null, isListening = false;
 
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
 
 function startVoice() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { showToast('⚠ Voz não suportada neste navegador'); return; }
-  recognition = new SR();
-  recognition.lang='pt-BR'; recognition.continuous=false; recognition.interimResults=true;
-  recognition.onstart = ()=>{
-    isListening=true;
-    document.getElementById('voiceBtn').classList.add('listening');
-    document.getElementById('voiceStatus').textContent='🎙 Ouvindo… Ex: "Luz 150 reais dia 10"';
-  };
-  recognition.onresult = e=>{
-    const t=Array.from(e.results).map(r=>r[0].transcript).join(' ');
-    document.getElementById('voiceStatus').textContent='📝 '+t;
-    if(e.results[e.results.length-1].isFinal) parseVoice(t);
-  };
-  recognition.onerror = ()=>{ showToast('⚠ Erro no reconhecimento de voz'); stopVoice(); };
-  recognition.onend   = ()=>stopVoice();
-  recognition.start();
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { showToast('⚠ Voz não suportada neste navegador'); return; }
+    recognition = new SR();
+    recognition.lang = 'pt-BR'; recognition.continuous = false; recognition.interimResults = true;
+    recognition.onstart = () => {
+        isListening = true;
+        document.getElementById('voiceBtn').classList.add('listening');
+        document.getElementById('voiceStatus').textContent = '🎙 Ouvindo… Ex: "Luz 150 reais dia 10"';
+    };
+    recognition.onresult = e => {
+        const t = Array.from(e.results).map(r => r[0].transcript).join(' ');
+        document.getElementById('voiceStatus').textContent = '📝 ' + t;
+        if (e.results[e.results.length - 1].isFinal) parseVoice(t);
+    };
+    recognition.onerror = () => { showToast('⚠ Erro no reconhecimento de voz'); stopVoice(); };
+    recognition.onend = () => stopVoice();
+    recognition.start();
 }
+
 function stopVoice() {
-  isListening=false;
-  document.getElementById('voiceBtn').classList.remove('listening');
-  if(recognition){try{recognition.stop();}catch(e){} recognition=null;}
+    isListening = false;
+    document.getElementById('voiceBtn').classList.remove('listening');
+    if (recognition) { try { recognition.stop(); } catch (e) { } recognition = null; }
 }
+
 function parseVoice(text) {
-  const t = text.toLowerCase().trim();
-  // ── value
-  let amount=null;
-  for (const p of [/(?:valor[:\s]+|r\$\s*)([\d]+(?:[,\.]\d{1,2})?)/i,/([\d]+(?:[,\.]\d{1,2})?)\s*reais/i,/\b([\d]{2,6}(?:[,\.]\d{1,2})?)\b/]) {
-    const m=t.match(p); if(m){amount=parseFloat(m[1].replace(',','.')); break;}
-  }
-  // ── date
-  let dueDate=null;
-  const dm=t.match(/(?:dia|vencimento|vence(?:\s+no)?|data)[:\s]+(\d{1,2})/i)||t.match(/\bdia\s+(\d{1,2})\b/i);
-  if(dm){ const day=parseInt(dm[1]); if(day>=1&&day<=31){
-    const n=new Date(); const c=new Date(n.getFullYear(),n.getMonth(),day);
-    if(c<n) c.setMonth(c.getMonth()+1);
-    dueDate=c.toISOString().split('T')[0];
-  }}
-  // ── name
-  let name=t
-    .replace(/valor[:\s]+[\d,\.]+/gi,'').replace(/[\d,\.]+ reais/gi,'')
-    .replace(/r\$\s*[\d,\.]+/gi,'').replace(/(?:vencimento|vence|dia|data)[:\s]+\d{1,2}/gi,'')
-    .replace(/no dia\s+\d{1,2}/gi,'').replace(/\bdia\s+\d{1,2}\b/gi,'')
-    .replace(/\d+/g,'').replace(/[,\.]/g,' ').trim()
-    .replace(/\b(o|a|os|as|um|uma|de|do|da|no|na|em|e|para|meu|minha|conta|pagar|falar|adicionar|registrar)\b/gi,' ')
-    .replace(/\s{2,}/g,' ').trim()
-    .replace(/\b\w/g,c=>c.toUpperCase()).trim();
-  const cat=detectCat(name+' '+t);
-  if(name.length>1) document.getElementById('inpName').value=name;
-  if(amount!==null) document.getElementById('inpValue').value=amount.toFixed(2);
-  if(dueDate)       document.getElementById('inpDate').value=dueDate;
-  if(cat)           document.getElementById('inpCat').value=cat;
-  const filled=[name.length>1?'✓ Nome':null,amount?'✓ Valor':null,dueDate?'✓ Data':null].filter(Boolean);
-  document.getElementById('voiceStatus').textContent=filled.length
-    ? filled.join('  ')+' — Confirme e salve!'
-    : '⚠ Não entendi. Tente: "Luz 150 reais dia 10"';
-  stopVoice();
+    const t = text.toLowerCase().trim();
+    let amount = null;
+    for (const p of [/(?:valor[:\s]+|r\$\s*)([\d]+(?:[,\.]\d{1,2})?)/i, /([\d]+(?:[,\.]\d{1,2})?)\s*reais/i, /\b([\d]{2,6}(?:[,\.]\d{1,2})?)\b/]) {
+        const m = t.match(p); if (m) { amount = parseFloat(m[1].replace(',', '.')); break; }
+    }
+    let dueDate = null;
+    const dm = t.match(/(?:dia|vencimento|vence(?:\s+no)?|data)[:\s]+(\d{1,2})/i) || t.match(/\bdia\s+(\d{1,2})\b/i);
+    if (dm) {
+        const day = parseInt(dm[1]); if (day >= 1 && day <= 31) {
+            const n = new Date(); const c = new Date(n.getFullYear(), n.getMonth(), day);
+            if (c < n) c.setMonth(c.getMonth() + 1);
+            dueDate = c.toISOString().split('T')[0];
+        }
+    }
+    let name = t
+        .replace(/valor[:\s]+[\d,\.]+/gi, '').replace(/[\d,\.]+ reais/gi, '')
+        .replace(/r\$\s*[\d,\.]+/gi, '').replace(/(?:vencimento|vence|dia|data)[:\s]+\d{1,2}/gi, '')
+        .replace(/no dia\s+\d{1,2}/gi, '').replace(/\bdia\s+\d{1,2}\b/gi, '')
+        .replace(/\d+/g, '').replace(/[,\.]/g, ' ').trim()
+        .replace(/\b(o|a|os|as|um|uma|de|do|da|no|na|em|e|para|meu|minha|conta|pagar|falar|adicionar|registrar)\b/gi, ' ')
+        .replace(/\s{2,}/g, ' ').trim()
+        .replace(/\b\w/g, c => c.toUpperCase()).trim();
+    const cat = detectCat(name + ' ' + t);
+    if (name.length > 1) document.getElementById('inpName').value = name;
+    if (amount !== null) document.getElementById('inpValue').value = amount.toFixed(2);
+    if (dueDate) document.getElementById('inpDate').value = dueDate;
+    if (cat) document.getElementById('inpCat').value = cat;
+    const filled = [name.length > 1 ? '✓ Nome' : null, amount ? '✓ Valor' : null, dueDate ? '✓ Data' : null].filter(Boolean);
+    document.getElementById('voiceStatus').textContent = filled.length
+        ? filled.join('  ') + ' — Confirme e salve!'
+        : '⚠ Não entendi. Tente: "Luz 150 reais dia 10"';
+    stopVoice();
 }
+
 function detectCat(t) {
-  t=t.toLowerCase();
-  if(/[aá]gua/.test(t)) return 'agua';
-  if(/energia|luz|eletric/.test(t)) return 'energia';
-  if(/aluguel/.test(t)) return 'aluguel';
-  if(/condom[ií]nio/.test(t)) return 'condominio';
-  if(/sa[uú]de|plano|m[eé]dico/.test(t)) return 'saude';
-  if(/internet|wifi|net/.test(t)) return 'internet';
-  return null;
+    t = t.toLowerCase();
+    if (/[aá]gua/.test(t)) return 'agua';
+    if (/energia|luz|eletric/.test(t)) return 'energia';
+    if (/aluguel/.test(t)) return 'aluguel';
+    if (/condom[ií]nio/.test(t)) return 'condominio';
+    if (/sa[uú]de|plano|m[eé]dico/.test(t)) return 'saude';
+    if (/internet|wifi|net/.test(t)) return 'internet';
+    return null;
 }
 
-/* ══════════════════════════════════════════════
-   ALERTS — 21h day-before + 9h due-day
-══════════════════════════════════════════════ */
+/* ALERTS */
 function scheduleAlerts() {
-  if(!settings.alerts) return;
-  // In-page setTimeout scheduling
-  if('Notification' in window) {
-    if(Notification.permission==='default') Notification.requestPermission().then(p=>{if(p==='granted'){_schedule();}});
-    else if(Notification.permission==='granted') _schedule();
-  }
-  // Also push to Service Worker for background delivery
-  if(window._swReg) {
-    navigator.serviceWorker.ready.then(()=>pushAlertsToSW(window._swReg));
-  }
+    if (!settings.alerts) return;
+    if ('Notification' in window) {
+        if (Notification.permission === 'default') Notification.requestPermission().then(p => { if (p === 'granted') { _schedule(); } });
+        else if (Notification.permission === 'granted') _schedule();
+    }
+    if (window._swReg) {
+        navigator.serviceWorker.ready.then(() => pushAlertsToSW(window._swReg));
+    }
 }
+
 function _schedule() {
-  const now=new Date();
-  bills.filter(b=>!b.paid&&b.dueDate).forEach(b=>{
-    const due=new Date(b.dueDate+'T00:00:00');
-    const a1=new Date(due); a1.setDate(a1.getDate()-1); a1.setHours(21,0,0,0);
-    const a2=new Date(due); a2.setHours(9,0,0,0);
-    [{time:a1,key:b.id+'_eve',msg:`⏰ ${b.name} vence AMANHÃ!`},{time:a2,key:b.id+'_day',msg:`🚨 ${b.name} vence HOJE!`}]
-    .forEach(({time,key,msg})=>{
-      if(firedAlerts.has(key)) return;
-      const delay=time-now;
-      if(delay>0&&delay<8*86400000){
-        setTimeout(()=>{
-          if(firedAlerts.has(key)) return;
-          firedAlerts.add(key); saveFA();
-          showToast(msg); doVibrate(); if(settings.sound) playBeep();
-          if(Notification.permission==='granted') new Notification('PROJECT A',{body:msg});
-        },delay);
-      }
+    const now = new Date();
+    bills.filter(b => !b.paid && b.dueDate).forEach(b => {
+        const due = new Date(b.dueDate + 'T00:00:00');
+        const a1 = new Date(due); a1.setDate(a1.getDate() - 1); a1.setHours(21, 0, 0, 0);
+        const a2 = new Date(due); a2.setHours(9, 0, 0, 0);
+        [{ time: a1, key: b.id + '_eve', msg: `⏰ ${b.name} vence AMANHÃ!` }, { time: a2, key: b.id + '_day', msg: `🚨 ${b.name} vence HOJE!` }]
+            .forEach(({ time, key, msg }) => {
+                if (firedAlerts.has(key)) return;
+                const delay = time - now;
+                if (delay > 0 && delay < 8 * 86400000) {
+                    setTimeout(() => {
+                        if (firedAlerts.has(key)) return;
+                        firedAlerts.add(key); saveFA();
+                        showToast(msg); doVibrate(); if (settings.sound) playBeep();
+                        if (Notification.permission === 'granted') new Notification('PROJECT A', { body: msg });
+                    }, delay);
+                }
+            });
     });
-  });
 }
+
 function checkAlerts() {
-  if(!settings.alerts) return;
-  const now=new Date(); const ts=now.toISOString().split('T')[0];
-  const h=now.getHours(), m=now.getMinutes();
-  bills.filter(b=>!b.paid&&b.dueDate).forEach(b=>{
-    const due=new Date(b.dueDate+'T00:00:00');
-    const prev=new Date(due); prev.setDate(due.getDate()-1);
-    const ps=prev.toISOString().split('T')[0];
-    const k1=b.id+'_eve', k2=b.id+'_day';
-    if(ts===ps&&h===21&&m===0&&!firedAlerts.has(k1)){ firedAlerts.add(k1);saveFA();showToast('🔔 '+b.name+' vence amanhã!');doVibrate();if(settings.sound)playBeep(); }
-    if(ts===b.dueDate&&h===9&&m===0&&!firedAlerts.has(k2)){ firedAlerts.add(k2);saveFA();showToast('🚨 '+b.name+' vence HOJE!');doVibrate();if(settings.sound)playBeep(); }
-  });
+    if (!settings.alerts) return;
+    const now = new Date(); const ts = now.toISOString().split('T')[0];
+    const h = now.getHours(), m = now.getMinutes();
+    bills.filter(b => !b.paid && b.dueDate).forEach(b => {
+        const due = new Date(b.dueDate + 'T00:00:00');
+        const prev = new Date(due); prev.setDate(due.getDate() - 1);
+        const ps = prev.toISOString().split('T')[0];
+        const k1 = b.id + '_eve', k2 = b.id + '_day';
+        if (ts === ps && h === 21 && m === 0 && !firedAlerts.has(k1)) { firedAlerts.add(k1); saveFA(); showToast('🔔 ' + b.name + ' vence amanhã!'); doVibrate(); if (settings.sound) playBeep(); }
+        if (ts === b.dueDate && h === 9 && m === 0 && !firedAlerts.has(k2)) { firedAlerts.add(k2); saveFA(); showToast('🚨 ' + b.name + ' vence HOJE!'); doVibrate(); if (settings.sound) playBeep(); }
+    });
 }
-function doVibrate() { if(settings.vibrate&&navigator.vibrate) navigator.vibrate([200,100,200]); }
+
+function doVibrate() { if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]); }
+
 function playBeep() {
-  try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const o=ctx.createOscillator(),g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.type='sine';o.frequency.value=880;
-    g.gain.setValueAtTime(.3,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.6);
-    o.start();o.stop(ctx.currentTime+.6);
-  }catch(e){}
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sine'; o.frequency.value = 880;
+        g.gain.setValueAtTime(.3, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .6);
+        o.start(); o.stop(ctx.currentTime + .6);
+    } catch (e) { }
 }
 
-/* ══════════════════════════════════════════════
-   TOAST
-══════════════════════════════════════════════ */
+/* TOAST */
 function showToast(msg) {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-/* ══════════════════════════════════════════════
-   BOOT
-══════════════════════════════════════════════ */
-loadSettings();
-loadBills();
-calInit();
-render();
-scheduleAlerts();
-setInterval(checkAlerts, 60000);
-if('Notification' in window && Notification.permission==='default')
-  setTimeout(()=>Notification.requestPermission(), 4000);
-// PWA init
-injectPWA();
-registerSW();
-
-/* ══════════════════════════════════════════════
-   PWA — MANIFEST + ICONS (inline, no extra files)
-══════════════════════════════════════════════ */
-
-/* ── Generate the A-emblem icon as a data-URL SVG ── */
+/* PWA — MANIFEST + ICONS */
 function buildIconSVG(size) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 100 100">
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 100 100">
     <rect width="100" height="100" rx="22" fill="#0a0a0a"/>
     <defs>
       <radialGradient id="r1" cx="50%" cy="35%" r="60%">
@@ -1397,56 +1308,43 @@ function buildIconSVG(size) {
 }
 
 function svgToDataURL(svgStr) {
-  return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
+    return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgStr)));
 }
 
 function injectPWA() {
-  const icon192 = svgToDataURL(buildIconSVG(192));
-  const icon512 = svgToDataURL(buildIconSVG(512));
+    const icon192 = svgToDataURL(buildIconSVG(192));
+    const icon512 = svgToDataURL(buildIconSVG(512));
 
-  // ── Manifest ──
-  const manifest = {
-    name: 'PROJECT A — Finance',
-    short_name: 'PROJECT A',
-    description: 'Organize, acompanhe e pague em dia.',
-    start_url: './',
-    display: 'standalone',
-    orientation: 'portrait',
-    background_color: '#000000',
-    theme_color: '#000000',
-    icons: [
-      { src: icon192, sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable' },
-      { src: icon512, sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' }
-    ]
-  };
-  const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-  const manifestURL  = URL.createObjectURL(manifestBlob);
-  document.getElementById('pwaManifest').href = manifestURL;
-
-  // ── Apple touch icon ──
-  document.getElementById('appleTouchIcon').href = icon192;
+    const manifest = {
+        name: 'PROJECT A — Finance',
+        short_name: 'PROJECT A',
+        description: 'Organize, acompanhe e pague em dia.',
+        start_url: './',
+        display: 'standalone',
+        orientation: 'portrait',
+        background_color: '#000000',
+        theme_color: '#000000',
+        icons: [
+            { src: icon192, sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable' },
+            { src: icon512, sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' }
+        ]
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    document.getElementById('pwaManifest').href = manifestURL;
+    document.getElementById('appleTouchIcon').href = icon192;
 }
 
-/* ── Service Worker (inline as Blob) ── */
 function registerSW() {
-  if (!('serviceWorker' in navigator)) {
-    document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
-    return;
-  }
+    if (!('serviceWorker' in navigator)) {
+        document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
+        return;
+    }
 
-  const swCode = `
-/* PROJECT A — Service Worker v1 */
+    const swCode = `
 const CACHE = 'projectA-v1';
-
-self.addEventListener('install', e => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', e => {
-  e.waitUntil(clients.claim());
-});
-
-/* Background sync / periodic check for alerts */
+self.addEventListener('install', e => { self.skipWaiting(); });
+self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
 self.addEventListener('message', e => {
   if (e.data && e.data.type === 'SCHEDULE_ALERTS') {
     const alerts = e.data.alerts || [];
@@ -1454,19 +1352,14 @@ self.addEventListener('message', e => {
       if (delay > 0) {
         setTimeout(() => {
           self.registration.showNotification(title, {
-            body,
-            tag,
-            icon: e.data.icon || '',
-            badge: e.data.icon || '',
-            vibrate: [200, 100, 200],
-            requireInteraction: false
+            body, tag, icon: e.data.icon || '', badge: e.data.icon || '',
+            vibrate: [200, 100, 200], requireInteraction: false
           });
         }, delay);
       }
     });
   }
 });
-
 self.addEventListener('notificationclick', e => {
   e.notification.close();
   e.waitUntil(clients.matchAll({ type: 'window' }).then(list => {
@@ -1475,123 +1368,119 @@ self.addEventListener('notificationclick', e => {
   }));
 });
 `;
+    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+    const swURL = URL.createObjectURL(swBlob);
 
-  const swBlob = new Blob([swCode], { type: 'application/javascript' });
-  const swURL  = URL.createObjectURL(swBlob);
-
-  navigator.serviceWorker.register(swURL, { scope: './' })
-    .then(reg => {
-      document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo';
-      window._swReg = reg;
-      // Once SW ready, forward scheduled alerts to it
-      navigator.serviceWorker.ready.then(() => pushAlertsToSW(reg));
-    })
-    .catch(err => {
-      // Blob SW blocked in some browsers (Firefox, Safari) — silent fallback
-      document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)';
-      console.warn('SW registration skipped:', err.message);
-    });
+    navigator.serviceWorker.register(swURL, { scope: './' })
+        .then(reg => {
+            document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo';
+            window._swReg = reg;
+            navigator.serviceWorker.ready.then(() => pushAlertsToSW(reg));
+        })
+        .catch(err => {
+            document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)';
+            console.warn('SW registration skipped:', err.message);
+        });
 }
 
 function pushAlertsToSW(reg) {
-  if (!reg || !reg.active) return;
-  if (!settings.alerts) return;
-  const now  = Date.now();
-  const icon = svgToDataURL(buildIconSVG(192));
-  const alertList = [];
+    if (!reg || !reg.active) return;
+    if (!settings.alerts) return;
+    const now = Date.now();
+    const icon = svgToDataURL(buildIconSVG(192));
+    const alertList = [];
 
-  bills.filter(b => !b.paid && b.dueDate).forEach(b => {
-    const due  = new Date(b.dueDate + 'T00:00:00').getTime();
-    const eve  = due - 3*60*60*1000;   // 21h day before  = due - 3h (midnight - 3h)
-    const morn = due + 9*60*60*1000;   // 9h due day
+    bills.filter(b => !b.paid && b.dueDate).forEach(b => {
+        const dueDate = new Date(b.dueDate + 'T00:00:00');
+        const alert1 = new Date(dueDate); alert1.setDate(alert1.getDate() - 1); alert1.setHours(21, 0, 0, 0);
+        const alert2 = new Date(dueDate); alert2.setHours(9, 0, 0, 0);
+        const k1 = b.id + '_eve', k2 = b.id + '_day';
 
-    // More precise: build exact epoch for 21h previous day
-    const dueDate   = new Date(b.dueDate + 'T00:00:00');
-    const alert1    = new Date(dueDate); alert1.setDate(alert1.getDate()-1); alert1.setHours(21,0,0,0);
-    const alert2    = new Date(dueDate); alert2.setHours(9,0,0,0);
-
-    const k1 = b.id+'_eve', k2 = b.id+'_day';
-
-    if (!firedAlerts.has(k1)) {
-      const d1 = alert1.getTime() - now;
-      if (d1 > 0 && d1 < 8*86400000)
-        alertList.push({ delay:d1, title:'PROJECT A', body:`⏰ ${b.name} vence AMANHÃ!`, tag:k1 });
-    }
-    if (!firedAlerts.has(k2)) {
-      const d2 = alert2.getTime() - now;
-      if (d2 > 0 && d2 < 8*86400000)
-        alertList.push({ delay:d2, title:'PROJECT A', body:`🚨 ${b.name} vence HOJE!`, tag:k2 });
-    }
-  });
-
-  if (alertList.length)
-    reg.active.postMessage({ type:'SCHEDULE_ALERTS', alerts:alertList, icon });
-}
-
-/* ══════════════════════════════════════════════
-   TEST NOTIFICATION
-══════════════════════════════════════════════ */
-function testNotif() {
-  const fire = () => {
-    doVibrate();
-    if (settings.sound) playBeep();
-    showToast('🔔 Notificação de teste disparada!');
-    if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('PROJECT A — Teste', {
-        body: 'Som ✓  Vibração ✓  Notificação ✓',
-        icon: svgToDataURL(buildIconSVG(192))
-      });
-    }
-  };
-
-  if (!('Notification' in window)) { showToast('⚠ Notificações não suportadas'); return; }
-
-  if (Notification.permission === 'granted') {
-    fire();
-  } else if (Notification.permission === 'default') {
-    Notification.requestPermission().then(p => {
-      if (p === 'granted') fire();
-      else showToast('⚠ Permissão negada — som/vibração OK');
+        if (!firedAlerts.has(k1)) {
+            const d1 = alert1.getTime() - now;
+            if (d1 > 0 && d1 < 8 * 86400000)
+                alertList.push({ delay: d1, title: 'PROJECT A', body: `⏰ ${b.name} vence AMANHÃ!`, tag: k1 });
+        }
+        if (!firedAlerts.has(k2)) {
+            const d2 = alert2.getTime() - now;
+            if (d2 > 0 && d2 < 8 * 86400000)
+                alertList.push({ delay: d2, title: 'PROJECT A', body: `🚨 ${b.name} vence HOJE!`, tag: k2 });
+        }
     });
-  } else {
-    // denied — still fire sound+vibration
-    showToast('⚠ Notificações bloqueadas — verifique as configurações do navegador');
-    doVibrate();
-    if (settings.sound) playBeep();
-  }
+
+    if (alertList.length)
+        reg.active.postMessage({ type: 'SCHEDULE_ALERTS', alerts: alertList, icon });
 }
 
-/* ══════════════════════════════════════════════
-   PWA INSTALL PROMPT (Android Chrome)
-══════════════════════════════════════════════ */
+/* TEST NOTIFICATION */
+function testNotif() {
+    const fire = () => {
+        doVibrate();
+        if (settings.sound) playBeep();
+        showToast('🔔 Notificação de teste disparada!');
+        if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification('PROJECT A — Teste', {
+                body: 'Som ✓  Vibração ✓  Notificação ✓',
+                icon: svgToDataURL(buildIconSVG(192))
+            });
+        }
+    };
+
+    if (!('Notification' in window)) { showToast('⚠ Notificações não suportadas'); return; }
+
+    if (Notification.permission === 'granted') {
+        fire();
+    } else if (Notification.permission === 'default') {
+        Notification.requestPermission().then(p => {
+            if (p === 'granted') fire();
+            else showToast('⚠ Permissão negada — som/vibração OK');
+        });
+    } else {
+        showToast('⚠ Notificações bloqueadas — verifique as configurações do navegador');
+        doVibrate();
+        if (settings.sound) playBeep();
+    }
+}
+
+/* PWA INSTALL PROMPT */
 let _deferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  _deferredPrompt = e;
-  // Show install section in Settings
-  const sec = document.getElementById('cfgPwaSection');
-  if (sec) sec.style.display = 'block';
+    e.preventDefault();
+    _deferredPrompt = e;
+    const sec = document.getElementById('cfgPwaSection');
+    if (sec) sec.style.display = 'block';
 });
-// Inteligência para detectar WhatsApp/Instagram e mostrar o alerta
-const isWebView = /FBAN|FBAV|Instagram|WhatsApp|FB_IAB|FB4A|Messenger/i.test(navigator.userAgent);
 
+const isWebView = /FBAN|FBAV|Instagram|WhatsApp|FB_IAB|FB4A|Messenger/i.test(navigator.userAgent);
 if (isWebView) {
     const alertBox = document.getElementById('browser-alert');
     if (alertBox) alertBox.style.display = 'flex';
 }
+
 function triggerInstall() {
-  if (!_deferredPrompt) {
-    showToast('⚠ Instalação: use "Adicionar à tela inicial" no menu do navegador');
-    return;
-  }
-  _deferredPrompt.prompt();
-  _deferredPrompt.userChoice.then(r => {
-    if (r.outcome === 'accepted') showToast('✓ Instalando PROJECT A…');
-    _deferredPrompt = null;
-  });
+    if (!_deferredPrompt) {
+        showToast('⚠ Instalação: use "Adicionar à tela inicial" no menu do navegador');
+        return;
+    }
+    _deferredPrompt.prompt();
+    _deferredPrompt.userChoice.then(r => {
+        if (r.outcome === 'accepted') showToast('✓ Instalando PROJECT A…');
+        _deferredPrompt = null;
+    });
 }
 
+/* BOOT */
+loadSettings();
+loadBills();
+calInit();
+render();
+scheduleAlerts();
+setInterval(checkAlerts, 60000);
+if ('Notification' in window && Notification.permission === 'default')
+    setTimeout(() => Notification.requestPermission(), 4000);
+injectPWA();
+registerSW();
 </script>
 </body>
 </html>
