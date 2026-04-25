@@ -13,44 +13,50 @@
 <link id="appleTouchIcon" rel="apple-touch-icon">
 <title>PROJECT A — Finance Management</title>
 <script>
-  // Sistema de proteção por chave no link
-  (function() {
-    // PERMITIR ACESSO NA VERCEL (para testes)
-    const isVercel = window.location.hostname.includes('vercel.app');
-    
-    if (isVercel) {
-      // Libera para testes na Vercel
-      document.documentElement.style.display = 'block';
-      return;
-    }
-    
-    const autorizado = localStorage.getItem('visto_pelo_dono');
-    const params = new URLSearchParams(window.location.search);
-    const chave = params.get('v');
-    
-    // DEFINA SUA CHAVE SECRETA AQUI
-    const CHAVE_SECRETA = '1851';  // ← Sua chave de acesso
-    
-    // Se já autorizou antes OU tem a chave correta no link
-    if (autorizado === 'true' || chave === CHAVE_SECRETA) {
-      if (chave === CHAVE_SECRETA) {
-        localStorage.setItem('visto_pelo_dono', 'true');
-      }
-      // Libera a visualização do site
-      document.documentElement.style.display = 'block';
-    } else {
-      // Link inválido ou expirado
-      document.documentElement.style.display = 'block';
-      document.documentElement.innerHTML = `
-        <body style="background:#000; color:#00FFFF; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; margin:0;">
-          <div style="text-align:center; border:2px solid #00FFFF; padding:40px; border-radius:10px; max-width:90%;">
-            <h1>🔒 ACESSO RESTRITO</h1>
-            <p>Link inválido ou expirado.</p>
-            <p style="font-size:12px; margin-top:20px;">Contate o administrador para um novo link.</p>
-          </div>
-        </body>`;
-    }
-  })();
+// ══════════════════════════════════════════════
+// SISTEMA ANTI-COMPARTILHAMENTO
+// ══════════════════════════════════════════════
+(function() {
+  // CHAVE ATUAL - MUDE ESTE NÚMERO PARA CADA NOVO USUÁRIO
+  // Exemplo: para enviar para João use 1851, para Maria use 0914, etc.
+  const CHAVE_ATUAL = '1851';  // ← ALTERE AQUI PARA CADA NOVO LINK!
+  
+  // Pega a chave do link (ex: site.com/?v=1851)
+  const params = new URLSearchParams(window.location.search);
+  const chaveDigitada = params.get('v');
+  
+  // Verifica se o usuário já foi autorizado antes
+  const usuarioAutorizado = localStorage.getItem('projectA_autenticado');
+  const chaveSalva = localStorage.getItem('projectA_chave');
+  
+  // Caso 1: Usuário já tem chave salva (já acessou antes)
+  if (usuarioAutorizado === 'true' && chaveSalva === CHAVE_ATUAL) {
+    document.documentElement.style.display = 'block';
+    return;
+  }
+  
+  // Caso 2: Digitou a chave correta no link
+  if (chaveDigitada === CHAVE_ATUAL) {
+    // Salva que este usuário está autorizado com esta chave
+    localStorage.setItem('projectA_autenticado', 'true');
+    localStorage.setItem('projectA_chave', CHAVE_ATUAL);
+    document.documentElement.style.display = 'block';
+    return;
+  }
+  
+  // Caso 3: Tentativa de acesso sem chave ou com chave errada
+  document.documentElement.style.display = 'block';
+  document.documentElement.innerHTML = `
+    <body style="background:#000; color:#00FFFF; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; margin:0; padding:20px;">
+      <div style="text-align:center; border:2px solid #00FFFF; padding:40px; border-radius:10px; max-width:90%;">
+        <h1>🔒 ACESSO RESTRITO</h1>
+        <p>Este link é pessoal e intransferível.</p>
+        <p style="font-size:12px; margin-top:20px;">Entre em contato com o administrador<br>para receber seu link de acesso.</p>
+        <hr style="border-color:#333; margin:20px 0;">
+        <p style="font-size:11px; color:#666;">Chave necessária para acesso</p>
+      </div>
+    </body>`;
+})();
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
@@ -70,28 +76,10 @@ html, body {
   background:#000; overflow:hidden;
   user-select:none; -webkit-user-select:none;
 }
-#browser-alert {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95);
-    z-index: 20000;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-.alert-content {
-    background: #121212;
-    border: 2px solid #00f2ff;
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    max-width: 400px;
-    box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
-}
-.alert-content h2 { color: #00f2ff; font-family: 'Orbitron', sans-serif; margin-bottom: 15px; }
-.alert-content p { color: #ccc; line-height: 1.6; font-size: 14px; }
-.alert-btn { margin-top: 25px; background: #00f2ff; color: black; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
+
+/* ═══════════════════════════════
+   SPLIT BACKGROUND
+═══════════════════════════════ */
 .app-shell {
   position:fixed; inset:0;
   display:flex; flex-direction:column;
@@ -109,6 +97,10 @@ html, body {
     repeating-linear-gradient(45deg,transparent 0,transparent 2px,rgba(0,0,0,.3) 2px,rgba(0,0,0,.3) 4px);
   pointer-events:none;
 }
+
+/* ═══════════════════════════════
+   HEADER
+═══════════════════════════════ */
 .header {
   position:relative; z-index:10;
   padding:14px 20px 8px; text-align:center;
@@ -126,6 +118,10 @@ html, body {
 .emblem-wrap { margin:8px auto 5px; width:74px; height:74px; }
 .emblem-svg { width:100%; height:100%; filter:drop-shadow(0 4px 12px rgba(0,0,0,.8)); }
 .tagline { font-size:11px; letter-spacing:2.5px; color:#aaa; text-transform:uppercase; margin-bottom:2px; }
+
+/* ═══════════════════════════════
+   SPA SCREENS
+═══════════════════════════════ */
 .screen {
   flex:1; overflow-y:auto; overflow-x:hidden;
   position:relative; z-index:5;
@@ -137,6 +133,10 @@ html, body {
 .screen::-webkit-scrollbar { width:3px; }
 .screen::-webkit-scrollbar-track { background:rgba(255,255,255,.05); }
 .screen::-webkit-scrollbar-thumb { background:rgba(0,255,255,.3); border-radius:2px; }
+
+/* ═══════════════════════════════
+   ADD BUTTON
+═══════════════════════════════ */
 .add-btn {
   width:100%;
   background:repeating-linear-gradient(45deg,#111 0,#111 2px,#191919 2px,#191919 4px);
@@ -154,6 +154,10 @@ html, body {
 .add-btn-icon { display:block; line-height:1; }
 .add-btn-label { font-size:20px; font-weight:600; color:#e0e0e0; letter-spacing:1px; display:block; margin-top:4px; }
 .add-btn-sub   { font-size:12px; color:#888; letter-spacing:1px; display:block; margin-top:2px; }
+
+/* ═══════════════════════════════
+   SECTION LABELS
+═══════════════════════════════ */
 .section-label {
   font-size:11px; font-weight:700; letter-spacing:3px; color:#999; text-transform:uppercase;
   margin:4px 0 8px 2px; padding-bottom:4px; border-bottom:1px solid rgba(255,255,255,.08);
@@ -163,6 +167,10 @@ html, body {
   text-shadow:var(--cyan-glow); letter-spacing:2px; margin-bottom:14px;
   padding-bottom:8px; border-bottom:1px solid rgba(0,255,255,.15);
 }
+
+/* ═══════════════════════════════
+   BILL CARDS (Home)
+═══════════════════════════════ */
 .bill-card {
   width:100%;
   background:linear-gradient(135deg,rgba(40,40,40,.95) 0%,rgba(55,55,55,.9) 30%,rgba(35,35,35,.95) 60%,rgba(50,50,50,.9) 100%);
@@ -179,6 +187,7 @@ html, body {
   border-radius:10px 10px 0 0; pointer-events:none;
 }
 .bill-card:active { transform:scale(.98); }
+
 .bill-icon {
   width:38px; height:38px; flex-shrink:0;
   background:linear-gradient(135deg,#555 0%,#888 40%,#444 70%,#666 100%);
@@ -202,11 +211,15 @@ html, body {
 }
 .bill-name.blurred   { filter:blur(12px); }
 .bill-amount.blurred { filter:blur(12px); }
+
 .bill-card.paid {
   background:linear-gradient(135deg,rgba(25,40,25,.95) 0%,rgba(35,50,35,.9) 50%,rgba(25,35,25,.95) 100%);
 }
 .bill-card.paid .bill-name   { color:#aaa; }
 .bill-card.paid .bill-amount { color:rgba(0,200,200,.4); text-shadow:none; text-decoration:line-through; }
+.bill-card.paid .bill-name.blurred   { filter:blur(12px); }
+.bill-card.paid .bill-amount.blurred { filter:blur(12px); }
+
 .paid-check {
   width:28px; height:28px; flex-shrink:0;
   background:radial-gradient(circle,#004d00 0%,#001a00 100%);
@@ -222,6 +235,8 @@ html, body {
   box-shadow:0 0 6px rgba(0,200,83,.2); white-space:nowrap; transition:box-shadow .2s;
 }
 .pay-btn:active { box-shadow:0 0 14px rgba(0,200,83,.5); }
+
+/* Alert banner */
 .alert-card {
   width:100%;
   background:linear-gradient(135deg,rgba(30,25,15,.95) 0%,rgba(45,35,15,.9) 50%,rgba(30,25,10,.95) 100%);
@@ -237,7 +252,13 @@ html, body {
 }
 .alert-text .alert-title { font-size:13px; font-weight:700; color:#ffc107; letter-spacing:1px; }
 .alert-text .alert-sub   { font-size:11px; color:#888; margin-top:1px; }
+
+/* Empty state */
 .empty-state { text-align:center; padding:22px; color:#444; font-size:13px; letter-spacing:1px; }
+
+/* ═══════════════════════════════
+   SCREEN 1 — PAGAMENTOS
+═══════════════════════════════ */
 .filter-row { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
 .filter-btn {
   background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
@@ -249,6 +270,7 @@ html, body {
   background:rgba(0,50,60,.8); border-color:rgba(0,255,255,.3);
   color:var(--cyan); text-shadow:var(--cyan-glow);
 }
+
 .pag-row {
   display:flex; align-items:center;
   background:linear-gradient(135deg,rgba(38,38,38,.95) 0%,rgba(50,50,50,.9) 50%,rgba(38,38,38,.95) 100%);
@@ -271,6 +293,10 @@ html, body {
 .badge-pending { background:rgba(255,160,0,.15); color:#ffa000; border:1px solid rgba(255,160,0,.3); }
 .badge-paid    { background:rgba(0,200,83,.12); color:#00e676; border:1px solid rgba(0,200,83,.25); }
 .badge-overdue { background:rgba(255,50,50,.15); color:#ff5252; border:1px solid rgba(255,50,50,.3); }
+
+/* ═══════════════════════════════
+   SCREEN 2 — CALENDÁRIO
+═══════════════════════════════ */
 .cal-nav {
   display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;
 }
@@ -284,6 +310,7 @@ html, body {
   transition:background .15s;
 }
 .cal-nav-btn:active { background:rgba(255,255,255,.12); }
+
 .cal-dow-row {
   display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:4px;
 }
@@ -330,6 +357,10 @@ html, body {
 .cal-event-info { flex:1; margin-left:10px; }
 .cal-event-name   { font-size:14px; font-weight:600; color:#ddd; }
 .cal-event-amount { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--cyan); margin-top:1px; }
+
+/* ═══════════════════════════════
+   SCREEN 3 — RESUMO FINANCEIRO
+═══════════════════════════════ */
 .summary-grid {
   display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;
 }
@@ -350,6 +381,7 @@ html, body {
 .s-value.green { color:#00e676; text-shadow:0 0 8px rgba(0,230,118,.4); }
 .s-value.red   { color:#ff5252; text-shadow:0 0 8px rgba(255,82,82,.4); }
 .s-sub  { font-size:10px; color:#555; margin-top:3px; letter-spacing:.5px; }
+
 .bar-wrap { margin-bottom:12px; }
 .bar-lbl  { display:flex; justify-content:space-between; font-size:11px; color:#777; letter-spacing:1px; margin-bottom:5px; }
 .bar-track {
@@ -365,6 +397,7 @@ html, body {
   background:linear-gradient(90deg,#ff5252,rgba(200,50,50,.6));
   box-shadow:0 0 8px rgba(255,82,82,.3);
 }
+
 .cat-row {
   display:flex; align-items:center; padding:8px 0;
   border-bottom:1px solid rgba(255,255,255,.05);
@@ -374,6 +407,10 @@ html, body {
 .cat-name { flex:1; font-size:13px; color:#bbb; letter-spacing:.5px; }
 .cat-cnt  { font-size:11px; color:#555; margin-right:12px; }
 .cat-tot  { font-family:'Share Tech Mono',monospace; font-size:13px; color:var(--cyan); }
+
+/* ═══════════════════════════════
+   SCREEN 4 — CONFIGURAÇÕES
+═══════════════════════════════ */
 .cfg-section { margin-bottom:18px; }
 .cfg-section-title {
   font-size:9px; font-weight:700; letter-spacing:3px; color:#555; text-transform:uppercase;
@@ -389,6 +426,7 @@ html, body {
 }
 .cfg-label { font-size:14px; font-weight:600; color:#ccc; letter-spacing:.5px; }
 .cfg-sub   { font-size:10px; color:#555; margin-top:1px; letter-spacing:.5px; }
+
 .toggle {
   width:44px; height:24px; border-radius:12px; cursor:pointer;
   background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.12);
@@ -401,6 +439,7 @@ html, body {
   box-shadow:0 2px 4px rgba(0,0,0,.5);
 }
 .toggle.on .toggle-thumb { left:22px; background:linear-gradient(135deg,var(--cyan),#00aaaa); }
+
 .cfg-btn {
   padding:5px 14px;
   background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);
@@ -420,10 +459,15 @@ html, body {
   box-shadow:0 0 8px rgba(200,160,0,.1);
 }
 .cfg-btn:active { opacity:.7; }
+
 .privacy-hint {
   font-size:11px; color:#444; letter-spacing:1px; text-align:center;
   margin-top:10px; line-height:1.7;
 }
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
 .footer {
   flex-shrink:0; position:relative; z-index:10;
   background:linear-gradient(180deg,rgba(10,10,10,.98) 0%,rgba(0,0,0,1) 100%);
@@ -446,6 +490,10 @@ html, body {
 .f-icon  { width:28px; height:28px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.8)); }
 .f-icon svg { width:100%; height:100%; }
 .f-label { font-size:10px; letter-spacing:1px; color:#666; margin-top:3px; text-transform:uppercase; }
+
+/* ═══════════════════════════════
+   MODAL
+═══════════════════════════════ */
 .modal-overlay {
   position:fixed; inset:0; z-index:100;
   background:rgba(0,0,0,.85); backdrop-filter:blur(4px);
@@ -463,5 +511,4 @@ html, body {
   box-shadow:0 -8px 40px rgba(0,0,0,.9);
 }
 .modal-overlay.open .modal-sheet { transform:translateY(0); }
-.modal-handle { width:40px; height:4px; background:rgba(255,255,255,.2); border-radius:2px; margin:0 auto 16px; }
-.modal-title  { font-family:'Orbitron',sans-serif; font-size:14px; color:var(--cyan); text-shadow:var(--cyan-glow); letter-spacing:2px; margin-bottom:16px; text-align
+.modal-handle { width:40px; height:4px; background:rgba(255,255,255,.2); border-radius:2px; margin:0 auto 
