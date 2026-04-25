@@ -12,6 +12,34 @@
 <link id="pwaManifest" rel="manifest">
 <link id="appleTouchIcon" rel="apple-touch-icon">
 <title>PROJECT A — Finance Management</title>
+<script>
+  // Bloqueio imediato antes de renderizar qualquer coisa
+  document.documentElement.style.display = 'none';
+
+  (function() {
+    const autorizado = localStorage.getItem('visto_pelo_dono');
+    const params = new URLSearchParams(window.location.search);
+    const chave = params.get('v');
+
+    // Se já é dono ou se tem uma chave nova no link
+    if (autorizado === 'true' || chave) {
+      if (chave) localStorage.setItem('visto_pelo_dono', 'true');
+      
+      // Libera a visualização do site
+      document.documentElement.style.display = 'block';
+    } else {
+      // Se não tem chave e não é dono, mostra o bloqueio
+      document.documentElement.style.display = 'block';
+      document.documentElement.innerHTML = `
+        <body style="background:#000; color:#00FFFF; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; margin:0;">
+          <div style="text-align:center; border:2px solid #00FFFF; padding:40px;">
+            <h1>⚠️ ACESSO RESTRITO</h1>
+            <p>Este link expirou ou já foi usado.</p>
+          </div>
+        </body>`;
+    }
+  })();
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
