@@ -598,15 +598,15 @@ html, body {
     <div class="section-label" style="margin-top:12px">Contas Pagas</div>
     <div id="paidList"></div>
 
-    <div class="alert-card">
+    <div class="alert-card" id="alertBanner">
       <div class="alert-icon">
         <svg viewBox="0 0 24 24" width="20" height="20">
           <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="#ffc107"/>
         </svg>
       </div>
-      <div class="alert-text">
-        <div class="alert-title">LEMBRETES ATIVOS — Alerta</div>
-        <div class="alert-sub">21h do dia anterior e 9h da manhã do vencimento</div>
+      <div class="alert-text" id="alertText">
+        <div class="alert-title" id="alertTitle">CARREGANDO...</div>
+        <div class="alert-sub" id="alertSub">Verificando vencimentos de hoje</div>
       </div>
     </div>
   </div>
@@ -826,8 +826,30 @@ const fmtDate = iso => { if(!iso) return ''; const [y,m,d]=iso.split('-'); retur
 const isOD = b => !b.paid && b.dueDate < new Date().toISOString().split('T')[0];
 const esc = s => String(s).replace(/[<>&"]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
 
+// Função para atualizar o banner de alerta (quantas contas vencem hoje)
+function updateAlertBanner() {
+  const today = new Date().toISOString().split('T')[0];
+  const dueToday = bills.filter(b => !b.paid && b.dueDate === today);
+  const alertTitle = document.getElementById('alertTitle');
+  const alertSub = document.getElementById('alertSub');
+  if (dueToday.length > 0) {
+    alertTitle.innerHTML = `🔔 ${dueToday.length} CONTA${dueToday.length > 1 ? 'S' : ''} VENCE${dueToday.length > 1 ? 'M' : ''} HOJE!`;
+    alertSub.innerHTML = dueToday.map(b => b.name).join(', ');
+  } else {
+    alertTitle.innerHTML = '✅ TUDO EM DIA';
+    alertSub.innerHTML = 'Nenhum vencimento para hoje';
+  }
+}
+
 let activeAudioCtx = null;
-function setAlarmDuration(val) { settings.alarmDuration = val; saveS(); showToast(`Alarme: ${val === 'long' ? 'Longo (3s)' : 'Curto (1s)'}`); }
+function setAlarmDuration(val) { 
+  settings.alarmDuration = val; 
+  saveS(); 
+  showToast(`Alarme: ${val === 'long' ? 'Longo (3s)' : 'Curto (1s)'}`);
+  // Atualiza o select visualmente
+  const select = document.getElementById('alarmDuration');
+  if(select) select.value = val;
+}
 function testSoundNow() { playBeep(true); }
 function playBeep(forceTest = false) {
   if(!settings.sound && !forceTest) return;
@@ -836,7 +858,8 @@ function playBeep(forceTest = false) {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     const ctx = new AudioCtx();
     activeAudioCtx = ctx;
-    const duration = (settings.alarmDuration === 'long' || forceTest) ? 3.0 : 1.2;
+    // Usa a duração configurada: 'long' = 3s, 'short' = 1s
+    const duration = (settings.alarmDuration === 'long' || forceTest) ? 3.0 : 1.0;
     const now = ctx.currentTime;
     const gain = ctx.createGain();
     gain.connect(ctx.destination);
@@ -854,7 +877,11 @@ function playBeep(forceTest = false) {
     osc2.connect(gain);
     osc2.start(now + 0.05);
     osc2.stop(now + duration - 0.05);
-    if(!forceTest && settings.vibrate && navigator.vibrate) navigator.vibrate([300,200,300]);
+    if(!forceTest && settings.vibrate && navigator.vibrate) {
+      // Vibração também respeita a duração
+      const vibeDuration = duration === 3.0 ? 800 : 300;
+      navigator.vibrate([vibeDuration]);
+    }
   } catch(e){ console.warn(e); }
 }
 
@@ -863,7 +890,11 @@ function goTab(idx, btn) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.footer-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('screen-'+idx).classList.add('active'); btn.classList.add('active'); currentTab = idx;
-  if (idx === 1) renderPag(); if (idx === 2) renderCal(); if (idx === 3) renderSummary(); if (idx === 4) renderCfg();
+  if (idx === 0) updateAlertBanner();
+  if (idx === 1) renderPag(); 
+  if (idx === 2) renderCal(); 
+  if (idx === 3) renderSummary(); 
+  if (idx === 4) renderCfg();
 }
 function render() {
   const upcoming = bills.filter(b=>!b.paid).sort((a,b)=>a.dueDate>b.dueDate?1:-1);
@@ -874,7 +905,9 @@ function render() {
   const pl = document.getElementById('paidList'); pl.innerHTML = '';
   if (!paid.length) pl.innerHTML = '<div class="empty-state">Nenhuma conta paga ainda.</div>';
   else paid.forEach(b => pl.appendChild(makeCard(b)));
-  if (currentTab === 1) renderPag(); if (currentTab === 3) renderSummary();
+  if (currentTab === 1) renderPag(); 
+  if (currentTab === 3) renderSummary();
+  updateAlertBanner(); // Atualiza o banner sempre que renderizar
 }
 function makeCard(b) {
   const card = document.createElement('div'); card.className = 'bill-card' + (b.paid ? ' paid' : '');
@@ -897,7 +930,8 @@ function payBill(id) {
   const b = bills.find(x=>x.id===id); if(!b) return;
   b.paid=true; b.paidAt=Date.now(); b.paidDate=new Date().toISOString().split('T')[0];
   saveB(); render(); showToast('✓ '+b.name+' marcada como paga!');
-  if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate(200);
+  if(settings.sound) playBeep(); 
+  if(settings.vibrate && navigator.vibrate) navigator.vibrate(200);
 }
 let pagFilter = 'all';
 function setFilter(btn, f) { pagFilter = f; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderPag(); }
@@ -988,7 +1022,7 @@ let _deferredPrompt = null;
 function registerSW() { if(!('serviceWorker' in navigator)) return; navigator.serviceWorker.register('./sw.js').catch(()=>{ document.getElementById('swStatus').textContent = 'Service Worker: fallback'; }); document.getElementById('swStatus').textContent = 'Service Worker: ativo'; }
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); _deferredPrompt = e; const sec = document.getElementById('cfgPwaSection'); if(sec) sec.style.display = 'block'; });
 function triggerInstall() { if(!_deferredPrompt) { showToast('⚠ Use "Adicionar à tela inicial" no menu do navegador'); return; } _deferredPrompt.prompt(); _deferredPrompt.userChoice.then(()=>{ _deferredPrompt = null; }); }
-loadSettings(); loadBills(); calInit(); render(); scheduleAlerts(); setInterval(()=>{ if(settings.alerts) scheduleAlerts(); }, 3600000); if('Notification' in window && Notification.permission==='default') setTimeout(()=>Notification.requestPermission(),2000); registerSW();
+loadSettings(); loadBills(); calInit(); render(); scheduleAlerts(); setInterval(()=>{ if(settings.alerts) scheduleAlerts(); updateAlertBanner(); }, 3600000); setInterval(() => updateAlertBanner(), 60000); if('Notification' in window && Notification.permission==='default') setTimeout(()=>Notification.requestPermission(),2000); registerSW();
 </script>
 </body>
 </html>
