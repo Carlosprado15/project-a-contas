@@ -538,6 +538,12 @@ html, body {
   box-shadow:0 0 20px rgba(0,255,255,.2); white-space:nowrap; max-width:90%; pointer-events:none;
 }
 .toast.show { opacity:1; }
+
+/* Flash overlay para alerta */
+.flash-overlay {
+  position:fixed; top:0; left:0; right:0; bottom:0; background:white; z-index:9999;
+  pointer-events:none; opacity:0; transition:opacity 0.1s ease;
+}
 </style>
 </head>
 <body>
@@ -698,6 +704,22 @@ html, body {
     </div>
 
     <div class="cfg-section">
+      <div class="cfg-section-title">Teste de Alertas</div>
+      <div class="cfg-row">
+        <div style="flex:1">
+          <div class="cfg-label">Simular Conta</div>
+          <div class="cfg-sub">Escolha uma conta pendente</div>
+        </div>
+        <select id="testBillSelect" class="cfg-select" style="min-width:120px"></select>
+      </div>
+      <div class="cfg-row">
+        <button class="cfg-btn cfg-sound" style="flex:1; margin-right:5px" onclick="simulateAlert('eve')">📢 PRÉ-AVISO (21h)</button>
+        <button class="cfg-btn cfg-sound" style="flex:1; margin-left:5px" onclick="simulateAlert('day')">🚨 AVISO DO DIA (9h)</button>
+      </div>
+      <div class="cfg-sub" style="text-align:center; margin-top:8px; color:#00ccaa">Teste o alerta sem esperar as datas reais</div>
+    </div>
+
+    <div class="cfg-section">
       <div class="cfg-section-title">Dados</div>
       <div class="cfg-row">
         <div><div class="cfg-label">Histórico Salvo</div><div class="cfg-sub">Contas pagas por 90 dias</div></div>
@@ -778,12 +800,12 @@ html, body {
 </div>
 
 <div class="toast" id="toast"></div>
+<div id="flashOverlay" class="flash-overlay"></div>
 
 <script>
 // ==================== SANITIZAÇÃO ANTI-XSS ====================
 function sanitizeText(str) {
   if (!str) return '';
-  // Remove qualquer padrão que possa ser interpretado como HTML/JS
   return String(str)
     .replace(/[&<>]/g, function(m) {
       if (m === '&') return '&amp;';
@@ -791,19 +813,11 @@ function sanitizeText(str) {
       if (m === '>') return '&gt;';
       return m;
     })
-    .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-      return c; // preserva emojis
-    })
-    .replace(/[\\`*_{}[\]()#+\-.!]/g, function(m) {
-      return m; // mantém caracteres normais, apenas escapa HTML
-    })
     .replace(/javascript:/gi, '')
     .replace(/on\w+\s*=/gi, '')
     .replace(/<script/gi, '&lt;script')
     .replace(/<\/script/gi, '&lt;/script');
 }
-
-// Função de escape já existente melhorada
 const esc = (s) => {
   if (!s) return '';
   return String(s).replace(/[&<>]/g, function(m) {
@@ -811,7 +825,7 @@ const esc = (s) => {
     if (m === '<') return '&lt;';
     if (m === '>') return '&gt;';
     return m;
-  }).replace(/[\\`*_{}[\]()#+\-.!]/g, function(m) { return m; });
+  });
 };
 
 // ==================== DADOS ====================
@@ -868,6 +882,70 @@ const fmtAmt = v => v == null ? 'R$ …' : 'R$ ' + v.toLocaleString('pt-BR',{min
 const fmtDate = iso => { if(!iso) return ''; const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`; };
 const isOD = b => !b.paid && b.dueDate < new Date().toISOString().split('T')[0];
 
+// ==================== ALERTA COMPLETO (SOM LONGO, VIBRAÇÃO FORTE, FLASH) ====================
+function flashScreen() {
+  const flash = document.getElementById('flashOverlay');
+  if (!flash) return;
+  flash.style.opacity = '0.7';
+  setTimeout(() => { flash.style.opacity = '0'; }, 200);
+}
+
+function playBeep(forceTest = false) {
+  if(!settings.sound && !forceTest) return;
+  
+  // Flash imediato
+  flashScreen();
+  
+  // Limpa áudio anterior
+  if(window.currentAlertAudio) {
+    try { window.currentAlertAudio.close(); } catch(e) {}
+    window.currentAlertAudio = null;
+  }
+  
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  const ctx = new AudioCtx();
+  window.currentAlertAudio = ctx;
+  
+  const isLong = (settings.alarmDuration === 'long' || forceTest);
+  // Para alerta longo, faz um padrão de 4 bipes em 3 segundos
+  // Para curto, 2 bipes em 1 segundo
+  const start = ctx.currentTime;
+  const pattern = isLong ? 
+    [{time:0, freq:880},{time:0.6, freq:880},{time:1.2, freq:880},{time:1.8, freq:880},{time:2.4, freq:880}] :
+    [{time:0, freq:880},{time:0.5, freq:880}];
+  
+  pattern.forEach(p => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sawtooth';
+    osc.frequency.value = p.freq;
+    gain.gain.setValueAtTime(0.35, start + p.time);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.4);
+    osc.start(start + p.time);
+    osc.stop(start + p.time + 0.4);
+  });
+  
+  // Vibração forte e longa (como WhatsApp)
+  if(!forceTest && settings.vibrate && navigator.vibrate) {
+    if(isLong) {
+      navigator.vibrate([400, 200, 400, 200, 400, 200, 400, 200, 400]);
+    } else {
+      navigator.vibrate([300, 100, 300]);
+    }
+  }
+  
+  // Fecha contexto após término
+  const totalDuration = isLong ? 3000 : 1000;
+  setTimeout(() => {
+    if(window.currentAlertAudio === ctx) {
+      try { ctx.close(); } catch(e) {}
+      window.currentAlertAudio = null;
+    }
+  }, totalDuration + 200);
+}
+
 // ==================== ATUALIZA BANNER ====================
 function updateAlertBanner() {
   const today = new Date().toISOString().split('T')[0];
@@ -883,9 +961,6 @@ function updateAlertBanner() {
   }
 }
 
-// ==================== SOM E VIBRAÇÃO ====================
-let activeAudioCtx = null;
-let currentTimeout = null;
 function setAlarmDuration(val) { 
   settings.alarmDuration = val; 
   saveS(); 
@@ -894,44 +969,6 @@ function setAlarmDuration(val) {
   if(select) select.value = val;
 }
 function testSoundNow() { playBeep(true); }
-function playBeep(forceTest = false) {
-  if(!settings.sound && !forceTest) return;
-  if(currentTimeout) { clearTimeout(currentTimeout); currentTimeout = null; }
-  if(activeAudioCtx) { try { activeAudioCtx.close(); } catch(e) {} activeAudioCtx = null; }
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  const ctx = new AudioCtx();
-  activeAudioCtx = ctx;
-  const duration = (settings.alarmDuration === 'long' || forceTest) ? 3.0 : 1.0;
-  const startTime = ctx.currentTime;
-  function playBeepPulse(time, freq) {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = 'sawtooth';
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.3, time);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.3);
-    osc.start(time);
-    osc.stop(time + 0.3);
-  }
-  if(duration >= 2.9) {
-    playBeepPulse(startTime, 880);
-    playBeepPulse(startTime + 0.8, 880);
-    playBeepPulse(startTime + 1.6, 880);
-    playBeepPulse(startTime + 2.4, 880);
-  } else {
-    playBeepPulse(startTime, 880);
-  }
-  if(!forceTest && settings.vibrate && navigator.vibrate) {
-    if(duration >= 2.9) navigator.vibrate([400,200,400,200,400,200,400]);
-    else navigator.vibrate(300);
-  }
-  currentTimeout = setTimeout(() => {
-    if(activeAudioCtx) { try { activeAudioCtx.close(); } catch(e) {} activeAudioCtx = null; }
-    currentTimeout = null;
-  }, duration * 1000 + 100);
-}
 
 // ==================== NAVEGAÇÃO ENTRE TELAS ====================
 let currentTab = 0;
@@ -959,6 +996,7 @@ function render() {
   if (currentTab === 1) renderPag(); 
   if (currentTab === 3) renderSummary();
   updateAlertBanner();
+  if (currentTab === 4) renderCfg(); // atualiza select de teste
 }
 function makeCard(b) {
   const card = document.createElement('div'); card.className = 'bill-card' + (b.paid ? ' paid' : '');
@@ -1005,7 +1043,7 @@ function renderPag() {
   });
 }
 
-// ==================== CALENDÁRIO (CORRIGIDO) ====================
+// ==================== CALENDÁRIO ====================
 let calY, calM;
 function calInit() { const n=new Date(); calY=n.getFullYear(); calM=n.getMonth(); }
 function calShift(d) { calM+=d; if(calM<0){calM=11;calY--;} if(calM>11){calM=0;calY++;} renderCal(); }
@@ -1080,6 +1118,55 @@ function renderCfg() {
   [['blur','tBlur'],['alerts','tAlerts'],['sound','tSound'],['vibrate','tVibrate']].forEach(([k,id])=>{ const el=document.getElementById(id); if(el) el.classList.toggle('on',settings[k]); });
   const paid=bills.filter(b=>b.paid).length; const el=document.getElementById('cfgCount'); if(el) el.textContent=paid+' registro'+(paid!==1?'s':'');
   const durSelect = document.getElementById('alarmDuration'); if(durSelect) durSelect.value = settings.alarmDuration;
+  
+  // Preencher select de simulação
+  const testSelect = document.getElementById('testBillSelect');
+  if (testSelect) {
+    const pendingBills = bills.filter(b => !b.paid);
+    testSelect.innerHTML = '<option value="">-- selecione uma conta --</option>';
+    pendingBills.forEach(b => {
+      const option = document.createElement('option');
+      option.value = b.id;
+      option.textContent = `${b.name} (${fmtDate(b.dueDate)}) - ${fmtAmt(b.amount)}`;
+      testSelect.appendChild(option);
+    });
+  }
+}
+function simulateAlert(alertType) {
+  const select = document.getElementById('testBillSelect');
+  if (!select || !select.value) {
+    showToast('⚠ Selecione uma conta pendente primeiro');
+    return;
+  }
+  const billId = select.value;
+  const bill = bills.find(b => b.id === billId);
+  if (!bill) {
+    showToast('⚠ Conta não encontrada');
+    return;
+  }
+  if (bill.paid) {
+    showToast('⚠ Esta conta já está paga. Escolha outra.');
+    return;
+  }
+  
+  let msg = '';
+  if (alertType === 'eve') {
+    msg = `⏰ SIMULAÇÃO: ${bill.name} venceria AMANHÃ!`;
+  } else {
+    msg = `🚨 SIMULAÇÃO: ${bill.name} venceria HOJE!`;
+  }
+  
+  showToast(msg);
+  if (settings.sound) playBeep(true);
+  if (settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400,200,400]);
+  if (Notification.permission === 'granted') {
+    new Notification('PROJECT A — SIMULAÇÃO', {
+      body: msg,
+      icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E'
+    });
+  } else {
+    showToast('⚠ Permissão de notificação não concedida – só som/vibração');
+  }
 }
 function togSetting(k) { settings[k]=!settings[k]; saveS(); renderCfg(); showToast(k.charAt(0).toUpperCase()+k.slice(1)+': '+(settings[k]?'Ativado':'Desativado')); }
 function reqNotif() { if(!('Notification' in window)){showToast('⚠ Notificações não disponíveis');return;} Notification.requestPermission().then(p=>showToast(p==='granted'?'✓ Notificações ativadas!':'⚠ Permissão negada')); }
@@ -1096,7 +1183,6 @@ function saveBill() {
   const cat = document.getElementById('inpCat').value;
   if (!name) { showToast('⚠ Digite o nome da conta'); return; }
   if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
-  // Sanitização anti-XSS
   name = sanitizeText(name);
   bills.push({ id:uid(), name, amount:isNaN(value)?null:value, dueDate:date, category:cat, paid:false, blurred:settings.blur });
   saveB(); render(); closeModal(); showToast('✓ Conta adicionada!'); scheduleAlerts();
@@ -1107,9 +1193,9 @@ function startVoice() { const SR = window.SpeechRecognition || window.webkitSpee
 function stopVoice() { isListening=false; if(recognition) recognition.stop(); document.getElementById('voiceBtn').classList.remove('listening'); }
 function parseVoice(text) { const t=text.toLowerCase(); let amount=null; for (const p of [/(?:valor[:\s]+|r\$\s*)([\d]+(?:[,\.]\d{1,2})?)/i,/([\d]+(?:[,\.]\d{1,2})?)\s*reais/i]){ const m=t.match(p); if(m){amount=parseFloat(m[1].replace(',','.')); break;} } let dueDate=null; const dm=t.match(/(?:dia|vencimento|vence)[:\s]+(\d{1,2})/i); if(dm){ const day=parseInt(dm[1]); if(day>=1&&day<=31){ const n=new Date(); const c=new Date(n.getFullYear(),n.getMonth(),day); if(c<n) c.setMonth(c.getMonth()+1); dueDate=c.toISOString().split('T')[0]; } } let name=t.replace(/valor[:\s]+[\d,\.]+/gi,'').replace(/[\d,\.]+ reais/gi,'').replace(/r\$\s*[\d,\.]+/gi,'').replace(/(?:vencimento|vence|dia|data)[:\s]+\d{1,2}/gi,'').replace(/no dia\s+\d{1,2}/gi,'').replace(/\d+/g,'').replace(/[,\.]/g,' ').trim().replace(/\b(o|a|os|as|um|uma|de|do|da|no|na|em|e|para|meu|minha|conta|pagar|falar|adicionar|registrar)\b/gi,' ').replace(/\s{2,}/g,' ').trim(); if(name.length>1) document.getElementById('inpName').value=sanitizeText(name.replace(/\b\w/g,c=>c.toUpperCase())); if(amount!==null) document.getElementById('inpValue').value=amount.toFixed(2); if(dueDate) document.getElementById('inpDate').value=dueDate; document.getElementById('voiceStatus').textContent='✓ Reconhecido - confirme e salve'; stopVoice(); }
 
-// ==================== ALERTAS ====================
-function scheduleAlerts() { if(!settings.alerts) return; const now=new Date(); bills.filter(b=>!b.paid&&b.dueDate).forEach(b=>{ const due=new Date(b.dueDate+'T00:00:00'); const alertPrev=new Date(due); alertPrev.setDate(alertPrev.getDate()-1); alertPrev.setHours(21,0,0,0); const alertDay=new Date(due); alertDay.setHours(9,0,0,0); const keyPrev=b.id+'_eve', keyDay=b.id+'_day'; if(!firedAlerts.has(keyPrev) && alertPrev>now && alertPrev-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyPrev)){ firedAlerts.add(keyPrev); saveFA(); showToast('⏰ '+b.name+' vence AMANHÃ!'); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([200,100,200]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:b.name+' vence amanhã!'}); } }, alertPrev-now); } if(!firedAlerts.has(keyDay) && alertDay>now && alertDay-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyDay)){ firedAlerts.add(keyDay); saveFA(); showToast('🚨 '+b.name+' vence HOJE!'); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([200,100,200]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:b.name+' vence hoje!'}); } }, alertDay-now); } }); }
-function testNotif() { if(settings.sound) playBeep(true); if(settings.vibrate && navigator.vibrate) navigator.vibrate([200,100,200]); showToast('🔔 Notificação de teste!'); if('Notification' in window && Notification.permission==='granted') new Notification('PROJECT A — Teste',{body:'Som e vibração OK!', icon:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E'}); }
+// ==================== ALERTAS REAIS ====================
+function scheduleAlerts() { if(!settings.alerts) return; const now=new Date(); bills.filter(b=>!b.paid&&b.dueDate).forEach(b=>{ const due=new Date(b.dueDate+'T00:00:00'); const alertPrev=new Date(due); alertPrev.setDate(alertPrev.getDate()-1); alertPrev.setHours(21,0,0,0); const alertDay=new Date(due); alertDay.setHours(9,0,0,0); const keyPrev=b.id+'_eve', keyDay=b.id+'_day'; if(!firedAlerts.has(keyPrev) && alertPrev>now && alertPrev-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyPrev)){ firedAlerts.add(keyPrev); saveFA(); showToast('⏰ '+b.name+' vence AMANHÃ!'); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:b.name+' vence amanhã!'}); } }, alertPrev-now); } if(!firedAlerts.has(keyDay) && alertDay>now && alertDay-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyDay)){ firedAlerts.add(keyDay); saveFA(); showToast('🚨 '+b.name+' vence HOJE!'); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:b.name+' vence hoje!'}); } }, alertDay-now); } }); }
+function testNotif() { if(settings.sound) playBeep(true); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); showToast('🔔 Notificação de teste!'); if('Notification' in window && Notification.permission==='granted') new Notification('PROJECT A — Teste',{body:'Som, vibração e flash!', icon:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E'}); }
 function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 
 // ==================== PWA / SW ====================
