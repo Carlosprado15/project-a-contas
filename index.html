@@ -21,8 +21,8 @@
 :root {
   --cyan: #00FFFF;
   --cyan-glow: 0 0 8px #00FFFF, 0 0 20px rgba(0,255,255,0.4);
-  --chrome-mid: #b0b0b0;
   --green-ok: #00e676;
+  --chrome-mid: #b0b0b0;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -193,22 +193,24 @@ html, body {
 }
 .pay-btn:active { box-shadow:0 0 14px rgba(0,200,83,.5); }
 
-/* Alert banner */
+/* Alert banner - NEON CYAN/GREEN STYLE */
 .alert-card {
   width:100%;
-  background:linear-gradient(135deg,rgba(30,25,15,.95) 0%,rgba(45,35,15,.9) 50%,rgba(30,25,10,.95) 100%);
-  border:1px solid rgba(255,200,50,.2); border-top:1px solid rgba(255,220,80,.3);
+  background:linear-gradient(135deg,rgba(0,40,45,.95) 0%,rgba(0,55,60,.9) 50%,rgba(0,40,45,.95) 100%);
+  border:1px solid rgba(0,255,255,.4); border-top:1px solid rgba(0,255,255,.6);
   border-radius:10px; display:flex; align-items:center;
-  padding:10px 12px; margin-top:6px; margin-bottom:10px; box-shadow:0 4px 14px rgba(0,0,0,.6);
+  padding:10px 12px; margin-top:6px; margin-bottom:10px; 
+  box-shadow:0 0 12px rgba(0,255,255,.3), inset 0 1px 0 rgba(0,255,255,.2);
 }
 .alert-icon {
   width:38px; height:38px; flex-shrink:0; margin-right:12px;
-  background:linear-gradient(135deg,#3a2a00 0%,#5a4000 50%,#3a2a00 100%);
-  border:1px solid rgba(255,200,50,.3); border-radius:8px;
+  background:linear-gradient(135deg,#003a3a 0%,#005050 50%,#003a3a 100%);
+  border:1px solid rgba(0,255,255,.5); border-radius:8px;
   display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 8px rgba(0,255,255,.2);
 }
-.alert-text .alert-title { font-size:13px; font-weight:700; color:#ffc107; letter-spacing:1px; }
-.alert-text .alert-sub   { font-size:11px; color:#888; margin-top:1px; }
+.alert-text .alert-title { font-size:13px; font-weight:700; color:var(--cyan); text-shadow:var(--cyan-glow); letter-spacing:1px; }
+.alert-text .alert-sub   { font-size:11px; color:#88ffff; margin-top:1px; letter-spacing:.5px; }
 
 /* Empty state */
 .empty-state { text-align:center; padding:22px; color:#444; font-size:13px; letter-spacing:1px; }
@@ -247,7 +249,7 @@ html, body {
   font-size:9px; font-weight:700; letter-spacing:1px;
   padding:2px 7px; border-radius:4px; margin-left:8px; white-space:nowrap;
 }
-.badge-pending { background:rgba(255,160,0,.15); color:#ffa000; border:1px solid rgba(255,160,0,.3); }
+.badge-pending { background:rgba(0,255,255,.15); color:var(--cyan); border:1px solid rgba(0,255,255,.3); }
 .badge-paid    { background:rgba(0,200,83,.12); color:#00e676; border:1px solid rgba(0,200,83,.25); }
 .badge-overdue { background:rgba(255,50,50,.15); color:#ff5252; border:1px solid rgba(255,50,50,.3); }
 
@@ -283,8 +285,9 @@ html, body {
   position:relative; background:transparent;
 }
 .cal-cell.today {
-  background:rgba(255,255,255,.08); color:#ccc;
-  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,255,255,.15); color:var(--cyan);
+  border:1px solid var(--cyan);
+  box-shadow:0 0 8px rgba(0,255,255,.3);
 }
 .cal-cell.has-bill {
   background:rgba(0,50,60,.75); color:var(--cyan);
@@ -416,8 +419,8 @@ html, body {
   box-shadow:0 0 8px rgba(0,255,255,.1);
 }
 .cfg-sound {
-  border-color:#ffb74d; background:linear-gradient(135deg,#2a1a00 0%,#3a2a00 100%);
-  color:#ffb74d;
+  border-color:var(--cyan); background:linear-gradient(135deg,#003a3a 0%,#005555 100%);
+  color:var(--cyan); box-shadow:0 0 8px rgba(0,255,255,.2);
 }
 .cfg-install {
   border-color:rgba(180,140,0,.4); color:#ffd740;
@@ -601,7 +604,7 @@ html, body {
     <div class="alert-card" id="alertBanner">
       <div class="alert-icon">
         <svg viewBox="0 0 24 24" width="20" height="20">
-          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="#ffc107"/>
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="#00FFFF"/>
         </svg>
       </div>
       <div class="alert-text" id="alertText">
@@ -826,7 +829,7 @@ const fmtDate = iso => { if(!iso) return ''; const [y,m,d]=iso.split('-'); retur
 const isOD = b => !b.paid && b.dueDate < new Date().toISOString().split('T')[0];
 const esc = s => String(s).replace(/[<>&"]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
 
-// Função para atualizar o banner de alerta (quantas contas vencem hoje)
+// Atualiza o banner com as contas que vencem hoje (data atual do sistema)
 function updateAlertBanner() {
   const today = new Date().toISOString().split('T')[0];
   const dueToday = bills.filter(b => !b.paid && b.dueDate === today);
@@ -842,47 +845,83 @@ function updateAlertBanner() {
 }
 
 let activeAudioCtx = null;
+let currentTimeout = null;
+
 function setAlarmDuration(val) { 
   settings.alarmDuration = val; 
   saveS(); 
   showToast(`Alarme: ${val === 'long' ? 'Longo (3s)' : 'Curto (1s)'}`);
-  // Atualiza o select visualmente
   const select = document.getElementById('alarmDuration');
   if(select) select.value = val;
 }
+
 function testSoundNow() { playBeep(true); }
+
 function playBeep(forceTest = false) {
   if(!settings.sound && !forceTest) return;
-  try {
-    if(activeAudioCtx) activeAudioCtx.close();
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    const ctx = new AudioCtx();
-    activeAudioCtx = ctx;
-    // Usa a duração configurada: 'long' = 3s, 'short' = 1s
-    const duration = (settings.alarmDuration === 'long' || forceTest) ? 3.0 : 1.0;
-    const now = ctx.currentTime;
+  
+  // Limpa timeout anterior se existir
+  if(currentTimeout) {
+    clearTimeout(currentTimeout);
+    currentTimeout = null;
+  }
+  
+  // Para o áudio anterior se estiver tocando
+  if(activeAudioCtx) {
+    try { activeAudioCtx.close(); } catch(e) {}
+    activeAudioCtx = null;
+  }
+  
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  const ctx = new AudioCtx();
+  activeAudioCtx = ctx;
+  
+  const duration = (settings.alarmDuration === 'long' || forceTest) ? 3.0 : 1.0;
+  const startTime = ctx.currentTime;
+  
+  // Função para tocar um pulso de som
+  function playBeepPulse(time, freq) {
+    const osc = ctx.createOscillator();
     const gain = ctx.createGain();
+    osc.connect(gain);
     gain.connect(ctx.destination);
-    gain.gain.setValueAtTime(0.25, now);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-    const osc1 = ctx.createOscillator();
-    osc1.type = 'sawtooth';
-    osc1.frequency.value = 880;
-    osc1.connect(gain);
-    osc1.start(now);
-    osc1.stop(now + duration);
-    const osc2 = ctx.createOscillator();
-    osc2.type = 'square';
-    osc2.frequency.value = 440;
-    osc2.connect(gain);
-    osc2.start(now + 0.05);
-    osc2.stop(now + duration - 0.05);
-    if(!forceTest && settings.vibrate && navigator.vibrate) {
-      // Vibração também respeita a duração
-      const vibeDuration = duration === 3.0 ? 800 : 300;
-      navigator.vibrate([vibeDuration]);
+    osc.type = 'sawtooth';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.3, time);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.3);
+    osc.start(time);
+    osc.stop(time + 0.3);
+  }
+  
+  // Para som longo (3s), faz um padrão de alarme com múltiplos bipes
+  if(duration >= 2.9) {
+    // Alarme longo: padrão de 3 bipes em sequência (total ~3s)
+    playBeepPulse(startTime, 880);
+    playBeepPulse(startTime + 0.8, 880);
+    playBeepPulse(startTime + 1.6, 880);
+    playBeepPulse(startTime + 2.4, 880);
+  } else {
+    // Som curto: um bipe simples
+    playBeepPulse(startTime, 880);
+  }
+  
+  // Vibração
+  if(!forceTest && settings.vibrate && navigator.vibrate) {
+    if(duration >= 2.9) {
+      navigator.vibrate([400, 200, 400, 200, 400, 200, 400]);
+    } else {
+      navigator.vibrate(300);
     }
-  } catch(e){ console.warn(e); }
+  }
+  
+  // Fecha o contexto após a duração total
+  currentTimeout = setTimeout(() => {
+    if(activeAudioCtx) {
+      try { activeAudioCtx.close(); } catch(e) {}
+      activeAudioCtx = null;
+    }
+    currentTimeout = null;
+  }, duration * 1000 + 100);
 }
 
 let currentTab = 0;
@@ -907,7 +946,7 @@ function render() {
   else paid.forEach(b => pl.appendChild(makeCard(b)));
   if (currentTab === 1) renderPag(); 
   if (currentTab === 3) renderSummary();
-  updateAlertBanner(); // Atualiza o banner sempre que renderizar
+  updateAlertBanner();
 }
 function makeCard(b) {
   const card = document.createElement('div'); card.className = 'bill-card' + (b.paid ? ' paid' : '');
