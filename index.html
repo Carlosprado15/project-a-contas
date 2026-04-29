@@ -544,6 +544,35 @@ html, body {
   position:fixed; top:0; left:0; right:0; bottom:0; background:white; z-index:9999;
   pointer-events:none; opacity:0; transition:opacity 0.1s ease;
 }
+
+/* GATE OVERLAY */
+.gate-overlay {
+  position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.95); z-index:10000;
+  display:flex; align-items:center; justify-content:center; backdrop-filter:blur(10px);
+}
+.gate-card {
+  background:linear-gradient(135deg,#1a1a1a 0%,#0a0a0a 100%);
+  border:1px solid var(--cyan); border-radius:20px; padding:30px 25px; width:320px;
+  text-align:center; box-shadow:0 0 40px rgba(0,255,255,0.2);
+}
+.gate-title {
+  font-family:'Orbitron',sans-serif; font-size:18px; color:var(--cyan); text-shadow:var(--cyan-glow);
+  margin-bottom:20px; letter-spacing:2px;
+}
+.gate-input {
+  width:100%; background:rgba(255,255,255,.05); border:1px solid rgba(0,255,255,.3);
+  border-radius:10px; padding:12px 15px; color:#e0e0e0; font-family:'Rajdhani',sans-serif;
+  font-size:16px; margin-bottom:15px; text-align:center;
+}
+.gate-input:focus { outline:none; border-color:var(--cyan); box-shadow:0 0 15px rgba(0,255,255,0.3); }
+.gate-btn {
+  width:100%; background:linear-gradient(135deg,#003344 0%,#005566 100%);
+  border:1px solid var(--cyan); border-radius:10px; padding:12px; color:var(--cyan);
+  font-family:'Orbitron',sans-serif; font-size:14px; font-weight:700; letter-spacing:2px;
+  cursor:pointer; transition:all .2s;
+}
+.gate-btn:hover { box-shadow:0 0 20px rgba(0,255,255,0.5); transform:scale(1.02); }
+.gate-error { font-size:12px; color:#ff5252; margin-top:10px; letter-spacing:1px; }
 </style>
 </head>
 <body>
@@ -801,8 +830,336 @@ html, body {
 
 <div class="toast" id="toast"></div>
 <div id="flashOverlay" class="flash-overlay"></div>
+<div id="gateOverlay" class="gate-overlay">
+  <div class="gate-card">
+    <div class="gate-title">🔐 ACCESS CODE</div>
+    <input type="password" id="gatePassword" class="gate-input" placeholder="Enter security key" autocomplete="off">
+    <button class="gate-btn" onclick="verifyGate()">UNLOCK →</button>
+    <div id="gateError" class="gate-error"></div>
+  </div>
+</div>
 
 <script>
+// ==================== GATE ACCESS CONTROL ====================
+function verifyGate() {
+  const input = document.getElementById('gatePassword').value;
+  const key = 'Rennovation15@';
+  if (input === key) {
+    localStorage.setItem('access_granted', 'true');
+    document.getElementById('gateOverlay').style.display = 'none';
+    // Remove o overlay permanentemente
+    document.getElementById('gateOverlay').remove();
+  } else {
+    document.getElementById('gateError').innerText = '❌ Invalid key. Access denied.';
+  }
+}
+function checkAccess() {
+  const granted = localStorage.getItem('access_granted');
+  if (granted === 'true') {
+    const gate = document.getElementById('gateOverlay');
+    if (gate) gate.style.display = 'none';
+  }
+}
+
+// ==================== I18N - DETECTA IDIOMA ====================
+let userLang = navigator.language || navigator.userLanguage;
+let isPortuguese = userLang.toLowerCase().startsWith('pt');
+function t(key) {
+  const translations = {
+    // Screen 0
+    upcoming: { pt: 'Próximos Vencimentos', en: 'Upcoming Due Dates' },
+    paid_history: { pt: 'Contas Pagas', en: 'Paid Bills' },
+    reminders_active: { pt: 'LEMBRETES ATIVOS — Alerta', en: 'REMINDERS ACTIVE — Alert' },
+    reminders_sub: { pt: '21h do dia anterior e 9h da manhã do vencimento', en: '9pm day before & 9am due date' },
+    add_btn_label: { pt: 'Toque para falar a conta', en: 'Tap to speak the bill' },
+    add_btn_sub: { pt: 'Aperte para adicionar pagamento', en: 'Press to add payment' },
+    // Screen 1
+    all_payments: { pt: 'TODOS OS PAGAMENTOS', en: 'ALL PAYMENTS' },
+    all_filter: { pt: 'Todos', en: 'All' },
+    pending_filter: { pt: 'Pendentes', en: 'Pending' },
+    paid_filter: { pt: 'Pagos', en: 'Paid' },
+    overdue_filter: { pt: 'Vencidos', en: 'Overdue' },
+    // Screen 2
+    month_dues: { pt: 'Vencimentos do Mês', en: 'Due Dates This Month' },
+    no_due_month: { pt: 'Sem vencimentos neste mês.', en: 'No due dates this month.' },
+    // Screen 3
+    financial_summary: { pt: 'RESUMO FINANCEIRO', en: 'FINANCIAL SUMMARY' },
+    pending_label: { pt: 'Pendente', en: 'Pending' },
+    paid_label: { pt: 'Pago', en: 'Paid' },
+    overdue_label: { pt: 'Vencido', en: 'Overdue' },
+    total_label: { pt: 'Total Geral', en: 'Total' },
+    commitment: { pt: 'Comprometimento', en: 'Commitment' },
+    by_category: { pt: 'Por Categoria', en: 'By Category' },
+    // Screen 4
+    settings: { pt: 'CONFIGURAÇÕES', en: 'SETTINGS' },
+    privacy: { pt: 'Privacidade', en: 'Privacy' },
+    blur_auto: { pt: 'Blur Automático', en: 'Auto Blur' },
+    hide_values: { pt: 'Ocultar valores ao carregar', en: 'Hide values on load' },
+    notifications: { pt: 'Notificações', en: 'Notifications' },
+    due_alerts: { pt: 'Alertas de Vencimento', en: 'Due Alerts' },
+    alert_schedule: { pt: '21h anterior + 9h do dia', en: '9pm previous day + 9am due day' },
+    sound_alert: { pt: 'Som de Alerta', en: 'Alert Sound' },
+    beep_on_notif: { pt: 'Bipe ao disparar notificação', en: 'Beep on notification' },
+    vibration: { pt: 'Vibração', en: 'Vibration' },
+    vibrate_on_alert: { pt: 'Vibrar no alerta', en: 'Vibrate on alert' },
+    alarm_duration: { pt: 'Duração do Alarme', en: 'Alarm Duration' },
+    short_alarm: { pt: 'Curto (1s)', en: 'Short (1s)' },
+    long_alarm: { pt: 'Longo (3s)', en: 'Long (3s)' },
+    test_sound: { pt: 'Testar Som', en: 'Test Sound' },
+    test_alert: { pt: 'TESTAR ALARME', en: 'TEST ALARM' },
+    alert_test_section: { pt: 'Teste de Alertas', en: 'Alert Test' },
+    simulate_bill: { pt: 'Simular Conta', en: 'Simulate Bill' },
+    select_bill: { pt: 'Escolha uma conta pendente', en: 'Select a pending bill' },
+    sim_pre: { pt: 'PRÉ-AVISO (21h)', en: 'PRE-ALERT (9pm)' },
+    sim_day: { pt: 'AVISO DO DIA (9h)', en: 'DAY ALERT (9am)' },
+    test_info: { pt: 'Teste o alerta sem esperar as datas reais', en: 'Test alert without waiting for real dates' },
+    data: { pt: 'Dados', en: 'Data' },
+    saved_history: { pt: 'Histórico Salvo', en: 'Saved History' },
+    paid_90days: { pt: 'Contas pagas por 90 dias', en: 'Paid bills for 90 days' },
+    enable_notif: { pt: 'Ativar Notificações', en: 'Enable Notifications' },
+    browser_perm: { pt: 'Permissão do navegador', en: 'Browser permission' },
+    enable: { pt: 'ATIVAR', en: 'ENABLE' },
+    test_notif_btn: { pt: 'Testar Notificação', en: 'Test Notification' },
+    triggers_sound: { pt: 'Dispara som e vibração agora', en: 'Triggers sound and vibration now' },
+    clear_all: { pt: 'Limpar Tudo', en: 'Clear All' },
+    delete_all: { pt: 'Apagar todas as contas', en: 'Delete all bills' },
+    clear: { pt: 'LIMPAR', en: 'CLEAR' },
+    install_app: { pt: 'Instalar App', en: 'Install App' },
+    add_to_home: { pt: 'Adicionar à Tela Inicial', en: 'Add to Home Screen' },
+    install_native: { pt: 'Instalar como app nativo', en: 'Install as native app' },
+    install: { pt: 'INSTALAR', en: 'INSTALL' },
+    privacy_text: { pt: 'PROJECT A não compartilha dados.\nTodas as informações ficam apenas neste dispositivo.', en: 'PROJECT A does not share data.\nAll information stays on this device.' },
+    // Buttons and messages
+    cancel: { pt: 'CANCELAR', en: 'CANCEL' },
+    save: { pt: 'SALVAR', en: 'SAVE' },
+    voice_use: { pt: 'USAR VOZ', en: 'USE VOICE' },
+    add_account: { pt: 'ADICIONAR CONTA', en: 'ADD BILL' },
+    due_date: { pt: 'Data de Vencimento', en: 'Due Date' },
+    category: { pt: 'Categoria', en: 'Category' },
+    name_placeholder: { pt: 'Ex: Conta de Luz', en: 'Ex: Electricity Bill' },
+    value_placeholder: { pt: '0,00', en: '0.00' },
+    no_bills: { pt: 'Nenhum vencimento pendente.', en: 'No pending due dates.' },
+    no_paid_bills: { pt: 'Nenhuma conta paga ainda.', en: 'No paid bills yet.' },
+    paid_on: { pt: 'Pago em', en: 'Paid on' },
+    due_on: { pt: 'Vence em', en: 'Due on' },
+    badge_pending: { pt: 'PENDENTE', en: 'PENDING' },
+    badge_paid: { pt: 'PAGO', en: 'PAID' },
+    badge_overdue: { pt: 'VENCIDO', en: 'OVERDUE' },
+    no_filter: { pt: 'Nenhuma conta neste filtro.', en: 'No bills in this filter.' },
+    month_jan: { pt: 'Janeiro', en: 'January' },
+    month_feb: { pt: 'Fevereiro', en: 'February' },
+    month_mar: { pt: 'Março', en: 'March' },
+    month_apr: { pt: 'Abril', en: 'April' },
+    month_may: { pt: 'Maio', en: 'May' },
+    month_jun: { pt: 'Junho', en: 'June' },
+    month_jul: { pt: 'Julho', en: 'July' },
+    month_aug: { pt: 'Agosto', en: 'August' },
+    month_sep: { pt: 'Setembro', en: 'September' },
+    month_oct: { pt: 'Outubro', en: 'October' },
+    month_nov: { pt: 'Novembro', en: 'November' },
+    month_dec: { pt: 'Dezembro', en: 'December' }
+  };
+  let text = translations[key];
+  if (!text) return key;
+  return isPortuguese ? text.pt : text.en;
+}
+
+// Função para aplicar traduções nos elementos estáticos após carregamento
+function applyTranslations() {
+  // Header
+  const logoSub = document.querySelector('.logo-sub');
+  if (logoSub) logoSub.textContent = isPortuguese ? 'FINANCE MANAGEMENT' : 'FINANCE MANAGEMENT';
+  const tagline = document.querySelector('.tagline');
+  if (tagline) tagline.textContent = isPortuguese ? 'Organize. Acompanhe. Pague em Dia.' : 'Organize. Track. Pay on Time.';
+  
+  // Add button
+  const addLabel = document.querySelector('.add-btn-label');
+  if (addLabel) addLabel.textContent = t('add_btn_label');
+  const addSub = document.querySelector('.add-btn-sub');
+  if (addSub) addSub.textContent = t('add_btn_sub');
+  
+  // Section labels
+  const sections = document.querySelectorAll('.section-label');
+  if (sections[0]) sections[0].textContent = t('upcoming');
+  if (sections[1]) sections[1].textContent = t('paid_history');
+  
+  // Alert banner
+  const alertTitleElem = document.getElementById('alertTitle');
+  const alertSubElem = document.getElementById('alertSub');
+  if (alertTitleElem && alertTitleElem.textContent === 'CARREGANDO...') {
+    alertTitleElem.textContent = isPortuguese ? 'CARREGANDO...' : 'LOADING...';
+  }
+  if (alertSubElem && alertSubElem.textContent === 'Verificando vencimentos de hoje') {
+    alertSubElem.textContent = isPortuguese ? 'Verificando vencimentos de hoje' : 'Checking today\'s due dates';
+  }
+  
+  const alertCardTitle = document.querySelector('.alert-text .alert-title');
+  const alertCardSub = document.querySelector('.alert-text .alert-sub');
+  if (alertCardTitle && !alertCardTitle.id) alertCardTitle.textContent = t('reminders_active');
+  if (alertCardSub && !alertCardSub.id) alertCardSub.textContent = t('reminders_sub');
+  
+  // Screen 1
+  const pageHeader1 = document.querySelector('#screen-1 .page-header');
+  if (pageHeader1) pageHeader1.textContent = t('all_payments');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  if (filterBtns[0]) filterBtns[0].textContent = t('all_filter');
+  if (filterBtns[1]) filterBtns[1].textContent = t('pending_filter');
+  if (filterBtns[2]) filterBtns[2].textContent = t('paid_filter');
+  if (filterBtns[3]) filterBtns[3].textContent = t('overdue_filter');
+  
+  // Screen 2
+  const pageHeader2 = document.querySelector('#screen-2 .page-header');
+  if (pageHeader2) pageHeader2.textContent = t('all_payments');
+  const calMonthHeader = document.querySelector('#screen-2 .section-label');
+  if (calMonthHeader) calMonthHeader.textContent = t('month_dues');
+  
+  // Screen 3
+  const pageHeader3 = document.querySelector('#screen-3 .page-header');
+  if (pageHeader3) pageHeader3.textContent = t('financial_summary');
+  const summaryLabels = document.querySelectorAll('.summary-card .s-label');
+  if (summaryLabels[0]) summaryLabels[0].textContent = t('pending_label');
+  if (summaryLabels[1]) summaryLabels[1].textContent = t('paid_label');
+  if (summaryLabels[2]) summaryLabels[2].textContent = t('overdue_label');
+  if (summaryLabels[3]) summaryLabels[3].textContent = t('total_label');
+  const commitmentLabel = document.querySelector('#summaryBars')?.previousElementSibling;
+  if (commitmentLabel && commitmentLabel.classList.contains('section-label')) commitmentLabel.textContent = t('commitment');
+  const categoryLabel = document.querySelector('#catBreakdown')?.previousElementSibling;
+  if (categoryLabel && categoryLabel.classList.contains('section-label')) categoryLabel.textContent = t('by_category');
+  
+  // Screen 4
+  const pageHeader4 = document.querySelector('#screen-4 .page-header');
+  if (pageHeader4) pageHeader4.textContent = t('settings');
+  const cfgSectionTitles = document.querySelectorAll('.cfg-section-title');
+  if (cfgSectionTitles[0]) cfgSectionTitles[0].textContent = t('privacy');
+  if (cfgSectionTitles[1]) cfgSectionTitles[1].textContent = t('notifications');
+  if (cfgSectionTitles[2] && cfgSectionTitles[2].textContent === 'Teste de Alertas') cfgSectionTitles[2].textContent = t('alert_test_section');
+  if (cfgSectionTitles[3]) cfgSectionTitles[3].textContent = t('data');
+  if (cfgSectionTitles[4]) cfgSectionTitles[4].textContent = t('install_app');
+  
+  const cfgRows = document.querySelectorAll('.cfg-row');
+  // Privacy row
+  if (cfgRows[0]) {
+    const labels = cfgRows[0].querySelectorAll('.cfg-label');
+    const subs = cfgRows[0].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('blur_auto');
+    if (subs[0]) subs[0].textContent = t('hide_values');
+  }
+  // Notifications rows
+  if (cfgRows[1]) {
+    const labels = cfgRows[1].querySelectorAll('.cfg-label');
+    const subs = cfgRows[1].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('due_alerts');
+    if (subs[0]) subs[0].textContent = t('alert_schedule');
+  }
+  if (cfgRows[2]) {
+    const labels = cfgRows[2].querySelectorAll('.cfg-label');
+    const subs = cfgRows[2].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('sound_alert');
+    if (subs[0]) subs[0].textContent = t('beep_on_notif');
+  }
+  if (cfgRows[3]) {
+    const labels = cfgRows[3].querySelectorAll('.cfg-label');
+    const subs = cfgRows[3].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('vibration');
+    if (subs[0]) subs[0].textContent = t('vibrate_on_alert');
+  }
+  if (cfgRows[4]) {
+    const labels = cfgRows[4].querySelectorAll('.cfg-label');
+    const subs = cfgRows[4].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('alarm_duration');
+    if (subs[0]) subs[0].textContent = t('alarm_duration');
+  }
+  if (cfgRows[5]) {
+    const labels = cfgRows[5].querySelectorAll('.cfg-label');
+    const subs = cfgRows[5].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('test_sound');
+    if (subs[0]) subs[0].textContent = t('test_sound');
+    const testBtn = cfgRows[5].querySelector('.cfg-btn');
+    if (testBtn) testBtn.textContent = t('test_alert');
+  }
+  // Test section rows
+  if (cfgRows[6] && cfgRows[6].querySelector('.cfg-label')?.textContent === 'Simular Conta') {
+    const labels = cfgRows[6].querySelectorAll('.cfg-label');
+    const subs = cfgRows[6].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('simulate_bill');
+    if (subs[0]) subs[0].textContent = t('select_bill');
+  }
+  if (cfgRows[7]) {
+    const btns = cfgRows[7].querySelectorAll('.cfg-btn');
+    if (btns[0]) btns[0].textContent = t('sim_pre');
+    if (btns[1]) btns[1].textContent = t('sim_day');
+  }
+  const testInfo = document.querySelector('#screen-4 .cfg-sub[style*="text-align:center"]');
+  if (testInfo) testInfo.textContent = t('test_info');
+  
+  // Data section
+  if (cfgRows[8]) {
+    const labels = cfgRows[8].querySelectorAll('.cfg-label');
+    const subs = cfgRows[8].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('saved_history');
+    if (subs[0]) subs[0].textContent = t('paid_90days');
+  }
+  if (cfgRows[9]) {
+    const labels = cfgRows[9].querySelectorAll('.cfg-label');
+    const subs = cfgRows[9].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('enable_notif');
+    if (subs[0]) subs[0].textContent = t('browser_perm');
+    const btn = cfgRows[9].querySelector('.cfg-btn');
+    if (btn) btn.textContent = t('enable');
+  }
+  if (cfgRows[10]) {
+    const labels = cfgRows[10].querySelectorAll('.cfg-label');
+    const subs = cfgRows[10].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('test_notif_btn');
+    if (subs[0]) subs[0].textContent = t('triggers_sound');
+    const btn = cfgRows[10].querySelector('.cfg-btn');
+    if (btn) btn.textContent = t('test_notif_btn');
+  }
+  if (cfgRows[11]) {
+    const labels = cfgRows[11].querySelectorAll('.cfg-label');
+    const subs = cfgRows[11].querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('clear_all');
+    if (subs[0]) subs[0].textContent = t('delete_all');
+    const btn = cfgRows[11].querySelector('.cfg-btn');
+    if (btn) btn.textContent = t('clear');
+  }
+  
+  const installRow = document.querySelector('#cfgPwaSection .cfg-row');
+  if (installRow) {
+    const labels = installRow.querySelectorAll('.cfg-label');
+    const subs = installRow.querySelectorAll('.cfg-sub');
+    if (labels[0]) labels[0].textContent = t('add_to_home');
+    if (subs[0]) subs[0].textContent = t('install_native');
+    const btn = installRow.querySelector('.cfg-btn');
+    if (btn) btn.textContent = t('install');
+  }
+  
+  const privacyHint = document.querySelector('.privacy-hint');
+  if (privacyHint) {
+    const lines = privacyHint.innerHTML.split('<br>');
+    privacyHint.innerHTML = t('privacy_text').replace(/\n/g, '<br>') + '<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Service Worker: verificando…</span>';
+  }
+  
+  // Modal
+  const modalTitle = document.querySelector('.modal-title');
+  if (modalTitle) modalTitle.textContent = t('add_account');
+  const modalLabels = document.querySelectorAll('.inp-grp label');
+  if (modalLabels[0]) modalLabels[0].textContent = t('name_placeholder');
+  if (modalLabels[1]) modalLabels[1].textContent = t('value_placeholder');
+  if (modalLabels[2]) modalLabels[2].textContent = t('due_date');
+  if (modalLabels[3]) modalLabels[3].textContent = t('category');
+  const nameInput = document.getElementById('inpName');
+  if (nameInput) nameInput.placeholder = t('name_placeholder');
+  const valueInput = document.getElementById('inpValue');
+  if (valueInput) valueInput.placeholder = t('value_placeholder');
+  const voiceBtn = document.querySelector('.voice-btn');
+  if (voiceBtn) voiceBtn.innerHTML = voiceBtn.innerHTML.replace(/USAR VOZ|USE VOICE/, t('voice_use'));
+  const cancelBtn = document.querySelector('.btn-cancel');
+  if (cancelBtn) cancelBtn.textContent = t('cancel');
+  const saveBtn = document.querySelector('.btn-save');
+  if (saveBtn) saveBtn.textContent = t('save');
+}
+
 // ==================== SANITIZAÇÃO ANTI-XSS ====================
 function sanitizeText(str) {
   if (!str) return '';
@@ -870,6 +1227,10 @@ const uid = () => Math.random().toString(36).slice(2,10);
 const CAT_COLOR = { agua:'#4fc3f7', energia:'#ffe066', aluguel:'#b0b0b0', condominio:'#c0c0c0', saude:'#f48fb1', internet:'#80b0ff', outros:'#aaa' };
 const CAT_LABEL = { agua:'Água', energia:'Energia', aluguel:'Aluguel', condominio:'Condomínio', saude:'Saúde', internet:'Internet', outros:'Outros' };
 const MONTHS_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function getMonthName(index) {
+  return isPortuguese ? MONTHS_PT[index] : MONTHS_EN[index];
+}
 
 const ICONS = { agua:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="#4fc3f7"/></svg>`,
   energia:`<svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 2v11h3v9l7-12h-4l4-8z" fill="#ffe066"/></svg>`,
@@ -892,28 +1253,19 @@ function flashScreen() {
 
 function playBeep(forceTest = false) {
   if(!settings.sound && !forceTest) return;
-  
-  // Flash imediato
   flashScreen();
-  
-  // Limpa áudio anterior
   if(window.currentAlertAudio) {
     try { window.currentAlertAudio.close(); } catch(e) {}
     window.currentAlertAudio = null;
   }
-  
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
   const ctx = new AudioCtx();
   window.currentAlertAudio = ctx;
-  
   const isLong = (settings.alarmDuration === 'long' || forceTest);
-  // Para alerta longo, faz um padrão de 4 bipes em 3 segundos
-  // Para curto, 2 bipes em 1 segundo
   const start = ctx.currentTime;
   const pattern = isLong ? 
     [{time:0, freq:880},{time:0.6, freq:880},{time:1.2, freq:880},{time:1.8, freq:880},{time:2.4, freq:880}] :
     [{time:0, freq:880},{time:0.5, freq:880}];
-  
   pattern.forEach(p => {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
@@ -926,8 +1278,6 @@ function playBeep(forceTest = false) {
     osc.start(start + p.time);
     osc.stop(start + p.time + 0.4);
   });
-  
-  // Vibração forte e longa (como WhatsApp)
   if(!forceTest && settings.vibrate && navigator.vibrate) {
     if(isLong) {
       navigator.vibrate([400, 200, 400, 200, 400, 200, 400, 200, 400]);
@@ -935,8 +1285,6 @@ function playBeep(forceTest = false) {
       navigator.vibrate([300, 100, 300]);
     }
   }
-  
-  // Fecha contexto após término
   const totalDuration = isLong ? 3000 : 1000;
   setTimeout(() => {
     if(window.currentAlertAudio === ctx) {
@@ -956,15 +1304,15 @@ function updateAlertBanner() {
     alertTitle.innerHTML = `🔔 ${dueToday.length} CONTA${dueToday.length > 1 ? 'S' : ''} VENCE${dueToday.length > 1 ? 'M' : ''} HOJE!`;
     alertSub.innerHTML = dueToday.map(b => esc(b.name)).join(', ');
   } else {
-    alertTitle.innerHTML = '✅ TUDO EM DIA';
-    alertSub.innerHTML = 'Nenhum vencimento para hoje';
+    alertTitle.innerHTML = isPortuguese ? '✅ TUDO EM DIA' : '✅ ALL CLEAR';
+    alertSub.innerHTML = isPortuguese ? 'Nenhum vencimento para hoje' : 'No due dates for today';
   }
 }
 
 function setAlarmDuration(val) { 
   settings.alarmDuration = val; 
   saveS(); 
-  showToast(`Alarme: ${val === 'long' ? 'Longo (3s)' : 'Curto (1s)'}`);
+  showToast(`${isPortuguese ? 'Alarme' : 'Alarm'}: ${val === 'long' ? (isPortuguese ? 'Longo (3s)' : 'Long (3s)') : (isPortuguese ? 'Curto (1s)' : 'Short (1s)')}`);
   const select = document.getElementById('alarmDuration');
   if(select) select.value = val;
 }
@@ -988,25 +1336,25 @@ function render() {
   const upcoming = bills.filter(b=>!b.paid).sort((a,b)=>a.dueDate>b.dueDate?1:-1);
   const paid = bills.filter(b=>b.paid).sort((a,b)=>b.paidAt-a.paidAt);
   const ul = document.getElementById('upcomingList'); ul.innerHTML = '';
-  if (!upcoming.length) ul.innerHTML = '<div class="empty-state">Nenhum vencimento pendente.</div>';
+  if (!upcoming.length) ul.innerHTML = `<div class="empty-state">${t('no_bills')}</div>`;
   else upcoming.forEach(b => ul.appendChild(makeCard(b)));
   const pl = document.getElementById('paidList'); pl.innerHTML = '';
-  if (!paid.length) pl.innerHTML = '<div class="empty-state">Nenhuma conta paga ainda.</div>';
+  if (!paid.length) pl.innerHTML = `<div class="empty-state">${t('no_paid_bills')}</div>`;
   else paid.forEach(b => pl.appendChild(makeCard(b)));
   if (currentTab === 1) renderPag(); 
   if (currentTab === 3) renderSummary();
   updateAlertBanner();
-  if (currentTab === 4) renderCfg(); // atualiza select de teste
+  if (currentTab === 4) renderCfg();
 }
 function makeCard(b) {
   const card = document.createElement('div'); card.className = 'bill-card' + (b.paid ? ' paid' : '');
   const bc = b.blurred ? ' blurred' : '';
   const icon = ICONS[b.category] || ICONS.outros;
-  const date = b.paid && b.paidDate ? 'Pago em '+fmtDate(b.paidDate) : 'Vence em '+fmtDate(b.dueDate);
+  const date = b.paid && b.paidDate ? `${t('paid_on')} ${fmtDate(b.paidDate)}` : `${t('due_on')} ${fmtDate(b.dueDate)}`;
   if (b.paid) {
     card.innerHTML = `<div class="paid-check"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#00e676"/></svg></div><div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div><div class="bill-amount${bc}">${fmtAmt(b.amount)}</div>`;
   } else {
-    card.innerHTML = `<div class="bill-icon">${icon}</div><div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div><div class="bill-amount${bc}">${fmtAmt(b.amount)}</div><button class="pay-btn" onclick="event.stopPropagation();payBill('${b.id}')">PAGAR</button>`;
+    card.innerHTML = `<div class="bill-icon">${icon}</div><div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div><div class="bill-amount${bc}">${fmtAmt(b.amount)}</div><button class="pay-btn" onclick="event.stopPropagation();payBill('${b.id}')">${t('paid_label')}</button>`;
   }
   card.addEventListener('click', e => { if(e.target.classList.contains('pay-btn')) return;
     const bill = bills.find(x=>x.id===b.id); if(!bill) return;
@@ -1018,7 +1366,7 @@ function makeCard(b) {
 function payBill(id) {
   const b = bills.find(x=>x.id===id); if(!b) return;
   b.paid=true; b.paidAt=Date.now(); b.paidDate=new Date().toISOString().split('T')[0];
-  saveB(); render(); showToast('✓ '+b.name+' marcada como paga!');
+  saveB(); render(); showToast(`✓ ${b.name} ${isPortuguese ? 'marcada como paga!' : 'marked as paid!'}`);
   if(settings.sound) playBeep(); 
   if(settings.vibrate && navigator.vibrate) navigator.vibrate(200);
 }
@@ -1033,12 +1381,16 @@ function renderPag() {
   if (pagFilter==='paid')    list = list.filter(b=> b.paid);
   if (pagFilter==='overdue') list = list.filter(b=>!b.paid && b.dueDate<today);
   const el = document.getElementById('pagList'); el.innerHTML = '';
-  if(!list.length){ el.innerHTML='<div class="empty-state">Nenhuma conta neste filtro.</div>'; return; }
+  if(!list.length){ el.innerHTML=`<div class="empty-state">${t('no_filter')}</div>`; return; }
   list.forEach(b => {
     const overdue = isOD(b);
-    const [badge, cls] = b.paid ? ['PAGO','paid'] : overdue ? ['VENCIDO','overdue'] : ['PENDENTE','pending'];
+    let badge = '';
+    let cls = '';
+    if (b.paid) { badge = t('badge_paid'); cls = 'paid'; }
+    else if (overdue) { badge = t('badge_overdue'); cls = 'overdue'; }
+    else { badge = t('badge_pending'); cls = 'pending'; }
     const row = document.createElement('div'); row.className='pag-row';
-    row.innerHTML=`<div class="pag-dot" style="background:${CAT_COLOR[b.category]||'#aaa'};box-shadow:0 0 6px ${CAT_COLOR[b.category]||'#aaa'}"></div><div class="pag-info"><div class="pag-name">${esc(b.name)}</div><div class="pag-date">${b.paid?'Pago em '+fmtDate(b.paidDate):'Vence '+fmtDate(b.dueDate)}</div></div><div class="pag-amt">${fmtAmt(b.amount)}</div><div class="pag-badge badge-${cls}">${badge}</div>`;
+    row.innerHTML=`<div class="pag-dot" style="background:${CAT_COLOR[b.category]||'#aaa'};box-shadow:0 0 6px ${CAT_COLOR[b.category]||'#aaa'}"></div><div class="pag-info"><div class="pag-name">${esc(b.name)}</div><div class="pag-date">${b.paid?`${t('paid_on')} ${fmtDate(b.paidDate)}`:`${t('due_on')} ${fmtDate(b.dueDate)}`}</div></div><div class="pag-amt">${fmtAmt(b.amount)}</div><div class="pag-badge badge-${cls}">${badge}</div>`;
     el.appendChild(row);
   });
 }
@@ -1056,18 +1408,18 @@ function onDateClick(year, month, day) {
   const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
   const billsOnDay = bills.filter(b => !b.paid && b.dueDate === dateStr);
   if (billsOnDay.length) {
-    msg += `\n📌 Contas: ${billsOnDay.map(b=>b.name).join(', ')}`;
+    msg += `\n📌 ${isPortuguese ? 'Contas' : 'Bills'}: ${billsOnDay.map(b=>b.name).join(', ')}`;
   } else {
-    msg += `\n✅ Nenhuma conta pendente.`;
+    msg += `\n✅ ${isPortuguese ? 'Nenhuma conta pendente.' : 'No pending bills.'}`;
   }
-  if (diffDays === 0) msg += `\n🔥 HOJE!`;
-  else if (diffDays < 0) msg += `\n⏰ Venceu há ${-diffDays} dia(s)`;
-  else if (diffDays > 0) msg += `\n⏳ Vence em ${diffDays} dia(s)`;
+  if (diffDays === 0) msg += `\n🔥 ${isPortuguese ? 'HOJE!' : 'TODAY!'}`;
+  else if (diffDays < 0) msg += `\n⏰ ${isPortuguese ? `Venceu há ${-diffDays} dia(s)` : `Overdue by ${-diffDays} day(s)`}`;
+  else if (diffDays > 0) msg += `\n⏳ ${isPortuguese ? `Vence em ${diffDays} dia(s)` : `Due in ${diffDays} day(s)`}`;
   showToast(msg);
 }
 function renderCal() {
   const todayStr = new Date().toISOString().split('T')[0];
-  document.getElementById('calTitle').textContent = MONTHS_PT[calM]+' '+calY;
+  document.getElementById('calTitle').textContent = getMonthName(calM)+' '+calY;
   const firstDay = new Date(calY,calM,1).getDay();
   const daysInMonth = new Date(calY,calM+1,0).getDate();
   const dueDays = {};
@@ -1089,10 +1441,10 @@ function renderCal() {
   }
   const ev = document.getElementById('calEvents'); ev.innerHTML='';
   const monthBills = bills.filter(b=>{ if(!b.dueDate||b.paid) return false; const[y,m]=b.dueDate.split('-').map(Number); return y===calY&&m===calM+1; }).sort((a,b)=>a.dueDate>b.dueDate?1:-1);
-  if(!monthBills.length) { ev.innerHTML='<div class="empty-state">Sem vencimentos neste mês.</div>'; return; }
+  if(!monthBills.length) { ev.innerHTML=`<div class="empty-state">${t('no_due_month')}</div>`; return; }
   monthBills.forEach(b=>{ const [,,d] = b.dueDate.split('-'); const past = b.dueDate < todayStr; const row = document.createElement('div'); row.className='cal-event-row';
-    row.onclick = (function(dateStr) { return function() { showToast(`📌 ${b.name} - ${fmtAmt(b.amount)} - Vence em ${fmtDate(dateStr)}`); }; })(b.dueDate);
-    row.innerHTML=`<div class="cal-event-day${past?' past':''}">${parseInt(d,10)}</div><div class="cal-event-info"><div class="cal-event-name">${esc(b.name)}</div><div class="cal-event-amount">${fmtAmt(b.amount)}</div></div><div style="font-size:9px;letter-spacing:1px;color:${past?'#ff5252':'#555'};margin-left:8px">${past?'VENCIDO':'PENDENTE'}</div>`;
+    row.onclick = (function(dateStr) { return function() { showToast(`📌 ${b.name} - ${fmtAmt(b.amount)} - ${isPortuguese ? 'Vence em' : 'Due on'} ${fmtDate(dateStr)}`); }; })(b.dueDate);
+    row.innerHTML=`<div class="cal-event-day${past?' past':''}">${parseInt(d,10)}</div><div class="cal-event-info"><div class="cal-event-name">${esc(b.name)}</div><div class="cal-event-amount">${fmtAmt(b.amount)}</div></div><div style="font-size:9px;letter-spacing:1px;color:${past?'#ff5252':'#555'};margin-left:8px">${past?(isPortuguese?'VENCIDO':'OVERDUE'):(isPortuguese?'PENDENTE':'PENDING')}</div>`;
     ev.appendChild(row);
   });
 }
@@ -1101,9 +1453,9 @@ function renderCal() {
 function renderSummary() {
   const pending = bills.filter(b=>!b.paid); const paid = bills.filter(b=>b.paid); const overdue = bills.filter(b=>isOD(b));
   const tPending = pending.reduce((s,b)=>s+(b.amount||0),0); const tPaid = paid.reduce((s,b)=>s+(b.amount||0),0); const tOverdue = overdue.reduce((s,b)=>s+(b.amount||0),0); const tTotal = tPending + tPaid;
-  document.getElementById('summaryCards').innerHTML = `<div class="summary-card"><div class="s-label">Pendente</div><div class="s-value">${fmtAmt(tPending)}</div><div class="s-sub">${pending.length} conta${pending.length!==1?'s':''}</div></div><div class="summary-card"><div class="s-label">Pago</div><div class="s-value green">${fmtAmt(tPaid)}</div><div class="s-sub">${paid.length} conta${paid.length!==1?'s':''}</div></div><div class="summary-card"><div class="s-label">Vencido</div><div class="s-value red">${fmtAmt(tOverdue)}</div><div class="s-sub">${overdue.length} em atraso</div></div><div class="summary-card"><div class="s-label">Total Geral</div><div class="s-value">${fmtAmt(tTotal)}</div><div class="s-sub">${bills.length} conta${bills.length!==1?'s':''}</div></div>`;
+  document.getElementById('summaryCards').innerHTML = `<div class="summary-card"><div class="s-label">${t('pending_label')}</div><div class="s-value">${fmtAmt(tPending)}</div><div class="s-sub">${pending.length} ${isPortuguese ? 'conta' : 'bill'}${pending.length!==1?'s':''}</div></div><div class="summary-card"><div class="s-label">${t('paid_label')}</div><div class="s-value green">${fmtAmt(tPaid)}</div><div class="s-sub">${paid.length} ${isPortuguese ? 'conta' : 'bill'}${paid.length!==1?'s':''}</div></div><div class="summary-card"><div class="s-label">${t('overdue_label')}</div><div class="s-value red">${fmtAmt(tOverdue)}</div><div class="s-sub">${overdue.length} ${isPortuguese ? 'em atraso' : 'overdue'}</div></div><div class="summary-card"><div class="s-label">${t('total_label')}</div><div class="s-value">${fmtAmt(tTotal)}</div><div class="s-sub">${bills.length} ${isPortuguese ? 'conta' : 'bill'}${bills.length!==1?'s':''}</div></div>`;
   const pPaid = tTotal>0 ? Math.round(tPaid/tTotal*100) : 0; const pPend = tTotal>0 ? Math.round(tPending/tTotal*100) : 0;
-  document.getElementById('summaryBars').innerHTML = `<div class="bar-wrap"><div class="bar-lbl"><span>Pago</span><span>${pPaid}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pPaid}%"></div></div></div><div class="bar-wrap"><div class="bar-lbl"><span>Pendente</span><span>${pPend}%</span></div><div class="bar-track"><div class="bar-fill red" style="width:${pPend}%"></div></div></div>`;
+  document.getElementById('summaryBars').innerHTML = `<div class="bar-wrap"><div class="bar-lbl"><span>${t('paid_label')}</span><span>${pPaid}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pPaid}%"></div></div></div><div class="bar-wrap"><div class="bar-lbl"><span>${t('pending_label')}</span><span>${pPend}%</span></div><div class="bar-track"><div class="bar-fill red" style="width:${pPend}%"></div></div></div>`;
   const catMap = {}; bills.forEach(b=>{ if(!catMap[b.category]) catMap[b.category]={count:0,total:0}; catMap[b.category].count++; catMap[b.category].total+=b.amount||0; });
   const cb = document.getElementById('catBreakdown'); cb.innerHTML='';
   Object.entries(catMap).sort((a,b)=>b[1].total-a[1].total).forEach(([cat,{count,total}])=>{ const row=document.createElement('div'); row.className='cat-row';
@@ -1116,14 +1468,13 @@ function renderSummary() {
 // ==================== CONFIGURAÇÕES ====================
 function renderCfg() {
   [['blur','tBlur'],['alerts','tAlerts'],['sound','tSound'],['vibrate','tVibrate']].forEach(([k,id])=>{ const el=document.getElementById(id); if(el) el.classList.toggle('on',settings[k]); });
-  const paid=bills.filter(b=>b.paid).length; const el=document.getElementById('cfgCount'); if(el) el.textContent=paid+' registro'+(paid!==1?'s':'');
+  const paid=bills.filter(b=>b.paid).length; const el=document.getElementById('cfgCount'); if(el) el.textContent=paid+' '+(isPortuguese?'registro':'record')+(paid!==1?'s':'');
   const durSelect = document.getElementById('alarmDuration'); if(durSelect) durSelect.value = settings.alarmDuration;
   
-  // Preencher select de simulação
   const testSelect = document.getElementById('testBillSelect');
   if (testSelect) {
     const pendingBills = bills.filter(b => !b.paid);
-    testSelect.innerHTML = '<option value="">-- selecione uma conta --</option>';
+    testSelect.innerHTML = `<option value="">${isPortuguese ? '-- selecione uma conta --' : '-- select a bill --'}</option>`;
     pendingBills.forEach(b => {
       const option = document.createElement('option');
       option.value = b.id;
@@ -1135,42 +1486,40 @@ function renderCfg() {
 function simulateAlert(alertType) {
   const select = document.getElementById('testBillSelect');
   if (!select || !select.value) {
-    showToast('⚠ Selecione uma conta pendente primeiro');
+    showToast(isPortuguese ? '⚠ Selecione uma conta pendente primeiro' : '⚠ Select a pending bill first');
     return;
   }
   const billId = select.value;
   const bill = bills.find(b => b.id === billId);
   if (!bill) {
-    showToast('⚠ Conta não encontrada');
+    showToast(isPortuguese ? '⚠ Conta não encontrada' : '⚠ Bill not found');
     return;
   }
   if (bill.paid) {
-    showToast('⚠ Esta conta já está paga. Escolha outra.');
+    showToast(isPortuguese ? '⚠ Esta conta já está paga. Escolha outra.' : '⚠ This bill is already paid. Choose another.');
     return;
   }
-  
   let msg = '';
   if (alertType === 'eve') {
-    msg = `⏰ SIMULAÇÃO: ${bill.name} venceria AMANHÃ!`;
+    msg = isPortuguese ? `⏰ SIMULAÇÃO: ${bill.name} venceria AMANHÃ!` : `⏰ SIMULATION: ${bill.name} would be due TOMORROW!`;
   } else {
-    msg = `🚨 SIMULAÇÃO: ${bill.name} venceria HOJE!`;
+    msg = isPortuguese ? `🚨 SIMULAÇÃO: ${bill.name} venceria HOJE!` : `🚨 SIMULATION: ${bill.name} would be due TODAY!`;
   }
-  
   showToast(msg);
   if (settings.sound) playBeep(true);
   if (settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400,200,400]);
   if (Notification.permission === 'granted') {
-    new Notification('PROJECT A — SIMULAÇÃO', {
+    new Notification('PROJECT A — SIMULATION', {
       body: msg,
       icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E'
     });
   } else {
-    showToast('⚠ Permissão de notificação não concedida – só som/vibração');
+    showToast(isPortuguese ? '⚠ Permissão de notificação não concedida – só som/vibração' : '⚠ Notification permission not granted – sound/vibration only');
   }
 }
-function togSetting(k) { settings[k]=!settings[k]; saveS(); renderCfg(); showToast(k.charAt(0).toUpperCase()+k.slice(1)+': '+(settings[k]?'Ativado':'Desativado')); }
-function reqNotif() { if(!('Notification' in window)){showToast('⚠ Notificações não disponíveis');return;} Notification.requestPermission().then(p=>showToast(p==='granted'?'✓ Notificações ativadas!':'⚠ Permissão negada')); }
-function clearAll() { if(!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return; bills=[]; saveB(); render(); renderCfg(); showToast('✓ Dados apagados'); }
+function togSetting(k) { settings[k]=!settings[k]; saveS(); renderCfg(); showToast((k.charAt(0).toUpperCase()+k.slice(1))+': '+(settings[k]?(isPortuguese?'Ativado':'Enabled'):(isPortuguese?'Desativado':'Disabled'))); }
+function reqNotif() { if(!('Notification' in window)){showToast(isPortuguese?'⚠ Notificações não disponíveis':'⚠ Notifications not available');return;} Notification.requestPermission().then(p=>showToast(p==='granted'?(isPortuguese?'✓ Notificações ativadas!':'✓ Notifications enabled!'):(isPortuguese?'⚠ Permissão negada':'⚠ Permission denied'))); }
+function clearAll() { if(!confirm(isPortuguese?'Apagar TODAS as contas? Esta ação não pode ser desfeita.':'Delete ALL bills? This action cannot be undone.')) return; bills=[]; saveB(); render(); renderCfg(); showToast(isPortuguese?'✓ Dados apagados':'✓ Data cleared'); }
 
 // ==================== MODAL E VOZ ====================
 function openModal() { document.getElementById('inpDate').value = new Date().toISOString().split('T')[0]; document.getElementById('inpName').value = ''; document.getElementById('inpValue').value = ''; document.getElementById('voiceStatus').textContent = ''; document.getElementById('modalOverlay').classList.add('open'); }
@@ -1181,31 +1530,33 @@ function saveBill() {
   const value = parseFloat(document.getElementById('inpValue').value);
   const date = document.getElementById('inpDate').value;
   const cat = document.getElementById('inpCat').value;
-  if (!name) { showToast('⚠ Digite o nome da conta'); return; }
-  if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
+  if (!name) { showToast(isPortuguese?'⚠ Digite o nome da conta':'⚠ Enter bill name'); return; }
+  if (!date) { showToast(isPortuguese?'⚠ Selecione a data de vencimento':'⚠ Select due date'); return; }
   name = sanitizeText(name);
   bills.push({ id:uid(), name, amount:isNaN(value)?null:value, dueDate:date, category:cat, paid:false, blurred:settings.blur });
-  saveB(); render(); closeModal(); showToast('✓ Conta adicionada!'); scheduleAlerts();
+  saveB(); render(); closeModal(); showToast(isPortuguese?'✓ Conta adicionada!':'✓ Bill added!'); scheduleAlerts();
 }
 let recognition=null, isListening=false;
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
-function startVoice() { const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if(!SR){ showToast('⚠ Voz não suportada'); return; } recognition = new SR(); recognition.lang='pt-BR'; recognition.onresult = e=>{ const t=e.results[e.results.length-1][0].transcript; document.getElementById('voiceStatus').textContent='📝 '+t; parseVoice(t); }; recognition.start(); isListening=true; document.getElementById('voiceBtn').classList.add('listening'); }
+function startVoice() { const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if(!SR){ showToast(isPortuguese?'⚠ Voz não suportada':'⚠ Voice not supported'); return; } recognition = new SR(); recognition.lang='pt-BR'; recognition.onresult = e=>{ const t=e.results[e.results.length-1][0].transcript; document.getElementById('voiceStatus').textContent='📝 '+t; parseVoice(t); }; recognition.start(); isListening=true; document.getElementById('voiceBtn').classList.add('listening'); }
 function stopVoice() { isListening=false; if(recognition) recognition.stop(); document.getElementById('voiceBtn').classList.remove('listening'); }
-function parseVoice(text) { const t=text.toLowerCase(); let amount=null; for (const p of [/(?:valor[:\s]+|r\$\s*)([\d]+(?:[,\.]\d{1,2})?)/i,/([\d]+(?:[,\.]\d{1,2})?)\s*reais/i]){ const m=t.match(p); if(m){amount=parseFloat(m[1].replace(',','.')); break;} } let dueDate=null; const dm=t.match(/(?:dia|vencimento|vence)[:\s]+(\d{1,2})/i); if(dm){ const day=parseInt(dm[1]); if(day>=1&&day<=31){ const n=new Date(); const c=new Date(n.getFullYear(),n.getMonth(),day); if(c<n) c.setMonth(c.getMonth()+1); dueDate=c.toISOString().split('T')[0]; } } let name=t.replace(/valor[:\s]+[\d,\.]+/gi,'').replace(/[\d,\.]+ reais/gi,'').replace(/r\$\s*[\d,\.]+/gi,'').replace(/(?:vencimento|vence|dia|data)[:\s]+\d{1,2}/gi,'').replace(/no dia\s+\d{1,2}/gi,'').replace(/\d+/g,'').replace(/[,\.]/g,' ').trim().replace(/\b(o|a|os|as|um|uma|de|do|da|no|na|em|e|para|meu|minha|conta|pagar|falar|adicionar|registrar)\b/gi,' ').replace(/\s{2,}/g,' ').trim(); if(name.length>1) document.getElementById('inpName').value=sanitizeText(name.replace(/\b\w/g,c=>c.toUpperCase())); if(amount!==null) document.getElementById('inpValue').value=amount.toFixed(2); if(dueDate) document.getElementById('inpDate').value=dueDate; document.getElementById('voiceStatus').textContent='✓ Reconhecido - confirme e salve'; stopVoice(); }
+function parseVoice(text) { const t=text.toLowerCase(); let amount=null; for (const p of [/(?:valor[:\s]+|r\$\s*)([\d]+(?:[,\.]\d{1,2})?)/i,/([\d]+(?:[,\.]\d{1,2})?)\s*reais/i]){ const m=t.match(p); if(m){amount=parseFloat(m[1].replace(',','.')); break;} } let dueDate=null; const dm=t.match(/(?:dia|vencimento|vence)[:\s]+(\d{1,2})/i); if(dm){ const day=parseInt(dm[1]); if(day>=1&&day<=31){ const n=new Date(); const c=new Date(n.getFullYear(),n.getMonth(),day); if(c<n) c.setMonth(c.getMonth()+1); dueDate=c.toISOString().split('T')[0]; } } let name=t.replace(/valor[:\s]+[\d,\.]+/gi,'').replace(/[\d,\.]+ reais/gi,'').replace(/r\$\s*[\d,\.]+/gi,'').replace(/(?:vencimento|vence|dia|data)[:\s]+\d{1,2}/gi,'').replace(/no dia\s+\d{1,2}/gi,'').replace(/\d+/g,'').replace(/[,\.]/g,' ').trim().replace(/\b(o|a|os|as|um|uma|de|do|da|no|na|em|e|para|meu|minha|conta|pagar|falar|adicionar|registrar)\b/gi,' ').replace(/\s{2,}/g,' ').trim(); if(name.length>1) document.getElementById('inpName').value=sanitizeText(name.replace(/\b\w/g,c=>c.toUpperCase())); if(amount!==null) document.getElementById('inpValue').value=amount.toFixed(2); if(dueDate) document.getElementById('inpDate').value=dueDate; document.getElementById('voiceStatus').textContent=isPortuguese?'✓ Reconhecido - confirme e salve':'✓ Recognized - confirm and save'; stopVoice(); }
 
 // ==================== ALERTAS REAIS ====================
-function scheduleAlerts() { if(!settings.alerts) return; const now=new Date(); bills.filter(b=>!b.paid&&b.dueDate).forEach(b=>{ const due=new Date(b.dueDate+'T00:00:00'); const alertPrev=new Date(due); alertPrev.setDate(alertPrev.getDate()-1); alertPrev.setHours(21,0,0,0); const alertDay=new Date(due); alertDay.setHours(9,0,0,0); const keyPrev=b.id+'_eve', keyDay=b.id+'_day'; if(!firedAlerts.has(keyPrev) && alertPrev>now && alertPrev-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyPrev)){ firedAlerts.add(keyPrev); saveFA(); showToast('⏰ '+b.name+' vence AMANHÃ!'); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:b.name+' vence amanhã!'}); } }, alertPrev-now); } if(!firedAlerts.has(keyDay) && alertDay>now && alertDay-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyDay)){ firedAlerts.add(keyDay); saveFA(); showToast('🚨 '+b.name+' vence HOJE!'); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:b.name+' vence hoje!'}); } }, alertDay-now); } }); }
-function testNotif() { if(settings.sound) playBeep(true); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); showToast('🔔 Notificação de teste!'); if('Notification' in window && Notification.permission==='granted') new Notification('PROJECT A — Teste',{body:'Som, vibração e flash!', icon:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E'}); }
+function scheduleAlerts() { if(!settings.alerts) return; const now=new Date(); bills.filter(b=>!b.paid&&b.dueDate).forEach(b=>{ const due=new Date(b.dueDate+'T00:00:00'); const alertPrev=new Date(due); alertPrev.setDate(alertPrev.getDate()-1); alertPrev.setHours(21,0,0,0); const alertDay=new Date(due); alertDay.setHours(9,0,0,0); const keyPrev=b.id+'_eve', keyDay=b.id+'_day'; if(!firedAlerts.has(keyPrev) && alertPrev>now && alertPrev-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyPrev)){ firedAlerts.add(keyPrev); saveFA(); showToast(`⏰ ${b.name} ${isPortuguese?'vence AMANHÃ!':'due TOMORROW!'}`); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:`${b.name} ${isPortuguese?'vence amanhã!':'is due tomorrow!'}`}); } }, alertPrev-now); } if(!firedAlerts.has(keyDay) && alertDay>now && alertDay-now<8*86400000){ setTimeout(()=>{ if(!firedAlerts.has(keyDay)){ firedAlerts.add(keyDay); saveFA(); showToast(`🚨 ${b.name} ${isPortuguese?'vence HOJE!':'due TODAY!'}`); if(settings.sound) playBeep(); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); if(Notification.permission==='granted') new Notification('PROJECT A',{body:`${b.name} ${isPortuguese?'vence hoje!':'is due today!'}`}); } }, alertDay-now); } }); }
+function testNotif() { if(settings.sound) playBeep(true); if(settings.vibrate && navigator.vibrate) navigator.vibrate([400,200,400]); showToast(isPortuguese?'🔔 Notificação de teste!':'🔔 Test notification!'); if('Notification' in window && Notification.permission==='granted') new Notification('PROJECT A — Teste',{body:isPortuguese?'Som, vibração e flash!':'Sound, vibration and flash!', icon:'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E'}); }
 function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 
 // ==================== PWA / SW ====================
 let _deferredPrompt = null;
 function registerSW() { if(!('serviceWorker' in navigator)) return; navigator.serviceWorker.register('./sw.js').catch(()=>{ document.getElementById('swStatus').textContent = 'Service Worker: fallback'; }); document.getElementById('swStatus').textContent = 'Service Worker: ativo'; }
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); _deferredPrompt = e; const sec = document.getElementById('cfgPwaSection'); if(sec) sec.style.display = 'block'; });
-function triggerInstall() { if(!_deferredPrompt) { showToast('⚠ Use "Adicionar à tela inicial" no menu do navegador'); return; } _deferredPrompt.prompt(); _deferredPrompt.userChoice.then(()=>{ _deferredPrompt = null; }); }
+function triggerInstall() { if(!_deferredPrompt) { showToast(isPortuguese?'⚠ Use "Adicionar à tela inicial" no menu do navegador':'⚠ Use "Add to Home Screen" in browser menu'); return; } _deferredPrompt.prompt(); _deferredPrompt.userChoice.then(()=>{ _deferredPrompt = null; }); }
 
 // ==================== BOOT ====================
+checkAccess(); // Verifica se já tem acesso
 loadSettings(); loadBills(); calInit(); render(); scheduleAlerts(); setInterval(()=>{ if(settings.alerts) scheduleAlerts(); updateAlertBanner(); }, 3600000); setInterval(() => updateAlertBanner(), 60000); if('Notification' in window && Notification.permission==='default') setTimeout(()=>Notification.requestPermission(),2000); registerSW();
+applyTranslations(); // Aplica traduções
 </script>
 </body>
 </html>
