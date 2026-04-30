@@ -36,7 +36,7 @@
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='96' cy='96' r='88' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='8'/%3E%3Cpath d='M40 72 A58 58 0 0 1 152 72' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='4' stroke-linecap='round'/%3E%3Ctext x='96' y='132' text-anchor='middle' font-family='Georgia,serif' font-size='92' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E">
 <title>PROJECT A — Finance Management</title>
 <style>
-/* ========== CSS ORIGINAL (NÃO ALTERADO) ========== */
+/* ========== CSS ORIGINAL COMPLETO ========== */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -562,7 +562,6 @@ html, body {
 </head>
 <body>
 
-<!-- GATE OVERLAY - TELA DE ACESSO COM CHAVE -->
 <div id="gateOverlay" class="gate-overlay">
   <div class="gate-card">
     <div class="gate-title">🔐 ACCESS CODE</div>
@@ -573,29 +572,16 @@ html, body {
 </div>
 
 <div class="app-shell">
-  <!-- HEADER -->
   <header class="header">
     <div class="logo-text">PROJECT</div>
     <div class="logo-sub">FINANCE MANAGEMENT</div>
     <div class="emblem-wrap">
       <svg class="emblem-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="eOR" cx="50%" cy="35%" r="60%">
-            <stop offset="0%" stop-color="#f0f0f0"/><stop offset="30%" stop-color="#b0b0b0"/>
-            <stop offset="60%" stop-color="#d8d8d8"/><stop offset="100%" stop-color="#606060"/>
-          </radialGradient>
-          <radialGradient id="eIR" cx="50%" cy="30%" r="65%">
-            <stop offset="0%" stop-color="#e8e8e8"/><stop offset="40%" stop-color="#888"/>
-            <stop offset="70%" stop-color="#c0c0c0"/><stop offset="100%" stop-color="#505050"/>
-          </radialGradient>
-          <radialGradient id="eBG" cx="50%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#3a3a3a"/><stop offset="60%" stop-color="#1a1a1a"/>
-            <stop offset="100%" stop-color="#080808"/>
-          </radialGradient>
-          <linearGradient id="eLA" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f0f0f0"/><stop offset="30%" stop-color="#c0c0c0"/>
-            <stop offset="60%" stop-color="#e8e8e8"/><stop offset="100%" stop-color="#808080"/>
-          </linearGradient>
+          <radialGradient id="eOR" cx="50%" cy="35%" r="60%"><stop offset="0%" stop-color="#f0f0f0"/><stop offset="30%" stop-color="#b0b0b0"/><stop offset="60%" stop-color="#d8d8d8"/><stop offset="100%" stop-color="#606060"/></radialGradient>
+          <radialGradient id="eIR" cx="50%" cy="30%" r="65%"><stop offset="0%" stop-color="#e8e8e8"/><stop offset="40%" stop-color="#888"/><stop offset="70%" stop-color="#c0c0c0"/><stop offset="100%" stop-color="#505050"/></radialGradient>
+          <radialGradient id="eBG" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#3a3a3a"/><stop offset="60%" stop-color="#1a1a1a"/><stop offset="100%" stop-color="#080808"/></radialGradient>
+          <linearGradient id="eLA" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0f0f0"/><stop offset="30%" stop-color="#c0c0c0"/><stop offset="60%" stop-color="#e8e8e8"/><stop offset="100%" stop-color="#808080"/></linearGradient>
           <filter id="eSH"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,.9)"/></filter>
           <filter id="eGL"><feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
         </defs>
@@ -609,23 +595,9 @@ html, body {
     <div class="tagline">Organize. Acompanhe. Pague em Dia.</div>
   </header>
 
-  <!-- SCREEN 0 - INÍCIO -->
   <div class="screen active" id="screen-0">
     <button class="add-btn" onclick="openModal()">
-      <span class="add-btn-icon">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle">
-          <defs>
-            <linearGradient id="mG" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f0f0f0"/><stop offset="40%" stop-color="#b0b0b0"/>
-              <stop offset="70%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#808080"/>
-            </linearGradient>
-          </defs>
-          <rect x="9" y="2" width="6" height="12" rx="3" fill="url(#mG)"/>
-          <path d="M5 11c0 3.866 3.134 7 7 7s7-3.134 7-7" stroke="url(#mG)" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <line x1="12" y1="18" x2="12" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/>
-          <line x1="8"  y1="22" x2="16" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </span>
+      <span class="add-btn-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle"><defs><linearGradient id="mG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0f0f0"/><stop offset="40%" stop-color="#b0b0b0"/><stop offset="70%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#808080"/></linearGradient></defs><rect x="9" y="2" width="6" height="12" rx="3" fill="url(#mG)"/><path d="M5 11c0 3.866 3.134 7 7 7s7-3.134 7-7" stroke="url(#mG)" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="12" y1="18" x2="12" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/><line x1="8"  y1="22" x2="16" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/></svg></span>
       <span class="add-btn-label">Toque para falar a conta</span>
       <span class="add-btn-sub">Aperte para adicionar pagamento</span>
     </button>
@@ -634,48 +606,25 @@ html, body {
     <div class="section-label" style="margin-top:12px">Contas Pagas</div>
     <div id="paidList"></div>
     <div class="alert-card" id="alertBanner">
-      <div class="alert-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20">
-          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="#00FFFF"/>
-        </svg>
-      </div>
-      <div class="alert-text" id="alertText">
-        <div class="alert-title" id="alertTitle">CARREGANDO...</div>
-        <div class="alert-sub" id="alertSub">Verificando vencimentos de hoje</div>
-      </div>
+      <div class="alert-icon"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="#00FFFF"/></svg></div>
+      <div class="alert-text" id="alertText"><div class="alert-title" id="alertTitle">CARREGANDO...</div><div class="alert-sub" id="alertSub">Verificando vencimentos de hoje</div></div>
     </div>
   </div>
 
-  <!-- SCREEN 1 - PAGAMENTOS -->
   <div class="screen" id="screen-1">
     <div class="page-header">TODOS OS PAGAMENTOS</div>
-    <div class="filter-row">
-      <button class="filter-btn active" onclick="setFilter(this,'all')">Todos</button>
-      <button class="filter-btn" onclick="setFilter(this,'pending')">Pendentes</button>
-      <button class="filter-btn" onclick="setFilter(this,'paid')">Pagos</button>
-      <button class="filter-btn" onclick="setFilter(this,'overdue')">Vencidos</button>
-    </div>
+    <div class="filter-row"><button class="filter-btn active" onclick="setFilter(this,'all')">Todos</button><button class="filter-btn" onclick="setFilter(this,'pending')">Pendentes</button><button class="filter-btn" onclick="setFilter(this,'paid')">Pagos</button><button class="filter-btn" onclick="setFilter(this,'overdue')">Vencidos</button></div>
     <div id="pagList"></div>
   </div>
 
-  <!-- SCREEN 2 - CALENDÁRIO -->
   <div class="screen" id="screen-2">
-    <div class="cal-nav">
-      <button class="cal-nav-btn" onclick="calShift(-1)">‹</button>
-      <div class="cal-month-title" id="calTitle">—</div>
-      <button class="cal-nav-btn" onclick="calShift(+1)">›</button>
-    </div>
-    <div class="cal-dow-row">
-      <div class="cal-dow">D</div><div class="cal-dow">S</div><div class="cal-dow">T</div>
-      <div class="cal-dow">Q</div><div class="cal-dow">Q</div><div class="cal-dow">S</div>
-      <div class="cal-dow">S</div>
-    </div>
+    <div class="cal-nav"><button class="cal-nav-btn" onclick="calShift(-1)">‹</button><div class="cal-month-title" id="calTitle">—</div><button class="cal-nav-btn" onclick="calShift(+1)">›</button></div>
+    <div class="cal-dow-row"><div class="cal-dow">D</div><div class="cal-dow">S</div><div class="cal-dow">T</div><div class="cal-dow">Q</div><div class="cal-dow">Q</div><div class="cal-dow">S</div><div class="cal-dow">S</div></div>
     <div class="cal-grid" id="calGrid"></div>
     <div class="section-label">Vencimentos do Mês</div>
     <div id="calEvents"></div>
   </div>
 
-  <!-- SCREEN 3 - RESUMO FINANCEIRO -->
   <div class="screen" id="screen-3">
     <div class="page-header">RESUMO FINANCEIRO</div>
     <div class="summary-grid" id="summaryCards"></div>
@@ -685,119 +634,49 @@ html, body {
     <div id="catBreakdown"></div>
   </div>
 
-  <!-- SCREEN 4 - CONFIGURAÇÕES -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
 
     <div class="cfg-section">
       <div class="cfg-section-title">Privacidade</div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Blur Automático</div><div class="cfg-sub">Ocultar valores ao carregar</div></div>
-        <div class="toggle on" id="tBlur" onclick="togSetting('blur')"><div class="toggle-thumb"></div></div>
-      </div>
+      <div class="cfg-row"><div><div class="cfg-label">Blur Automático</div><div class="cfg-sub">Ocultar valores ao carregar</div></div><div class="toggle on" id="tBlur" onclick="togSetting('blur')"><div class="toggle-thumb"></div></div></div>
     </div>
 
     <div class="cfg-section">
       <div class="cfg-section-title">Notificações</div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Alertas de Vencimento</div><div class="cfg-sub">Ativar/Desativar todos os alertas</div></div>
-        <div class="toggle on" id="tAlerts" onclick="togSetting('alerts')"><div class="toggle-thumb"></div></div>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Som de Alerta</div><div class="cfg-sub">Bipe ao disparar notificação</div></div>
-        <div class="toggle on" id="tSound" onclick="togSetting('sound')"><div class="toggle-thumb"></div></div>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Vibração</div><div class="cfg-sub">Vibrar no alerta</div></div>
-        <div class="toggle on" id="tVibrate" onclick="togSetting('vibrate')"><div class="toggle-thumb"></div></div>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Volume do Alerta</div><div class="cfg-sub">0% (mudo) a 100% (máximo)</div></div>
-        <input type="range" id="alertVolume" class="cfg-volume" min="0" max="100" value="80">
-      </div>
+      <div class="cfg-row"><div><div class="cfg-label">Som de Alerta</div><div class="cfg-sub">Bipe ao disparar notificação</div></div><div class="toggle on" id="tSound" onclick="togSetting('sound')"><div class="toggle-thumb"></div></div></div>
+      <div class="cfg-row"><div><div class="cfg-label">Vibração</div><div class="cfg-sub">Vibrar no alerta</div></div><div class="toggle on" id="tVibrate" onclick="togSetting('vibrate')"><div class="toggle-thumb"></div></div></div>
+      <div class="cfg-row"><div><div class="cfg-label">Volume do Alerta</div><div class="cfg-sub">0% (mudo) a 100% (máximo)</div></div><input type="range" id="alertVolume" class="cfg-volume" min="0" max="100" value="80"></div>
     </div>
 
     <div class="cfg-section">
       <div class="cfg-section-title">Horários dos Alertas</div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Alerta na Véspera</div><div class="cfg-sub">Horário no dia anterior ao vencimento</div></div>
-        <input type="time" id="eveTime" class="cfg-time-input" value="21:00">
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Alerta no Dia</div><div class="cfg-sub">Horário no próprio vencimento</div></div>
-        <input type="time" id="dueTime" class="cfg-time-input" value="09:00">
-      </div>
-      <div class="cfg-row">
-        <button class="cfg-btn cfg-sound" style="flex:1" onclick="saveCurrentAlertTimesToStorage()">💾 SALVAR HORÁRIOS</button>
-      </div>
+      <div class="cfg-row"><div><div class="cfg-label">Alerta na Véspera</div><div class="cfg-sub">Horário no dia anterior ao vencimento</div></div><input type="time" id="eveTime" class="cfg-time-input" value="21:00"></div>
+      <div class="cfg-row"><div><div class="cfg-label">Alerta no Dia</div><div class="cfg-sub">Horário no próprio vencimento</div></div><input type="time" id="dueTime" class="cfg-time-input" value="09:00"></div>
+      <div class="cfg-row"><button class="cfg-btn cfg-sound" style="flex:1" onclick="saveCurrentAlertTimesToStorage()">💾 SALVAR HORÁRIOS</button></div>
     </div>
 
     <div class="cfg-section">
       <div class="cfg-section-title">Backup e Dados</div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Exportar Backup</div><div class="cfg-sub">Salvar todos os dados em arquivo JSON</div></div>
-        <button class="cfg-btn cfg-sound" onclick="exportBackup()">📤 EXPORTAR</button>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Importar Backup</div><div class="cfg-sub">Restaurar dados de arquivo JSON</div></div>
-        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this.files[0])">
-        <button class="cfg-btn cfg-sound" onclick="document.getElementById('importFile').click()">📥 IMPORTAR</button>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Exportar CSV</div><div class="cfg-sub">Planilha com todas as contas</div></div>
-        <button class="cfg-btn cfg-test" onclick="exportToCSV()">📊 CSV</button>
-      </div>
-    </div>
-
-    <div class="cfg-section">
-      <div class="cfg-section-title">Teste de Alertas</div>
-      <div class="cfg-row">
-        <div style="flex:1">
-          <div class="cfg-label">Simular Conta</div>
-          <div class="cfg-sub">Escolha uma conta pendente</div>
-        </div>
-        <select id="testBillSelect" class="cfg-select" style="min-width:120px"></select>
-      </div>
-      <div class="cfg-row">
-        <button class="cfg-btn cfg-sound" style="flex:1; margin-right:5px" onclick="simulateAlert('eve')">📢 PRÉ-AVISO</button>
-        <button class="cfg-btn cfg-sound" style="flex:1; margin-left:5px" onclick="simulateAlert('day')">🚨 AVISO DO DIA</button>
-      </div>
-      <div class="cfg-row">
-        <button class="cfg-btn cfg-test" style="flex:1" onclick="testAlertNow()">🔔 TESTAR ALERTA EM 10s</button>
-      </div>
-      <div class="cfg-sub" style="text-align:center; margin-top:8px; color:#00ccaa">Teste o alerta sem esperar as datas reais</div>
+      <div class="cfg-row"><div><div class="cfg-label">Exportar Backup</div><div class="cfg-sub">Salvar todos os dados em arquivo JSON</div></div><button class="cfg-btn cfg-sound" onclick="exportBackup()">📤 EXPORTAR</button></div>
+      <div class="cfg-row"><div><div class="cfg-label">Importar Backup</div><div class="cfg-sub">Restaurar dados de arquivo JSON</div></div><input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this.files[0])"><button class="cfg-btn cfg-sound" onclick="document.getElementById('importFile').click()">📥 IMPORTAR</button></div>
+      <div class="cfg-row"><div><div class="cfg-label">Exportar CSV</div><div class="cfg-sub">Planilha com todas as contas</div></div><button class="cfg-btn cfg-test" onclick="exportToCSV()">📊 CSV</button></div>
     </div>
 
     <div class="cfg-section">
       <div class="cfg-section-title">Dados</div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Histórico Salvo</div><div class="cfg-sub">Contas pagas por 90 dias</div></div>
-        <span id="cfgCount" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan)">—</span>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Ativar Notificações</div><div class="cfg-sub">Permissão do navegador</div></div>
-        <button class="cfg-btn" onclick="reqNotif()">ATIVAR</button>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Limpar Tudo</div><div class="cfg-sub">Apagar todas as contas</div></div>
-        <button class="cfg-btn danger" onclick="clearAll()">LIMPAR</button>
-      </div>
+      <div class="cfg-row"><div><div class="cfg-label">Histórico Salvo</div><div class="cfg-sub">Contas pagas por 90 dias</div></div><span id="cfgCount" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan)">—</span></div>
+      <div class="cfg-row"><div><div class="cfg-label">Limpar Tudo</div><div class="cfg-sub">Apagar todas as contas</div></div><button class="cfg-btn danger" onclick="clearAll()">LIMPAR</button></div>
     </div>
 
     <div class="cfg-section" id="cfgPwaSection" style="display:none">
       <div class="cfg-section-title">Instalar App</div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Adicionar à Tela Inicial</div><div class="cfg-sub">Instalar como app nativo</div></div>
-        <button class="cfg-btn cfg-install" id="btnInstall" onclick="triggerInstall()">INSTALAR</button>
-      </div>
+      <div class="cfg-row"><div><div class="cfg-label">Adicionar à Tela Inicial</div><div class="cfg-sub">Instalar como app nativo</div></div><button class="cfg-btn cfg-install" id="btnInstall" onclick="triggerInstall()">INSTALAR</button></div>
     </div>
 
-    <p class="privacy-hint">PROJECT A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br>
-      <span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Service Worker: verificando…</span>
-    </p>
+    <p class="privacy-hint">PROJECT A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Service Worker: verificando…</span></p>
   </div>
 
-  <!-- FOOTER -->
   <nav class="footer">
     <div class="footer-btn active" onclick="goTab(0,this)"><div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="url(#i0)"/></svg></div><span class="f-label">Início</span></div>
     <div class="footer-btn" onclick="goTab(1,this)"><div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><rect x="2" y="5" width="20" height="14" rx="2" fill="url(#i1)"/><rect x="2" y="8" width="20" height="3" fill="rgba(0,0,0,.3)"/><rect x="6" y="13" width="4" height="2" rx="1" fill="rgba(0,0,0,.4)"/></svg></div><span class="f-label">Pagamentos</span></div>
@@ -807,7 +686,6 @@ html, body {
   </nav>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -816,12 +694,7 @@ html, body {
     <div class="inp-grp"><label>Valor (R$)</label><input type="number" id="inpValue" placeholder="0,00" inputmode="decimal" step="0.01"/></div>
     <div class="inp-grp"><label>Data de Vencimento</label><input type="date" id="inpDate"/></div>
     <div class="inp-grp"><label>Categoria</label>
-      <select id="inpCat">
-        <option value="agua">💧 Conta de Água</option><option value="energia">⚡ Energia Elétrica</option>
-        <option value="aluguel">🏠 Aluguel</option><option value="condominio">🏢 Condomínio</option>
-        <option value="saude">❤️ Plano de Saúde</option><option value="internet">📡 Internet</option>
-        <option value="outros">📋 Outros</option>
-      </select>
+      <select id="inpCat"><option value="agua">💧 Conta de Água</option><option value="energia">⚡ Energia Elétrica</option><option value="aluguel">🏠 Aluguel</option><option value="condominio">🏢 Condomínio</option><option value="saude">❤️ Plano de Saúde</option><option value="internet">📡 Internet</option><option value="outros">📋 Outros</option></select>
     </div>
     <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" fill="#cc88ff"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#cc88ff"/></svg>USAR VOZ</button>
     <div class="voice-status" id="voiceStatus"></div>
@@ -834,20 +707,18 @@ html, body {
 
 <script>
 // ============================================================================
-// PROJETO A - VERSÃO COMPLETA
-// - GATE com chave: Rennovation15@
-// - Ícone PROJECT A restaurado
-// - Todas as funcionalidades originais preservadas
+// PROJETO A - VERSÃO COMPLETA CORRIGIDA
+// - Som, vibração e flash funcionando
+// - Volume controlando o ganho real do áudio
+// - Alertas automáticos sem necessidade de seleção
 // ============================================================================
 
-// ==================== GATE ACCESS CONTROL ====================
+// GATE ACCESS
 function verifyGate() {
   const input = document.getElementById('gatePassword').value;
-  const key = 'Rennovation15@';
-  if (input === key) {
+  if (input === 'Rennovation15@') {
     localStorage.setItem('access_granted', 'true');
     document.getElementById('gateOverlay').style.display = 'none';
-    // Inicializa o app após liberar acesso
     initApp();
   } else {
     document.getElementById('gateError').innerText = '❌ Chave inválida. Acesso negado.';
@@ -855,17 +726,15 @@ function verifyGate() {
 }
 
 function checkAccess() {
-  const granted = localStorage.getItem('access_granted');
-  if (granted === 'true') {
-    const gate = document.getElementById('gateOverlay');
-    if (gate) gate.style.display = 'none';
+  if (localStorage.getItem('access_granted') === 'true') {
+    document.getElementById('gateOverlay').style.display = 'none';
     initApp();
   }
 }
 
-// ==================== DECLARAÇÕES GLOBAIS ====================
+// DECLARAÇÕES GLOBAIS
 let bills = [];
-let settings = { blur: true, alerts: true, sound: true, vibrate: true, volume: 80 };
+let settings = { blur: true, sound: true, vibrate: true, volume: 80 };
 let alertTimes = { eve: "21:00", due: "09:00" };
 let firedAlerts = new Set();
 let scheduledTimeouts = [];
@@ -875,22 +744,13 @@ let calY, calM;
 let recognition = null;
 let isListening = false;
 let audioContext = null;
-let swRegistration = null;
 
-// ==================== UTILITÁRIOS ====================
+// UTILITÁRIOS
 const sanitizeText = (str) => {
   if (!str) return '';
-  return String(str)
-    .replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m))
-    .replace(/javascript:/gi, '')
-    .replace(/on\w+\s*=/gi, '')
-    .replace(/<script/gi, '&lt;script')
-    .replace(/<\/script/gi, '&lt;/script');
+  return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m)).replace(/javascript:/gi, '').replace(/on\w+\s*=/gi, '').replace(/<script/gi, '&lt;script').replace(/<\/script/gi, '&lt;/script');
 };
-const esc = (s) => {
-  if (!s) return '';
-  return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m));
-};
+const esc = (s) => { if (!s) return ''; return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m)); };
 const fmtAmt = (v) => (v == null ? 'R$ …' : 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 const fmtDate = (iso) => { if (!iso) return ''; const [y, m, d] = iso.split('-'); return `${d}/${m}/${y}`; };
 const isOD = (b) => !b.paid && b.dueDate < new Date().toISOString().split('T')[0];
@@ -910,26 +770,15 @@ const ICONS = {
   outros: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z" fill="#aaa"/></svg>`,
 };
 
-// ==================== PERSISTÊNCIA ====================
+// PERSISTÊNCIA
 const saveFA = () => { try { localStorage.setItem('pA_fired', JSON.stringify([...firedAlerts])); } catch(e) {} };
 const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stringify(settings)); } catch(e) {} };
-const saveAlertTimes = () => { 
-  try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} 
-  showToast('✓ Horários salvos!');
-  rescheduleAllAlerts();
-};
+const saveAlertTimes = () => { try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} showToast('✓ Horários salvos!'); rescheduleAllAlerts(); };
 const saveBills = () => { try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch(e) {} };
 
 function loadSettings() {
-  try {
-    const saved = localStorage.getItem('pA_settings');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      settings = { ...settings, ...parsed };
-    }
-  } catch(e) {}
+  try { const saved = localStorage.getItem('pA_settings'); if (saved) { const parsed = JSON.parse(saved); settings = { ...settings, ...parsed }; } } catch(e) {}
   document.getElementById('tBlur')?.classList.toggle('on', settings.blur);
-  document.getElementById('tAlerts')?.classList.toggle('on', settings.alerts);
   document.getElementById('tSound')?.classList.toggle('on', settings.sound);
   document.getElementById('tVibrate')?.classList.toggle('on', settings.vibrate);
   const volSlider = document.getElementById('alertVolume');
@@ -937,13 +786,7 @@ function loadSettings() {
 }
 
 function loadAlertTimes() {
-  try {
-    const saved = localStorage.getItem('pA_alertTimes');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      alertTimes = { ...alertTimes, ...parsed };
-    }
-  } catch(e) {}
+  try { const saved = localStorage.getItem('pA_alertTimes'); if (saved) { const parsed = JSON.parse(saved); alertTimes = { ...alertTimes, ...parsed }; } } catch(e) {}
   const eveInput = document.getElementById('eveTime');
   const dueInput = document.getElementById('dueTime');
   if (eveInput) eveInput.value = alertTimes.eve;
@@ -957,15 +800,9 @@ function loadBills() {
       const parsed = JSON.parse(raw);
       const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
       bills = parsed.filter(b => !b.paid || (b.paidAt && b.paidAt > cutoff));
-    } else {
-      seedDefaults();
-    }
+    } else { seedDefaults(); }
   } catch(e) { seedDefaults(); }
-  try {
-    const firedRaw = localStorage.getItem('pA_fired');
-    if (firedRaw) firedAlerts = new Set(JSON.parse(firedRaw));
-    else firedAlerts.clear();
-  } catch(e) { firedAlerts.clear(); }
+  try { const firedRaw = localStorage.getItem('pA_fired'); if (firedRaw) firedAlerts = new Set(JSON.parse(firedRaw)); } catch(e) { firedAlerts.clear(); }
 }
 
 function seedDefaults() {
@@ -991,7 +828,7 @@ function saveCurrentAlertTimesToStorage() {
   saveAlertTimes();
 }
 
-// ==================== BACKUP E CSV ====================
+// BACKUP E CSV
 function exportBackup() {
   const data = { bills, settings, alertTimes, version: "1.0", exportDate: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -1016,7 +853,6 @@ function importBackup(file) {
       saveBills(); saveSettings(); saveAlertTimes();
       render();
       rescheduleAllAlerts();
-      updateAppBadge();
       showToast("✓ Backup restaurado!");
     } catch(err) { showToast("❌ Arquivo inválido!"); }
   };
@@ -1025,14 +861,7 @@ function importBackup(file) {
 
 function exportToCSV() {
   const headers = ["Nome", "Valor", "Data Vencimento", "Status", "Data Pagamento", "Categoria"];
-  const rows = bills.map(b => [
-    `"${b.name.replace(/"/g, '""')}"`,
-    b.amount ? b.amount.toString().replace('.', ',') : "",
-    b.dueDate,
-    b.paid ? "Pago" : (isOD(b) ? "Vencido" : "Pendente"),
-    b.paidDate || "",
-    CAT_LABEL[b.category] || b.category
-  ]);
+  const rows = bills.map(b => [`"${b.name.replace(/"/g, '""')}"`, b.amount ? b.amount.toString().replace('.', ',') : "", b.dueDate, b.paid ? "Pago" : (isOD(b) ? "Vencido" : "Pendente"), b.paidDate || "", CAT_LABEL[b.category] || b.category]);
   const csvContent = [headers, ...rows].map(row => row.join(",")).join("\n");
   const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
@@ -1044,56 +873,47 @@ function exportToCSV() {
   showToast("✓ CSV exportado!");
 }
 
-// ==================== BADGE ====================
-function updateAppBadge() {
-  if (!navigator.setAppBadge) return;
-  const today = new Date().toISOString().split('T')[0];
-  const pendingToday = bills.filter(b => !b.paid && b.dueDate === today).length;
-  if (pendingToday > 0) navigator.setAppBadge(pendingToday);
-  else navigator.clearAppBadge();
-}
-
-// ==================== ÁUDIO ====================
+// ÁUDIO, VIBRAÇÃO E FLASH (CORRIGIDOS)
 function flashScreen() {
   const flash = document.getElementById('flashOverlay');
-  if (flash) { flash.style.opacity = '0.7'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
+  if (flash) { flash.style.opacity = '0.8'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
 }
 
-function playBeep(forceTest = false) {
-  if (!settings.sound && !forceTest) return;
+function playAlertSound() {
+  if (!settings.sound) return;
   flashScreen();
   if (audioContext) { try { audioContext.close(); } catch(e) {} audioContext = null; }
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     const ctx = new AudioCtx();
     audioContext = ctx;
-    const volume = (forceTest ? 100 : settings.volume) / 100;
+    const volume = Math.min(1, Math.max(0, settings.volume / 100));
     const start = ctx.currentTime;
-    const pattern = [{ time: 0, freq: 880 }, { time: 0.6, freq: 880 }, { time: 1.2, freq: 880 }, { time: 1.8, freq: 880 }, { time: 2.4, freq: 880 }];
-    pattern.forEach(p => {
+    for (let i = 0; i < 3; i++) {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.type = 'sawtooth';
-      osc.frequency.value = p.freq;
-      gain.gain.setValueAtTime(0.35 * volume, start + p.time);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.4);
-      osc.start(start + p.time);
-      osc.stop(start + p.time + 0.4);
-    });
-    if (!forceTest && settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400, 200, 400, 200, 400]);
-    setTimeout(() => { if (audioContext === ctx) { try { ctx.close(); } catch(e) {} audioContext = null; } }, 3200);
+      osc.frequency.value = 880;
+      gain.gain.setValueAtTime(0.3 * volume, start + i * 0.8);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + i * 0.8 + 0.5);
+      osc.start(start + i * 0.8);
+      osc.stop(start + i * 0.8 + 0.5);
+    }
+    setTimeout(() => { if (audioContext === ctx) { try { ctx.close(); } catch(e) {} audioContext = null; } }, 3000);
   } catch(e) { console.warn('Erro no áudio', e); }
 }
 
-// ==================== ALERTAS ====================
+function vibrateDevice() {
+  if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400, 200, 400]);
+}
+
+// ALERTAS AUTOMÁTICOS
 function scheduleSingleAlert(bill, type) {
-  if (!settings.alerts) return;
   const now = new Date();
   const dueDate = new Date(bill.dueDate + 'T00:00:00');
   if (dueDate < now) return;
-  
   let targetDate;
   if (type === 'eve') {
     targetDate = new Date(dueDate);
@@ -1105,22 +925,18 @@ function scheduleSingleAlert(bill, type) {
     const [hour, minute] = alertTimes.due.split(':').map(Number);
     targetDate.setHours(hour, minute, 0, 0);
   }
-  
   const delay = targetDate.getTime() - now.getTime();
   if (delay <= 0 || delay > 30 * 86400000) return;
-  
-  const key = `${bill.id}_${type}_${targetDate.toISOString().split('T')[0]}_${type === 'eve' ? alertTimes.eve : alertTimes.due}`;
+  const key = `${bill.id}_${type}_${targetDate.toISOString().split('T')[0]}`;
   if (firedAlerts.has(key)) return;
-  
   const tid = setTimeout(() => {
     if (!firedAlerts.has(key)) {
       firedAlerts.add(key);
       saveFA();
-      const msg = type === 'eve' ? `⏰ ${bill.name} vence AMANHÃ!` : `🚨 ${bill.name} vence HOJE!`;
-      showToast(msg);
-      if (settings.sound) playBeep();
-      if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
-      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: msg });
+      showToast(type === 'eve' ? `⏰ ${bill.name} vence AMANHÃ!` : `🚨 ${bill.name} vence HOJE!`);
+      playAlertSound();
+      vibrateDevice();
+      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: type === 'eve' ? `${bill.name} vence amanhã!` : `${bill.name} vence hoje!` });
     }
   }, delay);
   scheduledTimeouts.push(tid);
@@ -1129,7 +945,6 @@ function scheduleSingleAlert(bill, type) {
 function rescheduleAllAlerts() {
   for (const tid of scheduledTimeouts) clearTimeout(tid);
   scheduledTimeouts = [];
-  if (!settings.alerts) return;
   for (const bill of bills) {
     if (bill.paid) continue;
     scheduleSingleAlert(bill, 'eve');
@@ -1138,7 +953,6 @@ function rescheduleAllAlerts() {
 }
 
 function checkAlertsNow() {
-  if (!settings.alerts) return;
   const now = new Date();
   const todayStr = now.toISOString().split('T')[0];
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
@@ -1153,20 +967,18 @@ function checkAlertsNow() {
     const prevDateObj = new Date(dueDateOnly);
     prevDateObj.setDate(prevDateObj.getDate() - 1);
     const prevDateStr = prevDateObj.toISOString().split('T')[0];
-    const eveKey = `${bill.id}_eve_${prevDateStr}_${alertTimes.eve}`;
-    if (prevDateStr === todayStr && isWithinTolerance(targetEveMinutes) && !firedAlerts.has(eveKey)) {
-      firedAlerts.add(eveKey); saveFA();
+    if (prevDateStr === todayStr && isWithinTolerance(targetEveMinutes) && !firedAlerts.has(`${bill.id}_eve_${todayStr}`)) {
+      firedAlerts.add(`${bill.id}_eve_${todayStr}`); saveFA();
       showToast(`⏰ ${bill.name} vence AMANHÃ!`);
-      if (settings.sound) playBeep();
-      if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      playAlertSound();
+      vibrateDevice();
       if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence amanhã!` });
     }
-    const dueKey = `${bill.id}_due_${dueDateOnly}_${alertTimes.due}`;
-    if (dueDateOnly === todayStr && isWithinTolerance(targetDueMinutes) && !firedAlerts.has(dueKey)) {
-      firedAlerts.add(dueKey); saveFA();
+    if (dueDateOnly === todayStr && isWithinTolerance(targetDueMinutes) && !firedAlerts.has(`${bill.id}_due_${todayStr}`)) {
+      firedAlerts.add(`${bill.id}_due_${todayStr}`); saveFA();
       showToast(`🚨 ${bill.name} vence HOJE!`);
-      if (settings.sound) playBeep();
-      if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      playAlertSound();
+      vibrateDevice();
       if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence hoje!` });
     }
   }
@@ -1175,60 +987,38 @@ function checkAlertsNow() {
 let alertInterval = null;
 function startAlertWatcher() {
   if (alertInterval) clearInterval(alertInterval);
-  alertInterval = setInterval(() => { if (settings.alerts) checkAlertsNow(); }, 60000);
+  alertInterval = setInterval(() => checkAlertsNow(), 60000);
   checkAlertsNow();
 }
 
-// ==================== SERVICE WORKER ====================
+// SERVICE WORKER
 function registerSW() {
-  if (!('serviceWorker' in navigator)) {
-    document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
-    rescheduleAllAlerts();
-    return;
-  }
+  if (!('serviceWorker' in navigator)) { document.getElementById('swStatus').textContent = 'Service Worker: não suportado'; rescheduleAllAlerts(); return; }
   const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => e.waitUntil(self.clients.claim())); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));`;
   const blob = new Blob([swCode], { type: 'application/javascript' });
   const url = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(url, { scope: './' })
-    .then(reg => { swRegistration = reg; document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo'; rescheduleAllAlerts(); })
-    .catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; rescheduleAllAlerts(); });
+  navigator.serviceWorker.register(url, { scope: './' }).then(() => { document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo'; rescheduleAllAlerts(); }).catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; rescheduleAllAlerts(); });
 }
 
-// ==================== FUNÇÕES DE UI ====================
+// FUNÇÕES DE UI
 function updateAlertBanner() {
   const today = new Date().toISOString().split('T')[0];
   const dueToday = bills.filter(b => !b.paid && b.dueDate === today);
-  const titleEl = document.getElementById('alertTitle');
-  const subEl = document.getElementById('alertSub');
-  if (dueToday.length > 0) {
-    titleEl.innerHTML = `🔔 ${dueToday.length} CONTA${dueToday.length > 1 ? 'S' : ''} VENCE${dueToday.length > 1 ? 'M' : ''} HOJE!`;
-    subEl.innerHTML = dueToday.map(b => esc(b.name)).join(', ');
-  } else {
-    titleEl.innerHTML = '✅ TUDO EM DIA';
-    subEl.innerHTML = 'Nenhum vencimento para hoje';
-  }
-  updateAppBadge();
+  const titleEl = document.getElementById('alertTitle'); const subEl = document.getElementById('alertSub');
+  if (dueToday.length > 0) { titleEl.innerHTML = `🔔 ${dueToday.length} CONTA${dueToday.length > 1 ? 'S' : ''} VENCE${dueToday.length > 1 ? 'M' : ''} HOJE!`; subEl.innerHTML = dueToday.map(b => esc(b.name)).join(', '); }
+  else { titleEl.innerHTML = '✅ TUDO EM DIA'; subEl.innerHTML = 'Nenhum vencimento para hoje'; }
 }
 
 function makeCard(b) {
-  const card = document.createElement('div');
-  card.className = 'bill-card' + (b.paid ? ' paid' : '');
+  const card = document.createElement('div'); card.className = 'bill-card' + (b.paid ? ' paid' : '');
   const bc = b.blurred ? ' blurred' : '';
   const icon = ICONS[b.category] || ICONS.outros;
   const date = b.paid && b.paidDate ? `Pago em ${fmtDate(b.paidDate)}` : `Vence em ${fmtDate(b.dueDate)}`;
-  if (b.paid) {
-    card.innerHTML = `<div class="paid-check"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#00e676"/></svg></div><div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div><div class="bill-amount${bc}">${fmtAmt(b.amount)}</div>`;
-  } else {
-    card.innerHTML = `<div class="bill-icon">${icon}</div><div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div><div class="bill-amount${bc}">${fmtAmt(b.amount)}</div><button class="pay-btn" onclick="event.stopPropagation();payBill('${b.id}')">PAGAR</button>`;
-  }
-  card.addEventListener('click', e => {
-    if (e.target.classList.contains('pay-btn')) return;
+  if (b.paid) { card.innerHTML = `<div class="paid-check"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#00e676"/></svg></div><div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div><div class="bill-amount${bc}">${fmtAmt(b.amount)}</div>`; }
+  else { card.innerHTML = `<div class="bill-icon">${icon}</div><div class="bill-info"><div class="bill-name${bc}">${esc(b.name)}</div><div class="bill-date">${date}</div></div><div class="bill-amount${bc}">${fmtAmt(b.amount)}</div><button class="pay-btn" onclick="event.stopPropagation();payBill('${b.id}')">PAGAR</button>`; }
+  card.addEventListener('click', e => { if (e.target.classList.contains('pay-btn')) return;
     const bill = bills.find(x => x.id === b.id);
-    if (bill) {
-      bill.blurred = !bill.blurred;
-      saveBills();
-      card.querySelectorAll('.bill-name, .bill-amount').forEach(el => el.classList.toggle('blurred', bill.blurred));
-    }
+    if (bill) { bill.blurred = !bill.blurred; saveBills(); card.querySelectorAll('.bill-name, .bill-amount').forEach(el => el.classList.toggle('blurred', bill.blurred)); }
   });
   return card;
 }
@@ -1236,12 +1026,10 @@ function makeCard(b) {
 function render() {
   const upcoming = bills.filter(b => !b.paid).sort((a, b) => a.dueDate.localeCompare(b.dueDate));
   const paid = bills.filter(b => b.paid).sort((a, b) => (b.paidAt || 0) - (a.paidAt || 0));
-  const upcomingDiv = document.getElementById('upcomingList');
-  upcomingDiv.innerHTML = '';
+  const upcomingDiv = document.getElementById('upcomingList'); upcomingDiv.innerHTML = '';
   if (!upcoming.length) upcomingDiv.innerHTML = '<div class="empty-state">Nenhum vencimento pendente.</div>';
   else upcoming.forEach(b => upcomingDiv.appendChild(makeCard(b)));
-  const paidDiv = document.getElementById('paidList');
-  paidDiv.innerHTML = '';
+  const paidDiv = document.getElementById('paidList'); paidDiv.innerHTML = '';
   if (!paid.length) paidDiv.innerHTML = '<div class="empty-state">Nenhuma conta paga ainda.</div>';
   else paid.forEach(b => paidDiv.appendChild(makeCard(b)));
   if (currentTab === 1) renderPag();
@@ -1259,8 +1047,7 @@ function renderPag() {
   if (pagFilter === 'pending') list = list.filter(b => !b.paid && b.dueDate >= today);
   if (pagFilter === 'paid') list = list.filter(b => b.paid);
   if (pagFilter === 'overdue') list = list.filter(b => !b.paid && b.dueDate < today);
-  const container = document.getElementById('pagList');
-  container.innerHTML = '';
+  const container = document.getElementById('pagList'); container.innerHTML = '';
   if (!list.length) { container.innerHTML = '<div class="empty-state">Nenhuma conta neste filtro.</div>'; return; }
   for (const b of list) {
     const overdue = isOD(b);
@@ -1268,8 +1055,7 @@ function renderPag() {
     if (b.paid) { badge = 'PAGO'; cls = 'paid'; }
     else if (overdue) { badge = 'VENCIDO'; cls = 'overdue'; }
     else { badge = 'PENDENTE'; cls = 'pending'; }
-    const row = document.createElement('div');
-    row.className = 'pag-row';
+    const row = document.createElement('div'); row.className = 'pag-row';
     row.innerHTML = `<div class="pag-dot" style="background:${CAT_COLOR[b.category] || '#aaa'};box-shadow:0 0 6px ${CAT_COLOR[b.category] || '#aaa'}"></div>
       <div class="pag-info"><div class="pag-name">${esc(b.name)}</div><div class="pag-date">${b.paid ? 'Pago em ' + fmtDate(b.paidDate) : 'Vence ' + fmtDate(b.dueDate)}</div></div>
       <div class="pag-amt">${fmtAmt(b.amount)}</div>
@@ -1302,11 +1088,9 @@ function renderSummary() {
     catMap[b.category].count++;
     catMap[b.category].total += b.amount || 0;
   }
-  const catDiv = document.getElementById('catBreakdown');
-  catDiv.innerHTML = '';
+  const catDiv = document.getElementById('catBreakdown'); catDiv.innerHTML = '';
   for (const [cat, data] of Object.entries(catMap).sort((a, b) => b[1].total - a[1].total)) {
-    const row = document.createElement('div');
-    row.className = 'cat-row';
+    const row = document.createElement('div'); row.className = 'cat-row';
     row.innerHTML = `<div class="cat-dot" style="background:${CAT_COLOR[cat] || '#aaa'};box-shadow:0 0 5px ${CAT_COLOR[cat] || '#aaa'}"></div>
       <div class="cat-name">${CAT_LABEL[cat] || cat}</div><div class="cat-cnt">${data.count}×</div>
       <div class="cat-tot">${fmtAmt(data.total)}</div>`;
@@ -1316,7 +1100,7 @@ function renderSummary() {
 }
 
 function renderCfg() {
-  const toggles = [['blur', 'tBlur'], ['alerts', 'tAlerts'], ['sound', 'tSound'], ['vibrate', 'tVibrate']];
+  const toggles = [['blur', 'tBlur'], ['sound', 'tSound'], ['vibrate', 'tVibrate']];
   for (const [k, id] of toggles) {
     const el = document.getElementById(id);
     if (el) el.classList.toggle('on', settings[k]);
@@ -1330,17 +1114,6 @@ function renderCfg() {
   if (dueInput) dueInput.value = alertTimes.due;
   const volSlider = document.getElementById('alertVolume');
   if (volSlider) volSlider.value = settings.volume;
-  const testSelect = document.getElementById('testBillSelect');
-  if (testSelect) {
-    const pending = bills.filter(b => !b.paid);
-    testSelect.innerHTML = '<option value="">-- selecione uma conta --</option>';
-    for (const b of pending) {
-      const opt = document.createElement('option');
-      opt.value = b.id;
-      opt.textContent = `${b.name} (${fmtDate(b.dueDate)}) - ${fmtAmt(b.amount)}`;
-      testSelect.appendChild(opt);
-    }
-  }
 }
 
 function goTab(idx, btn) {
@@ -1372,12 +1145,12 @@ function payBill(id) {
   saveBills();
   render();
   showToast(`✓ ${bill.name} marcada como paga!`);
-  if (settings.sound) playBeep();
-  if (settings.vibrate && navigator.vibrate) navigator.vibrate(200);
+  playAlertSound();
+  vibrateDevice();
   rescheduleAllAlerts();
 }
 
-// ==================== CALENDÁRIO ====================
+// CALENDÁRIO
 function calInit() { const n = new Date(); calY = n.getFullYear(); calM = n.getMonth(); }
 function calShift(d) { calM += d; if (calM < 0) { calM = 11; calY--; } if (calM > 11) { calM = 0; calY++; } renderCal(); }
 function onDateClick(y, m, d) {
@@ -1408,12 +1181,9 @@ function renderCal() {
       dueDays[d].push(b);
     }
   }
-  const grid = document.getElementById('calGrid');
-  grid.innerHTML = '';
+  const grid = document.getElementById('calGrid'); grid.innerHTML = '';
   for (let i = 0; i < firstDay; i++) {
-    const empty = document.createElement('div');
-    empty.className = 'cal-cell';
-    grid.appendChild(empty);
+    const empty = document.createElement('div'); empty.className = 'cal-cell'; grid.appendChild(empty);
   }
   for (let d = 1; d <= daysInMonth; d++) {
     const iso = `${calY}-${String(calM + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
@@ -1422,15 +1192,10 @@ function renderCal() {
     cell.className = 'cal-cell' + (iso === todayStr ? ' today' : '') + (dueDays[d] ? (overdue ? ' overdue-day' : ' has-bill') : '');
     cell.textContent = d;
     cell.onclick = (() => onDateClick(calY, calM, d));
-    if (dueDays[d]) {
-      const dot = document.createElement('div');
-      dot.className = 'cal-dot';
-      cell.appendChild(dot);
-    }
+    if (dueDays[d]) { const dot = document.createElement('div'); dot.className = 'cal-dot'; cell.appendChild(dot); }
     grid.appendChild(cell);
   }
-  const eventsDiv = document.getElementById('calEvents');
-  eventsDiv.innerHTML = '';
+  const eventsDiv = document.getElementById('calEvents'); eventsDiv.innerHTML = '';
   const monthBills = bills.filter(b => {
     if (!b.dueDate || b.paid) return false;
     const [y, m] = b.dueDate.split('-').map(Number);
@@ -1440,8 +1205,7 @@ function renderCal() {
   for (const b of monthBills) {
     const [yy, mm, dd] = b.dueDate.split('-').map(Number);
     const past = b.dueDate < todayStr;
-    const row = document.createElement('div');
-    row.className = 'cal-event-row';
+    const row = document.createElement('div'); row.className = 'cal-event-row';
     row.onclick = () => showToast(`📌 ${b.name} - ${fmtAmt(b.amount)} - Vence em ${fmtDate(b.dueDate)}`);
     row.innerHTML = `<div class="cal-event-day${past ? ' past' : ''}">${dd}</div>
       <div class="cal-event-info"><div class="cal-event-name">${esc(b.name)}</div><div class="cal-event-amount">${fmtAmt(b.amount)}</div></div>
@@ -1450,7 +1214,7 @@ function renderCal() {
   }
 }
 
-// ==================== MODAL, VOZ, CONFIGURAÇÕES ====================
+// MODAL, VOZ, CONFIGURAÇÕES
 function openModal() {
   document.getElementById('inpDate').value = new Date().toISOString().split('T')[0];
   document.getElementById('inpName').value = '';
@@ -1458,10 +1222,7 @@ function openModal() {
   document.getElementById('voiceStatus').textContent = '';
   document.getElementById('modalOverlay').classList.add('open');
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  if (isListening) stopVoice();
-}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); if (isListening) stopVoice(); }
 function overlayClick(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 function saveBill() {
   let name = document.getElementById('inpName').value.trim();
@@ -1472,18 +1233,10 @@ function saveBill() {
   if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
   name = sanitizeText(name);
   const today = new Date().toISOString().split('T')[0];
-  let paid = false;
-  let paidDate = null;
-  let paidAt = null;
+  let paid = false, paidDate = null, paidAt = null;
   if (date < today) {
-    if (confirm("⚠ Esta data já passou. Deseja marcar esta conta como PAGA?")) {
-      paid = true;
-      paidDate = today;
-      paidAt = Date.now();
-    } else {
-      showToast("⚠ Por favor, ajuste a data para o futuro.");
-      return;
-    }
+    if (confirm("⚠ Esta data já passou. Deseja marcar esta conta como PAGA?")) { paid = true; paidDate = today; paidAt = Date.now(); }
+    else { showToast("⚠ Por favor, ajuste a data para o futuro."); return; }
   }
   bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid, paidDate, paidAt, blurred: settings.blur });
   saveBills();
@@ -1491,31 +1244,32 @@ function saveBill() {
   closeModal();
   showToast(paid ? "✓ Conta adicionada como PAGA!" : "✓ Conta adicionada!");
   rescheduleAllAlerts();
+  // Testa se precisa disparar alerta agora (se a data for hoje e horário atual >= configurado)
+  if (!paid && date === today) {
+    const now = new Date();
+    const targetDueMinutes = parseInt(alertTimes.due.split(':')[0]) * 60 + parseInt(alertTimes.due.split(':')[1]);
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    if (currentMinutes >= targetDueMinutes && !firedAlerts.has(`${uid()}_due_${today}`)) {
+      firedAlerts.add(`${uid()}_due_${today}`);
+      saveFA();
+      showToast(`🚨 ${name} vence HOJE!`);
+      playAlertSound();
+      vibrateDevice();
+      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${name} vence hoje!` });
+    }
+  }
 }
 
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
 function startVoice() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) { showToast('⚠ Voz não suportada'); return; }
-  recognition = new SR();
-  recognition.lang = 'pt-BR';
-  recognition.continuous = false;
-  recognition.interimResults = true;
-  recognition.onresult = (e) => {
-    const transcript = e.results[e.results.length - 1][0].transcript;
-    document.getElementById('voiceStatus').textContent = '📝 ' + transcript;
-    parseVoice(transcript);
-  };
+  recognition = new SR(); recognition.lang = 'pt-BR'; recognition.continuous = false; recognition.interimResults = true;
+  recognition.onresult = (e) => { const transcript = e.results[e.results.length - 1][0].transcript; document.getElementById('voiceStatus').textContent = '📝 ' + transcript; parseVoice(transcript); };
   recognition.onerror = () => { showToast('⚠ Erro no reconhecimento'); stopVoice(); };
-  recognition.start();
-  isListening = true;
-  document.getElementById('voiceBtn').classList.add('listening');
+  recognition.start(); isListening = true; document.getElementById('voiceBtn').classList.add('listening');
 }
-function stopVoice() {
-  if (recognition) { try { recognition.stop(); } catch(e) {} recognition = null; }
-  isListening = false;
-  document.getElementById('voiceBtn').classList.remove('listening');
-}
+function stopVoice() { if (recognition) { try { recognition.stop(); } catch(e) {} recognition = null; } isListening = false; document.getElementById('voiceBtn').classList.remove('listening'); }
 function parseVoice(text) {
   const low = text.toLowerCase();
   let amount = null;
@@ -1532,141 +1286,33 @@ function parseVoice(text) {
       dueDate = candidate.toISOString().split('T')[0];
     }
   }
-  let name = low
-    .replace(/valor[:\s]*[\d.,]+/gi, '')
-    .replace(/[\d.,]+\s*reais/gi, '')
-    .replace(/r?\$\s*[\d.,]+/gi, '')
-    .replace(/(?:vencimento|vence|dia|data)[:\s]*\d{1,2}/gi, '')
-    .replace(/no dia\s*\d{1,2}/gi, '')
-    .replace(/\d+/g, '')
-    .replace(/[,.]/g, ' ')
-    .replace(/\b(o|a|os|as|um|uma|de|do|da|no|na|em|e|para|meu|minha|conta|pagar|falar|adicionar|registrar)\b/gi, '')
-    .replace(/\s{2,}/g, ' ')
-    .trim();
-  if (name.length > 1) {
-    name = name.replace(/\b\w/g, c => c.toUpperCase());
-    document.getElementById('inpName').value = sanitizeText(name);
-  }
+  let name = low.replace(/valor[:\s]*[\d.,]+/gi, '').replace(/[\d.,]+\s*reais/gi, '').replace(/r?\$\s*[\d.,]+/gi, '').replace(/(?:vencimento|vence|dia|data)[:\s]*\d{1,2}/gi, '').replace(/no dia\s*\d{1,2}/gi, '').replace(/\d+/g, '').replace(/[,.]/g, ' ').replace(/\b(o|a|os|as|um|uma|de|do|da|no|na|em|e|para|meu|minha|conta|pagar|falar|adicionar|registrar)\b/gi, '').replace(/\s{2,}/g, ' ').trim();
+  if (name.length > 1) { name = name.replace(/\b\w/g, c => c.toUpperCase()); document.getElementById('inpName').value = sanitizeText(name); }
   if (amount !== null) document.getElementById('inpValue').value = amount.toFixed(2);
   if (dueDate) document.getElementById('inpDate').value = dueDate;
   document.getElementById('voiceStatus').textContent = '✓ Reconhecido - confirme e salve';
   stopVoice();
 }
 
-function simulateAlert(type) {
-  const select = document.getElementById('testBillSelect');
-  if (!select || !select.value) { showToast('⚠ Selecione uma conta pendente primeiro'); return; }
-  const bill = bills.find(b => b.id === select.value);
-  if (!bill || bill.paid) { showToast('⚠ Conta inválida ou já paga'); return; }
-  const msg = type === 'eve' ? `⏰ SIMULAÇÃO: ${bill.name} venceria AMANHÃ!` : `🚨 SIMULAÇÃO: ${bill.name} venceria HOJE!`;
-  showToast(msg);
-  if (settings.sound) playBeep(true);
-  if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400, 200, 400]);
-  if (Notification.permission === 'granted') {
-    new Notification('PROJECT A — SIMULAÇÃO', { body: msg, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
-  }
-}
-function testAlertNow() {
-  const pending = bills.filter(b => !b.paid);
-  if (!pending.length) { showToast('⚠ Nenhuma conta pendente para teste'); return; }
-  const bill = pending[0];
-  showToast(`🔔 TESTE RÁPIDO (10s): ${bill.name}`);
-  setTimeout(() => {
-    if (settings.sound) playBeep(true);
-    if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400]);
-    if (Notification.permission === 'granted') {
-      new Notification('PROJECT A — TESTE', { body: `Alerta simulado para ${bill.name}`, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
-    }
-    showToast(`🚨 ALERTA: ${bill.name}`);
-  }, 10000);
-}
+function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); if (k === 'sound') { if (settings.sound) playAlertSound(); } rescheduleAllAlerts(); }
+function updateVolume() { const slider = document.getElementById('alertVolume'); if (slider) { settings.volume = parseInt(slider.value, 10); saveSettings(); showToast(`Volume: ${settings.volume}%`); } }
+function clearAll() { if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return; bills = []; firedAlerts.clear(); saveBills(); saveFA(); render(); rescheduleAllAlerts(); showToast('✓ Dados apagados'); }
+function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
 
-function togSetting(k) { 
-  settings[k] = !settings[k]; 
-  saveSettings(); 
-  renderCfg(); 
-  showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`);
-  if (k === 'alerts') rescheduleAllAlerts();
-}
-function updateVolume() {
-  const slider = document.getElementById('alertVolume');
-  if (slider) {
-    settings.volume = parseInt(slider.value, 10);
-    saveSettings();
-    showToast(`Volume: ${settings.volume}%`);
-  }
-}
-function reqNotif() {
-  if (!('Notification' in window)) { showToast('⚠ Notificações não disponíveis'); return; }
-  Notification.requestPermission().then(p => showToast(p === 'granted' ? '✓ Notificações ativadas!' : '⚠ Permissão negada'));
-}
-function clearAll() {
-  if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return;
-  bills = [];
-  firedAlerts.clear();
-  saveBills();
-  saveFA();
-  render();
-  renderCfg();
-  rescheduleAllAlerts();
-  showToast('✓ Dados apagados');
-}
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
-}
-
-// ==================== PWA INSTALL ====================
+// PWA INSTALL
 let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  const sec = document.getElementById('cfgPwaSection');
-  if (sec) sec.style.display = 'block';
-});
-function triggerInstall() {
-  if (!deferredPrompt) { showToast('⚠ Use "Adicionar à tela inicial" no menu do navegador'); return; }
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-}
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; const sec = document.getElementById('cfgPwaSection'); if (sec) sec.style.display = 'block'; });
+function triggerInstall() { if (!deferredPrompt) { showToast('⚠ Use "Adicionar à tela inicial" no menu do navegador'); return; } deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { deferredPrompt = null; }); }
 
-// ==================== TESTE RÁPIDO ====================
-window.testAlertIn10Seconds = function() {
-  const pending = bills.filter(b => !b.paid);
-  if (!pending.length) { console.warn('Nenhuma conta pendente'); return; }
-  const bill = pending[0];
-  showToast(`🔔 TESTE RÁPIDO (10s): ${bill.name}`);
-  setTimeout(() => {
-    if (settings.sound) playBeep(true);
-    if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400]);
-    if (Notification.permission === 'granted') new Notification('PROJECT A — TESTE', { body: `Alerta para ${bill.name}`, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
-    showToast(`🚨 ALERTA: ${bill.name}`);
-  }, 10000);
-  console.log('Alarme de teste agendado para daqui 10 segundos.');
-};
-
-// ==================== INICIALIZAÇÃO ====================
+// INICIALIZAÇÃO
 function initApp() {
-  loadSettings();
-  loadAlertTimes();
-  loadBills();
-  calInit();
-  render();
-  registerSW();
-  startAlertWatcher();
+  loadSettings(); loadAlertTimes(); loadBills(); calInit(); render(); registerSW(); startAlertWatcher();
   setInterval(() => updateAlertBanner(), 60000);
   if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
-  const volSlider = document.getElementById('alertVolume');
-  if (volSlider) volSlider.addEventListener('input', updateVolume);
+  const volSlider = document.getElementById('alertVolume'); if (volSlider) volSlider.addEventListener('input', updateVolume);
 }
 
-// Verifica acesso e inicia (se já liberado, chama initApp direto)
-if (localStorage.getItem('access_granted') === 'true') {
-  document.getElementById('gateOverlay').style.display = 'none';
-  initApp();
-}
+checkAccess();
 </script>
 </body>
 </html>
