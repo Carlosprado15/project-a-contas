@@ -86,7 +86,7 @@ html, body {
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
   filter:drop-shadow(0 2px 4px rgba(0,0,0,.9));
 }
-.logo-sub { font-size:10px; letter-spacing:5px; color:var(--chrome-mid); margin-top:-2px; }
+.logo-sub { font-size:10px; letter-spacing:5px; color:var(--chrome-mid); margin-top:-2px; display:none; }
 .emblem-wrap { margin:8px auto 5px; width:74px; height:74px; }
 .emblem-svg { width:100%; height:100%; filter:drop-shadow(0 4px 12px rgba(0,0,0,.8)); }
 .tagline { font-size:11px; letter-spacing:2.5px; color:#aaa; text-transform:uppercase; margin-bottom:2px; }
@@ -525,9 +525,10 @@ html, body {
 }
 .toast.show { opacity:1; }
 
-.flash-overlay {
+/* STROBE FLASH OVERLAY */
+.strobe-overlay {
   position:fixed; top:0; left:0; right:0; bottom:0; background:white; z-index:9999;
-  pointer-events:none; opacity:0; transition:opacity 0.1s ease;
+  pointer-events:none; opacity:0; transition:opacity 0.05s ease;
 }
 
 /* GATE OVERLAY */
@@ -660,9 +661,9 @@ html, body {
       <div class="cfg-section-title">Notificações</div>
       <div class="cfg-row"><div><div class="cfg-label">Som de Alerta</div><div class="cfg-sub">Bipe ao disparar notificação</div></div><div class="toggle on" id="tSound" onclick="togSetting('sound')"><div class="toggle-thumb"></div></div></div>
       <div class="cfg-row"><div><div class="cfg-label">Vibração</div><div class="cfg-sub">Vibrar no alerta</div></div><div class="toggle on" id="tVibrate" onclick="togSetting('vibrate')"><div class="toggle-thumb"></div></div></div>
-      <div class="cfg-row"><div><div class="cfg-label">Volume do Alerta</div><div class="cfg-sub">0% (mudo) a 100% (máximo)</div></div>
+      <div class="cfg-row"><div><div class="cfg-label">Ganho de Áudio</div><div class="cfg-sub">Amplificação digital (0% a 200%)</div></div>
         <div style="display:flex; align-items:center; gap:8px;">
-          <input type="range" id="alertVolume" class="cfg-volume" min="0" max="100" value="80" style="width:100px;">
+          <input type="range" id="alertGain" class="cfg-volume" min="0" max="200" value="150" style="width:100px;">
           <button id="testSoundBtn" class="sound-test-btn">🔊 TESTAR</button>
         </div>
       </div>
@@ -722,14 +723,15 @@ html, body {
 </div>
 
 <div class="toast" id="toast"></div>
-<div id="flashOverlay" class="flash-overlay"></div>
+<div id="strobeOverlay" class="strobe-overlay"></div>
 
 <script>
 // ============================================================================
-// PROJECT A - VERSÃO COM SERVICE WORKER EXTERNO (SW.JS)
-// - O agendamento é enviado para o Service Worker que executa mesmo com app fechado
-// - O volume controla o ganho real do áudio (Web Audio API)
-// - Botão "TESTAR" desbloqueia o áudio e toca o som com o volume atual
+// PROJECT A - VERSÃO FINAL COM WEB AUDIO API, STROBE E VIBRAÇÃO AGRESSIVA
+// - Ganho digital até 200% (amplificação real)
+// - Strobe de tela (10Hz) no alerta
+// - Vibração longa e forte
+// - Service Worker com notificações persistentes
 // ============================================================================
 
 // GATE ACCESS
@@ -753,7 +755,7 @@ function checkAccess() {
 
 // DECLARAÇÕES GLOBAIS
 let bills = [];
-let settings = { blur: true, sound: true, vibrate: true, volume: 80 };
+let settings = { blur: true, sound: true, vibrate: true, gain: 150 };
 let alertTimes = { eve: "21:00", due: "09:00" };
 let firedAlerts = new Set();
 let currentTab = 0;
@@ -762,7 +764,11 @@ let calY, calM;
 let recognition = null;
 let isListening = false;
 let audioContext = null;
+let currentGainNode = null;
+let currentOscillator = null;
 let swRegistration = null;
+let strobeInterval = null;
+let isAlertPlaying = false;
 
 // UTILITÁRIOS
 const sanitizeText = (str) => {
@@ -800,8 +806,8 @@ function loadSettings() {
   document.getElementById('tBlur')?.classList.toggle('on', settings.blur);
   document.getElementById('tSound')?.classList.toggle('on', settings.sound);
   document.getElementById('tVibrate')?.classList.toggle('on', settings.vibrate);
-  const volSlider = document.getElementById('alertVolume');
-  if (volSlider) volSlider.value = settings.volume;
+  const gainSlider = document.getElementById('alertGain');
+  if (gainSlider) gainSlider.value = settings.gain;
 }
 
 function loadAlertTimes() {
@@ -892,52 +898,100 @@ function exportToCSV() {
   showToast("✓ CSV exportado!");
 }
 
-// ÁUDIO, VIBRAÇÃO E FLASH
-function flashScreen() {
-  const flash = document.getElementById('flashOverlay');
-  if (flash) { flash.style.opacity = '0.8'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
+// ==================== ÁUDIO COM GANHO DIGITAL (WEB AUDIO API) ====================
+function stopStrobe() {
+  if (strobeInterval) {
+    clearInterval(strobeInterval);
+    strobeInterval = null;
+  }
+  const strobe = document.getElementById('strobeOverlay');
+  if (strobe) strobe.style.opacity = '0';
+}
+
+function startStrobe() {
+  stopStrobe();
+  const strobe = document.getElementById('strobeOverlay');
+  let isWhite = true;
+  strobeInterval = setInterval(() => {
+    strobe.style.opacity = isWhite ? '0.9' : '0';
+    isWhite = !isWhite;
+  }, 100); // 10Hz = 100ms alternância
+  setTimeout(() => stopStrobe(), 3000);
 }
 
 function playAlertSound() {
   if (!settings.sound) return;
-  flashScreen();
-  if (audioContext) { try { audioContext.close(); } catch(e) {} audioContext = null; }
+  if (isAlertPlaying) {
+    stopAlertSound();
+  }
+  startStrobe();
+  
+  if (audioContext && audioContext.state !== 'closed') {
+    try { audioContext.close(); } catch(e) {}
+  }
+  
   try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    const ctx = new AudioCtx();
-    audioContext = ctx;
-    const volume = Math.min(1, Math.max(0, settings.volume / 100));
-    const start = ctx.currentTime;
-    for (let i = 0; i < 3; i++) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    currentGainNode = audioContext.createGain();
+    currentGainNode.connect(audioContext.destination);
+    
+    const gainValue = Math.min(2.0, Math.max(0, settings.gain / 100));
+    currentGainNode.gain.value = gainValue;
+    
+    const now = audioContext.currentTime;
+    let startTime = now;
+    
+    for (let i = 0; i < 8; i++) {
+      const osc = audioContext.createOscillator();
       osc.type = 'sawtooth';
       osc.frequency.value = 880;
-      gain.gain.setValueAtTime(0.3 * volume, start + i * 0.8);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + i * 0.8 + 0.5);
-      osc.start(start + i * 0.8);
-      osc.stop(start + i * 0.8 + 0.5);
+      osc.connect(currentGainNode);
+      osc.start(startTime + i * 0.4);
+      osc.stop(startTime + i * 0.4 + 0.3);
     }
-    setTimeout(() => { if (audioContext === ctx) { try { ctx.close(); } catch(e) {} audioContext = null; } }, 3000);
+    
+    isAlertPlaying = true;
+    setTimeout(() => {
+      stopAlertSound();
+    }, 3500);
+    
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
   } catch(e) { console.warn('Erro no áudio', e); }
 }
 
-function vibrateDevice() {
-  if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400, 200, 400]);
+function stopAlertSound() {
+  if (strobeInterval) {
+    clearInterval(strobeInterval);
+    strobeInterval = null;
+    const strobe = document.getElementById('strobeOverlay');
+    if (strobe) strobe.style.opacity = '0';
+  }
+  if (audioContext) {
+    try { audioContext.close(); } catch(e) {}
+    audioContext = null;
+  }
+  currentGainNode = null;
+  isAlertPlaying = false;
 }
 
-// TESTE DE SOM (DESBLOQUEIA O ÁUDIO)
+function vibrateDevice() {
+  if (settings.vibrate && navigator.vibrate) {
+    navigator.vibrate([500, 100, 500, 100, 800, 100, 500]);
+  }
+}
+
+// TESTE DE SOM
 function testSound() {
   playAlertSound();
-  showToast(`🔊 Teste de som - Volume: ${settings.volume}%`);
+  vibrateDevice();
+  showToast(`🔊 Teste - Ganho: ${settings.gain}%`);
 }
 
 // AGENDAMENTO VIA SERVICE WORKER
 function scheduleAlertsViaSW() {
   if (!swRegistration || !swRegistration.active) {
-    console.warn('SW não ativo, tentando novamente em 1s');
     setTimeout(() => scheduleAlertsViaSW(), 1000);
     return;
   }
@@ -947,7 +1001,6 @@ function scheduleAlertsViaSW() {
     if (bill.paid) continue;
     const dueDate = new Date(bill.dueDate + 'T00:00:00');
     if (dueDate < now) continue;
-    // Alerta da véspera
     const eveDate = new Date(dueDate);
     eveDate.setDate(eveDate.getDate() - 1);
     const [eveHour, eveMinute] = alertTimes.eve.split(':').map(Number);
@@ -957,12 +1010,9 @@ function scheduleAlertsViaSW() {
         id: bill.id + '_eve',
         title: '⏰ Project A',
         body: `${bill.name} vence AMANHÃ!`,
-        timestamp: eveDate.getTime(),
-        sound: true,
-        vibrate: true
+        timestamp: eveDate.getTime()
       });
     }
-    // Alerta do dia
     const dueAlertDate = new Date(dueDate);
     const [dueHour, dueMinute] = alertTimes.due.split(':').map(Number);
     dueAlertDate.setHours(dueHour, dueMinute, 0, 0);
@@ -971,16 +1021,13 @@ function scheduleAlertsViaSW() {
         id: bill.id + '_due',
         title: '🚨 Project A',
         body: `${bill.name} vence HOJE!`,
-        timestamp: dueAlertDate.getTime(),
-        sound: true,
-        vibrate: true
+        timestamp: dueAlertDate.getTime()
       });
     }
   }
   swRegistration.active.postMessage({
     type: 'SCHEDULE_ALERTS',
-    alerts: pendingAlerts,
-    volume: settings.volume
+    alerts: pendingAlerts
   });
 }
 
@@ -997,12 +1044,12 @@ function registerSW() {
       scheduleAlertsViaSW();
     })
     .catch(err => {
-      console.warn('SW falhou, usando fallback in-page', err);
-      document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)';
+      console.warn('SW falhou', err);
+      document.getElementById('swStatus').textContent = 'Service Worker: fallback';
     });
 }
 
-// FUNÇÕES DE UI
+// FUNÇÕES DE UI (RENDERIZAÇÃO)
 function updateAlertBanner() {
   const today = new Date().toISOString().split('T')[0];
   const dueToday = bills.filter(b => !b.paid && b.dueDate === today);
@@ -1114,8 +1161,8 @@ function renderCfg() {
   const dueInput = document.getElementById('dueTime');
   if (eveInput) eveInput.value = alertTimes.eve;
   if (dueInput) dueInput.value = alertTimes.due;
-  const volSlider = document.getElementById('alertVolume');
-  if (volSlider) volSlider.value = settings.volume;
+  const gainSlider = document.getElementById('alertGain');
+  if (gainSlider) gainSlider.value = settings.gain;
 }
 
 function goTab(idx, btn) {
@@ -1227,25 +1274,27 @@ function openModal() {
 function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); if (isListening) stopVoice(); }
 function overlayClick(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 function saveBill() {
-  let name = document.getElementById('inpName').value.trim();
-  const value = parseFloat(document.getElementById('inpValue').value);
-  let date = document.getElementById('inpDate').value;
-  const cat = document.getElementById('inpCat').value;
-  if (!name) { showToast('⚠ Digite o nome da conta'); return; }
-  if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
-  name = sanitizeText(name);
-  const today = new Date().toISOString().split('T')[0];
-  let paid = false, paidDate = null, paidAt = null;
-  if (date < today) {
-    if (confirm("⚠ Esta data já passou. Deseja marcar esta conta como PAGA?")) { paid = true; paidDate = today; paidAt = Date.now(); }
-    else { showToast("⚠ Por favor, ajuste a data para o futuro."); return; }
-  }
-  bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid, paidDate, paidAt, blurred: settings.blur });
-  saveBills();
-  render();
-  closeModal();
-  showToast(paid ? "✓ Conta adicionada como PAGA!" : "✓ Conta adicionada!");
-  scheduleAlertsViaSW();
+  try {
+    let name = document.getElementById('inpName').value.trim();
+    const value = parseFloat(document.getElementById('inpValue').value);
+    let date = document.getElementById('inpDate').value;
+    const cat = document.getElementById('inpCat').value;
+    if (!name) { showToast('⚠ Digite o nome da conta'); return; }
+    if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
+    name = sanitizeText(name);
+    const today = new Date().toISOString().split('T')[0];
+    let paid = false, paidDate = null, paidAt = null;
+    if (date < today) {
+      if (confirm("⚠ Esta data já passou. Deseja marcar esta conta como PAGA?")) { paid = true; paidDate = today; paidAt = Date.now(); }
+      else { showToast("⚠ Por favor, ajuste a data para o futuro."); return; }
+    }
+    bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid, paidDate, paidAt, blurred: settings.blur });
+    saveBills();
+    render();
+    closeModal();
+    showToast(paid ? "✓ Conta adicionada como PAGA!" : "✓ Conta adicionada!");
+    scheduleAlertsViaSW();
+  } catch(e) { showToast("❌ Erro ao salvar conta"); console.error(e); }
 }
 
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
@@ -1282,10 +1331,38 @@ function parseVoice(text) {
   stopVoice();
 }
 
-function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); scheduleAlertsViaSW(); }
-function updateVolume() { const slider = document.getElementById('alertVolume'); if (slider) { settings.volume = parseInt(slider.value, 10); saveSettings(); showToast(`Volume: ${settings.volume}%`); scheduleAlertsViaSW(); } }
-function clearAll() { if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return; bills = []; firedAlerts.clear(); saveBills(); saveFA(); render(); scheduleAlertsViaSW(); showToast('✓ Dados apagados'); }
-function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
+function togSetting(k) { 
+  settings[k] = !settings[k]; 
+  saveSettings(); 
+  renderCfg(); 
+  showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`);
+  if (k === 'sound' && settings.sound) { testSound(); }
+  scheduleAlertsViaSW(); 
+}
+function updateGain() { 
+  const slider = document.getElementById('alertGain'); 
+  if (slider) { 
+    settings.gain = parseInt(slider.value, 10); 
+    saveSettings(); 
+    showToast(`Ganho: ${settings.gain}%`);
+  } 
+}
+function clearAll() { 
+  if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return; 
+  bills = []; 
+  firedAlerts.clear(); 
+  saveBills(); 
+  saveFA(); 
+  render(); 
+  scheduleAlertsViaSW(); 
+  showToast('✓ Dados apagados'); 
+}
+function showToast(msg) { 
+  const toast = document.getElementById('toast'); 
+  toast.textContent = msg; 
+  toast.classList.add('show'); 
+  setTimeout(() => toast.classList.remove('show'), 2500); 
+}
 
 // PWA INSTALL
 let deferredPrompt = null;
@@ -1297,7 +1374,7 @@ function initApp() {
   loadSettings(); loadAlertTimes(); loadBills(); calInit(); render(); registerSW();
   setInterval(() => updateAlertBanner(), 60000);
   if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
-  const volSlider = document.getElementById('alertVolume'); if (volSlider) volSlider.addEventListener('input', updateVolume);
+  const gainSlider = document.getElementById('alertGain'); if (gainSlider) gainSlider.addEventListener('input', updateGain);
   const testBtn = document.getElementById('testSoundBtn'); if (testBtn) testBtn.addEventListener('click', testSound);
 }
 
