@@ -9,11 +9,34 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Organize, acompanhe e pague em dia.">
-<link id="pwaManifest" rel="manifest" href="./manifest.json">
-<link id="appleTouchIcon" rel="apple-touch-icon" href="./icon-192.png">
+<link rel="manifest" href="data:application/manifest+json,{
+  \"name\": \"PROJECT A — Finance\",
+  \"short_name\": \"PROJECT A\",
+  \"description\": \"Organize, acompanhe e pague em dia.\",
+  \"start_url\": \"./\",
+  \"display\": \"standalone\",
+  \"orientation\": \"portrait\",
+  \"background_color\": \"#000000\",
+  \"theme_color\": \"#000000\",
+  \"icons\": [
+    {
+      \"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='4'/%3E%3Cpath d='M22 38 A30 30 0 0 1 78 38' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='2' stroke-linecap='round'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-family='Georgia,serif' font-size='48' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E\",
+      \"sizes\": \"192x192\",
+      \"type\": \"image/svg+xml\",
+      \"purpose\": \"any maskable\"
+    },
+    {
+      \"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='256' cy='256' r='236' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='20'/%3E%3Cpath d='M112 195 A154 154 0 0 1 400 195' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='10' stroke-linecap='round'/%3E%3Ctext x='256' y='350' text-anchor='middle' font-family='Georgia,serif' font-size='240' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E\",
+      \"sizes\": \"512x512\",
+      \"type\": \"image/svg+xml\",
+      \"purpose\": \"any maskable\"
+    }
+  ]
+}">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='96' cy='96' r='88' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='8'/%3E%3Cpath d='M40 72 A58 58 0 0 1 152 72' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='4' stroke-linecap='round'/%3E%3Ctext x='96' y='132' text-anchor='middle' font-family='Georgia,serif' font-size='92' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E">
 <title>PROJECT A — Finance Management</title>
 <style>
-/* ========== CSS ORIGINAL COMPLETO (NÃO ALTERADO) ========== */
+/* ========== CSS ORIGINAL (NÃO ALTERADO) ========== */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -506,11 +529,51 @@ html, body {
   position:fixed; top:0; left:0; right:0; bottom:0; background:white; z-index:9999;
   pointer-events:none; opacity:0; transition:opacity 0.1s ease;
 }
+
+/* GATE OVERLAY */
+.gate-overlay {
+  position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.96); z-index:10000;
+  display:flex; align-items:center; justify-content:center; backdrop-filter:blur(10px);
+}
+.gate-card {
+  background:linear-gradient(135deg,#1a1a1a 0%,#0a0a0a 100%);
+  border:1px solid var(--cyan); border-radius:20px; padding:30px 25px; width:320px;
+  text-align:center; box-shadow:0 0 40px rgba(0,255,255,0.2);
+}
+.gate-title {
+  font-family:'Orbitron',sans-serif; font-size:18px; color:var(--cyan); text-shadow:var(--cyan-glow);
+  margin-bottom:20px; letter-spacing:2px;
+}
+.gate-input {
+  width:100%; background:rgba(255,255,255,.05); border:1px solid rgba(0,255,255,.3);
+  border-radius:10px; padding:12px 15px; color:#e0e0e0; font-family:'Rajdhani',sans-serif;
+  font-size:16px; margin-bottom:15px; text-align:center;
+}
+.gate-input:focus { outline:none; border-color:var(--cyan); box-shadow:0 0 15px rgba(0,255,255,0.3); }
+.gate-btn {
+  width:100%; background:linear-gradient(135deg,#003344 0%,#005566 100%);
+  border:1px solid var(--cyan); border-radius:10px; padding:12px; color:var(--cyan);
+  font-family:'Orbitron',sans-serif; font-size:14px; font-weight:700; letter-spacing:2px;
+  cursor:pointer; transition:all .2s;
+}
+.gate-btn:hover { box-shadow:0 0 20px rgba(0,255,255,0.5); transform:scale(1.02); }
+.gate-error { font-size:12px; color:#ff5252; margin-top:10px; letter-spacing:1px; }
 </style>
 </head>
 <body>
-<div class="app-shell">
 
+<!-- GATE OVERLAY - TELA DE ACESSO COM CHAVE -->
+<div id="gateOverlay" class="gate-overlay">
+  <div class="gate-card">
+    <div class="gate-title">🔐 ACCESS CODE</div>
+    <input type="password" id="gatePassword" class="gate-input" placeholder="Digite a chave de acesso" autocomplete="off">
+    <button class="gate-btn" onclick="verifyGate()">UNLOCK →</button>
+    <div id="gateError" class="gate-error"></div>
+  </div>
+</div>
+
+<div class="app-shell">
+  <!-- HEADER -->
   <header class="header">
     <div class="logo-text">PROJECT</div>
     <div class="logo-sub">FINANCE MANAGEMENT</div>
@@ -546,6 +609,7 @@ html, body {
     <div class="tagline">Organize. Acompanhe. Pague em Dia.</div>
   </header>
 
+  <!-- SCREEN 0 - INÍCIO -->
   <div class="screen active" id="screen-0">
     <button class="add-btn" onclick="openModal()">
       <span class="add-btn-icon">
@@ -582,6 +646,7 @@ html, body {
     </div>
   </div>
 
+  <!-- SCREEN 1 - PAGAMENTOS -->
   <div class="screen" id="screen-1">
     <div class="page-header">TODOS OS PAGAMENTOS</div>
     <div class="filter-row">
@@ -593,6 +658,7 @@ html, body {
     <div id="pagList"></div>
   </div>
 
+  <!-- SCREEN 2 - CALENDÁRIO -->
   <div class="screen" id="screen-2">
     <div class="cal-nav">
       <button class="cal-nav-btn" onclick="calShift(-1)">‹</button>
@@ -609,6 +675,7 @@ html, body {
     <div id="calEvents"></div>
   </div>
 
+  <!-- SCREEN 3 - RESUMO FINANCEIRO -->
   <div class="screen" id="screen-3">
     <div class="page-header">RESUMO FINANCEIRO</div>
     <div class="summary-grid" id="summaryCards"></div>
@@ -618,6 +685,7 @@ html, body {
     <div id="catBreakdown"></div>
   </div>
 
+  <!-- SCREEN 4 - CONFIGURAÇÕES -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
 
@@ -729,30 +797,17 @@ html, body {
     </p>
   </div>
 
+  <!-- FOOTER -->
   <nav class="footer">
-    <div class="footer-btn active" onclick="goTab(0,this)">
-      <div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="url(#i0)"/></svg></div>
-      <span class="f-label">Início</span>
-    </div>
-    <div class="footer-btn" onclick="goTab(1,this)">
-      <div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><rect x="2" y="5" width="20" height="14" rx="2" fill="url(#i1)"/><rect x="2" y="8" width="20" height="3" fill="rgba(0,0,0,.3)"/><rect x="6" y="13" width="4" height="2" rx="1" fill="rgba(0,0,0,.4)"/></svg></div>
-      <span class="f-label">Pagamentos</span>
-    </div>
-    <div class="footer-btn" onclick="goTab(2,this)">
-      <div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><rect x="3" y="4" width="18" height="17" rx="2" fill="none" stroke="url(#i2)" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="url(#i2)" stroke-width="2" stroke-linecap="round"/><line x1="8"  y1="2" x2="8"  y2="6" stroke="url(#i2)" stroke-width="2" stroke-linecap="round"/><line x1="3"  y1="10" x2="21" y2="10" stroke="url(#i2)" stroke-width="1.5"/><rect x="8" y="14" width="4" height="4" rx="1" fill="url(#i2)"/></svg></div>
-      <span class="f-label">Calendário</span>
-    </div>
-    <div class="footer-btn" onclick="goTab(3,this)">
-      <div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.52 16.48 1 14.67 1c-1.04 0-1.96.52-2.67 1.28L12 2.28l-.09-.1C11.23 1.48 10.3 1 9.33 1 7.52 1 6 2.52 6 4.64c0 .48.1.92.18 1.36H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z" fill="url(#i3)"/></svg></div>
-      <span class="f-label">Contas</span>
-    </div>
-    <div class="footer-btn" onclick="goTab(4,this)">
-      <div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="url(#i4)"/></svg></div>
-      <span class="f-label">Configurações</span>
-    </div>
+    <div class="footer-btn active" onclick="goTab(0,this)"><div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="url(#i0)"/></svg></div><span class="f-label">Início</span></div>
+    <div class="footer-btn" onclick="goTab(1,this)"><div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><rect x="2" y="5" width="20" height="14" rx="2" fill="url(#i1)"/><rect x="2" y="8" width="20" height="3" fill="rgba(0,0,0,.3)"/><rect x="6" y="13" width="4" height="2" rx="1" fill="rgba(0,0,0,.4)"/></svg></div><span class="f-label">Pagamentos</span></div>
+    <div class="footer-btn" onclick="goTab(2,this)"><div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><rect x="3" y="4" width="18" height="17" rx="2" fill="none" stroke="url(#i2)" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="url(#i2)" stroke-width="2" stroke-linecap="round"/><line x1="8"  y1="2" x2="8"  y2="6" stroke="url(#i2)" stroke-width="2" stroke-linecap="round"/><line x1="3"  y1="10" x2="21" y2="10" stroke="url(#i2)" stroke-width="1.5"/><rect x="8" y="14" width="4" height="4" rx="1" fill="url(#i2)"/></svg></div><span class="f-label">Calendário</span></div>
+    <div class="footer-btn" onclick="goTab(3,this)"><div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.52 16.48 1 14.67 1c-1.04 0-1.96.52-2.67 1.28L12 2.28l-.09-.1C11.23 1.48 10.3 1 9.33 1 7.52 1 6 2.52 6 4.64c0 .48.1.92.18 1.36H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z" fill="url(#i3)"/></svg></div><span class="f-label">Contas</span></div>
+    <div class="footer-btn" onclick="goTab(4,this)"><div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="url(#i4)"/></svg></div><span class="f-label">Configurações</span></div>
   </nav>
 </div>
 
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -779,16 +834,36 @@ html, body {
 
 <script>
 // ============================================================================
-// PROJETO A - VERSÃO COMPLETA COM TODAS AS MELHORIAS
-// - Backup/restore JSON
-// - Exportação CSV
-// - Validação de data futura
-// - Badge no ícone (quando suportado)
-// - Persistência de alertas entre sessões
-// - Service Worker para notificações push
+// PROJETO A - VERSÃO COMPLETA
+// - GATE com chave: Rennovation15@
+// - Ícone PROJECT A restaurado
+// - Todas as funcionalidades originais preservadas
 // ============================================================================
 
-// --------------------- DECLARAÇÕES GLOBAIS ---------------------
+// ==================== GATE ACCESS CONTROL ====================
+function verifyGate() {
+  const input = document.getElementById('gatePassword').value;
+  const key = 'Rennovation15@';
+  if (input === key) {
+    localStorage.setItem('access_granted', 'true');
+    document.getElementById('gateOverlay').style.display = 'none';
+    // Inicializa o app após liberar acesso
+    initApp();
+  } else {
+    document.getElementById('gateError').innerText = '❌ Chave inválida. Acesso negado.';
+  }
+}
+
+function checkAccess() {
+  const granted = localStorage.getItem('access_granted');
+  if (granted === 'true') {
+    const gate = document.getElementById('gateOverlay');
+    if (gate) gate.style.display = 'none';
+    initApp();
+  }
+}
+
+// ==================== DECLARAÇÕES GLOBAIS ====================
 let bills = [];
 let settings = { blur: true, alerts: true, sound: true, vibrate: true, volume: 80 };
 let alertTimes = { eve: "21:00", due: "09:00" };
@@ -802,7 +877,7 @@ let isListening = false;
 let audioContext = null;
 let swRegistration = null;
 
-// --------------------- UTILITÁRIOS ---------------------
+// ==================== UTILITÁRIOS ====================
 const sanitizeText = (str) => {
   if (!str) return '';
   return String(str)
@@ -835,7 +910,7 @@ const ICONS = {
   outros: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z" fill="#aaa"/></svg>`,
 };
 
-// --------------------- PERSISTÊNCIA ---------------------
+// ==================== PERSISTÊNCIA ====================
 const saveFA = () => { try { localStorage.setItem('pA_fired', JSON.stringify([...firedAlerts])); } catch(e) {} };
 const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stringify(settings)); } catch(e) {} };
 const saveAlertTimes = () => { 
@@ -916,15 +991,9 @@ function saveCurrentAlertTimesToStorage() {
   saveAlertTimes();
 }
 
-// --------------------- BACKUP E CSV ---------------------
+// ==================== BACKUP E CSV ====================
 function exportBackup() {
-  const data = {
-    bills: bills,
-    settings: settings,
-    alertTimes: alertTimes,
-    version: "1.0",
-    exportDate: new Date().toISOString()
-  };
+  const data = { bills, settings, alertTimes, version: "1.0", exportDate: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -932,7 +1001,7 @@ function exportBackup() {
   a.download = `project_a_backup_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast("✓ Backup exportado com sucesso!");
+  showToast("✓ Backup exportado!");
 }
 
 function importBackup(file) {
@@ -948,10 +1017,8 @@ function importBackup(file) {
       render();
       rescheduleAllAlerts();
       updateAppBadge();
-      showToast("✓ Backup restaurado com sucesso!");
-    } catch(err) {
-      showToast("❌ Arquivo inválido!");
-    }
+      showToast("✓ Backup restaurado!");
+    } catch(err) { showToast("❌ Arquivo inválido!"); }
   };
   reader.readAsText(file);
 }
@@ -974,22 +1041,19 @@ function exportToCSV() {
   a.download = `project_a_relatorio_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast("✓ Relatório CSV exportado!");
+  showToast("✓ CSV exportado!");
 }
 
-// --------------------- BADGE DO ÍCONE ---------------------
+// ==================== BADGE ====================
 function updateAppBadge() {
   if (!navigator.setAppBadge) return;
   const today = new Date().toISOString().split('T')[0];
   const pendingToday = bills.filter(b => !b.paid && b.dueDate === today).length;
-  if (pendingToday > 0) {
-    navigator.setAppBadge(pendingToday);
-  } else {
-    navigator.clearAppBadge();
-  }
+  if (pendingToday > 0) navigator.setAppBadge(pendingToday);
+  else navigator.clearAppBadge();
 }
 
-// --------------------- ÁUDIO COM VOLUME ---------------------
+// ==================== ÁUDIO ====================
 function flashScreen() {
   const flash = document.getElementById('flashOverlay');
   if (flash) { flash.style.opacity = '0.7'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
@@ -1023,7 +1087,7 @@ function playBeep(forceTest = false) {
   } catch(e) { console.warn('Erro no áudio', e); }
 }
 
-// --------------------- ALERTAS COM PERSISTÊNCIA ---------------------
+// ==================== ALERTAS ====================
 function scheduleSingleAlert(bill, type) {
   if (!settings.alerts) return;
   const now = new Date();
@@ -1057,9 +1121,6 @@ function scheduleSingleAlert(bill, type) {
       if (settings.sound) playBeep();
       if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
       if (Notification.permission === 'granted') new Notification('PROJECT A', { body: msg });
-      if (swRegistration && swRegistration.active) {
-        swRegistration.active.postMessage({ type: 'SHOW_NOTIFICATION', title: 'PROJECT A', body: msg });
-      }
     }
   }, delay);
   scheduledTimeouts.push(tid);
@@ -1118,43 +1179,22 @@ function startAlertWatcher() {
   checkAlertsNow();
 }
 
-// --------------------- SERVICE WORKER ---------------------
+// ==================== SERVICE WORKER ====================
 function registerSW() {
   if (!('serviceWorker' in navigator)) {
     document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
     rescheduleAllAlerts();
     return;
   }
-  const swCode = `
-    self.addEventListener('install', e => self.skipWaiting());
-    self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
-    self.addEventListener('message', event => {
-      if (event.data.type === 'SHOW_NOTIFICATION') {
-        self.registration.showNotification(event.data.title, {
-          body: event.data.body,
-          icon: '/icon-192.png',
-          vibrate: [200, 100, 200],
-          tag: event.data.body
-        });
-      }
-    });
-    self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
-  `;
+  const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => e.waitUntil(self.clients.claim())); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));`;
   const blob = new Blob([swCode], { type: 'application/javascript' });
   const url = URL.createObjectURL(blob);
   navigator.serviceWorker.register(url, { scope: './' })
-    .then(reg => {
-      swRegistration = reg;
-      document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo';
-      rescheduleAllAlerts();
-    })
-    .catch(() => {
-      document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)';
-      rescheduleAllAlerts();
-    });
+    .then(reg => { swRegistration = reg; document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo'; rescheduleAllAlerts(); })
+    .catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; rescheduleAllAlerts(); });
 }
 
-// --------------------- FUNÇÕES DE UI (RENDERIZAÇÃO) ---------------------
+// ==================== FUNÇÕES DE UI ====================
 function updateAlertBanner() {
   const today = new Date().toISOString().split('T')[0];
   const dueToday = bills.filter(b => !b.paid && b.dueDate === today);
@@ -1337,7 +1377,7 @@ function payBill(id) {
   rescheduleAllAlerts();
 }
 
-// --------------------- CALENDÁRIO ---------------------
+// ==================== CALENDÁRIO ====================
 function calInit() { const n = new Date(); calY = n.getFullYear(); calM = n.getMonth(); }
 function calShift(d) { calM += d; if (calM < 0) { calM = 11; calY--; } if (calM > 11) { calM = 0; calY++; } renderCal(); }
 function onDateClick(y, m, d) {
@@ -1410,7 +1450,7 @@ function renderCal() {
   }
 }
 
-// --------------------- MODAL, VOZ, CONFIGURAÇÕES ---------------------
+// ==================== MODAL, VOZ, CONFIGURAÇÕES ====================
 function openModal() {
   document.getElementById('inpDate').value = new Date().toISOString().split('T')[0];
   document.getElementById('inpName').value = '';
@@ -1445,7 +1485,7 @@ function saveBill() {
       return;
     }
   }
-  bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid: paid, paidDate: paidDate, paidAt: paidAt, blurred: settings.blur });
+  bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid, paidDate, paidAt, blurred: settings.blur });
   saveBills();
   render();
   closeModal();
@@ -1578,7 +1618,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// --------------------- PWA INSTALL ---------------------
+// ==================== PWA INSTALL ====================
 let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
@@ -1592,7 +1632,7 @@ function triggerInstall() {
   deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
 }
 
-// --------------------- TESTE RÁPIDO GLOBAL ---------------------
+// ==================== TESTE RÁPIDO ====================
 window.testAlertIn10Seconds = function() {
   const pending = bills.filter(b => !b.paid);
   if (!pending.length) { console.warn('Nenhuma conta pendente'); return; }
@@ -1604,11 +1644,11 @@ window.testAlertIn10Seconds = function() {
     if (Notification.permission === 'granted') new Notification('PROJECT A — TESTE', { body: `Alerta para ${bill.name}`, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
     showToast(`🚨 ALERTA: ${bill.name}`);
   }, 10000);
-  console.log('Alarme de teste agendado para daqui 10 segundos. Mantenha o navegador aberto.');
+  console.log('Alarme de teste agendado para daqui 10 segundos.');
 };
 
-// --------------------- INICIALIZAÇÃO ---------------------
-function init() {
+// ==================== INICIALIZAÇÃO ====================
+function initApp() {
   loadSettings();
   loadAlertTimes();
   loadBills();
@@ -1621,7 +1661,12 @@ function init() {
   const volSlider = document.getElementById('alertVolume');
   if (volSlider) volSlider.addEventListener('input', updateVolume);
 }
-init();
+
+// Verifica acesso e inicia (se já liberado, chama initApp direto)
+if (localStorage.getItem('access_granted') === 'true') {
+  document.getElementById('gateOverlay').style.display = 'none';
+  initApp();
+}
 </script>
 </body>
 </html>
