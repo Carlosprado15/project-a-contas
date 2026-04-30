@@ -663,8 +663,24 @@ html, body {
         <input type="time" id="dueTime" class="cfg-time-input" value="09:00">
       </div>
       <div class="cfg-row">
-        <!-- CORREÇÃO 1: chama a função que lê os inputs e salva -->
         <button class="cfg-btn cfg-sound" style="flex:1" onclick="saveCurrentAlertTimesToStorage()">💾 SALVAR HORÁRIOS</button>
+      </div>
+    </div>
+
+    <div class="cfg-section">
+      <div class="cfg-section-title">Backup e Dados</div>
+      <div class="cfg-row">
+        <div><div class="cfg-label">Exportar Backup</div><div class="cfg-sub">Salvar todos os dados em arquivo JSON</div></div>
+        <button class="cfg-btn cfg-sound" onclick="exportBackup()">📤 EXPORTAR</button>
+      </div>
+      <div class="cfg-row">
+        <div><div class="cfg-label">Importar Backup</div><div class="cfg-sub">Restaurar dados de arquivo JSON</div></div>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this.files[0])">
+        <button class="cfg-btn cfg-sound" onclick="document.getElementById('importFile').click()">📥 IMPORTAR</button>
+      </div>
+      <div class="cfg-row">
+        <div><div class="cfg-label">Exportar CSV</div><div class="cfg-sub">Planilha com todas as contas</div></div>
+        <button class="cfg-btn cfg-test" onclick="exportToCSV()">📊 CSV</button>
       </div>
     </div>
 
@@ -766,23 +782,28 @@ html, body {
 
 <script>
 // ============================================================================
-// PROJETO A - ALERTAS CONFIÁVEIS (CORREÇÕES FINAIS)
-// - CORREÇÃO 1: Botão salvar lê os inputs corretamente (saveCurrentAlertTimesToStorage)
-// - CORREÇÃO 2: Verificação com janela de ±1 minuto (evita perda por timing)
-// - CORREÇÃO 3: Chaves firedAlerts incluem a data para não bloquear dias futuros
+// PROJETO A - VERSÃO COMPLETA COM TODAS AS MELHORIAS
+// - Backup/restore JSON
+// - Exportação CSV
+// - Validação de data futura
+// - Badge no ícone (quando suportado)
+// - Persistência de alertas entre sessões
+// - Service Worker para notificações push
 // ============================================================================
 
 // --------------------- DECLARAÇÕES GLOBAIS ---------------------
 let bills = [];
 let settings = { blur: true, alerts: true, sound: true, vibrate: true, volume: 80 };
 let alertTimes = { eve: "21:00", due: "09:00" };
-let firedAlerts = new Set();   // chave: "id_tipo_data_hora"
+let firedAlerts = new Set();
+let scheduledTimeouts = [];
 let currentTab = 0;
 let pagFilter = 'all';
 let calY, calM;
 let recognition = null;
 let isListening = false;
 let audioContext = null;
+let swRegistration = null;
 
 // --------------------- UTILITÁRIOS ---------------------
 const sanitizeText = (str) => {
@@ -823,7 +844,7 @@ const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stri
 const saveAlertTimes = () => { 
   try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} 
   showToast('✓ Horários salvos!');
-  checkAlertsNow(); // força verificação imediata após salvar
+  rescheduleAllAlerts();
 };
 const saveBills = () => { try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch(e) {} };
 
@@ -890,7 +911,6 @@ function seedDefaults() {
   saveBills();
 }
 
-// Lê os inputs e salva no objeto alertTimes e localStorage
 function saveCurrentAlertTimesToStorage() {
   const eveInput = document.getElementById('eveTime');
   const dueInput = document.getElementById('dueTime');
@@ -899,7 +919,80 @@ function saveCurrentAlertTimesToStorage() {
   saveAlertTimes();
 }
 
-// --------------------- ÁUDIO COM VOLUME AJUSTÁVEL ---------------------
+// --------------------- BACKUP E CSV ---------------------
+function exportBackup() {
+  const data = {
+    bills: bills,
+    settings: settings,
+    alertTimes: alertTimes,
+    version: "1.0",
+    exportDate: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `project_a_backup_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("✓ Backup exportado com sucesso!");
+}
+
+function importBackup(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.bills) bills = data.bills;
+      if (data.settings) settings = { ...settings, ...data.settings };
+      if (data.alertTimes) alertTimes = { ...alertTimes, ...data.alertTimes };
+      saveBills(); saveSettings(); saveAlertTimes();
+      render();
+      rescheduleAllAlerts();
+      updateAppBadge();
+      showToast("✓ Backup restaurado com sucesso!");
+    } catch(err) {
+      showToast("❌ Arquivo inválido!");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function exportToCSV() {
+  const headers = ["Nome", "Valor", "Data Vencimento", "Status", "Data Pagamento", "Categoria"];
+  const rows = bills.map(b => [
+    `"${b.name.replace(/"/g, '""')}"`,
+    b.amount ? b.amount.toString().replace('.', ',') : "",
+    b.dueDate,
+    b.paid ? "Pago" : (isOD(b) ? "Vencido" : "Pendente"),
+    b.paidDate || "",
+    CAT_LABEL[b.category] || b.category
+  ]);
+  const csvContent = [headers, ...rows].map(row => row.join(",")).join("\n");
+  const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `project_a_relatorio_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("✓ Relatório CSV exportado!");
+}
+
+// --------------------- BADGE DO ÍCONE ---------------------
+function updateAppBadge() {
+  if (!navigator.setAppBadge) return;
+  const today = new Date().toISOString().split('T')[0];
+  const pendingToday = bills.filter(b => !b.paid && b.dueDate === today).length;
+  if (pendingToday > 0) {
+    navigator.setAppBadge(pendingToday);
+  } else {
+    navigator.clearAppBadge();
+  }
+}
+
+// --------------------- ÁUDIO COM VOLUME ---------------------
 function flashScreen() {
   const flash = document.getElementById('flashOverlay');
   if (flash) { flash.style.opacity = '0.7'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
@@ -933,64 +1026,135 @@ function playBeep(forceTest = false) {
   } catch(e) { console.warn('Erro no áudio', e); }
 }
 
-// --------------------- VERIFICAÇÃO DE ALERTAS (com janela de ±1 minuto e chave com data) ---------------------
+// --------------------- ALERTAS COM PERSISTÊNCIA ---------------------
+function scheduleSingleAlert(bill, type) {
+  if (!settings.alerts) return;
+  const now = new Date();
+  const dueDate = new Date(bill.dueDate + 'T00:00:00');
+  if (dueDate < now) return;
+  
+  let targetDate;
+  if (type === 'eve') {
+    targetDate = new Date(dueDate);
+    targetDate.setDate(targetDate.getDate() - 1);
+    const [hour, minute] = alertTimes.eve.split(':').map(Number);
+    targetDate.setHours(hour, minute, 0, 0);
+  } else {
+    targetDate = new Date(dueDate);
+    const [hour, minute] = alertTimes.due.split(':').map(Number);
+    targetDate.setHours(hour, minute, 0, 0);
+  }
+  
+  const delay = targetDate.getTime() - now.getTime();
+  if (delay <= 0 || delay > 30 * 86400000) return;
+  
+  const key = `${bill.id}_${type}_${targetDate.toISOString().split('T')[0]}_${type === 'eve' ? alertTimes.eve : alertTimes.due}`;
+  if (firedAlerts.has(key)) return;
+  
+  const tid = setTimeout(() => {
+    if (!firedAlerts.has(key)) {
+      firedAlerts.add(key);
+      saveFA();
+      const msg = type === 'eve' ? `⏰ ${bill.name} vence AMANHÃ!` : `🚨 ${bill.name} vence HOJE!`;
+      showToast(msg);
+      if (settings.sound) playBeep();
+      if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: msg });
+      if (swRegistration && swRegistration.active) {
+        swRegistration.active.postMessage({ type: 'SHOW_NOTIFICATION', title: 'PROJECT A', body: msg });
+      }
+    }
+  }, delay);
+  scheduledTimeouts.push(tid);
+}
+
+function rescheduleAllAlerts() {
+  for (const tid of scheduledTimeouts) clearTimeout(tid);
+  scheduledTimeouts = [];
+  if (!settings.alerts) return;
+  for (const bill of bills) {
+    if (bill.paid) continue;
+    scheduleSingleAlert(bill, 'eve');
+    scheduleSingleAlert(bill, 'due');
+  }
+}
+
 function checkAlertsNow() {
   if (!settings.alerts) return;
   const now = new Date();
   const todayStr = now.toISOString().split('T')[0];
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-  // Converte HH:MM para minutos
-  const timeToMinutes = (timeStr) => {
-    const [h, m] = timeStr.split(':').map(Number);
-    return h * 60 + m;
-  };
-
+  const timeToMinutes = (timeStr) => { const [h, m] = timeStr.split(':').map(Number); return h * 60 + m; };
   const targetEveMinutes = timeToMinutes(alertTimes.eve);
   const targetDueMinutes = timeToMinutes(alertTimes.due);
-  const tolerance = 1; // 1 minuto de tolerância
-
+  const tolerance = 1;
   const isWithinTolerance = (target) => Math.abs(currentMinutes - target) <= tolerance;
-
   for (const bill of bills) {
     if (bill.paid) continue;
-    try {
-      const dueDateOnly = bill.dueDate;
-      // Alerta da véspera
-      const prevDate = new Date(dueDateOnly);
-      prevDate.setDate(prevDate.getDate() - 1);
-      const prevDateStr = prevDate.toISOString().split('T')[0];
-      const eveKey = `${bill.id}_eve_${prevDateStr}_${alertTimes.eve}`;
-      if (prevDateStr === todayStr && isWithinTolerance(targetEveMinutes) && !firedAlerts.has(eveKey)) {
-        firedAlerts.add(eveKey);
-        saveFA();
-        showToast(`⏰ ${bill.name} vence AMANHÃ!`);
-        if (settings.sound) playBeep();
-        if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
-        if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence amanhã!` });
-      }
-      // Alerta do dia do vencimento
-      const dueKey = `${bill.id}_due_${dueDateOnly}_${alertTimes.due}`;
-      if (dueDateOnly === todayStr && isWithinTolerance(targetDueMinutes) && !firedAlerts.has(dueKey)) {
-        firedAlerts.add(dueKey);
-        saveFA();
-        showToast(`🚨 ${bill.name} vence HOJE!`);
-        if (settings.sound) playBeep();
-        if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
-        if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence hoje!` });
-      }
-    } catch(e) { console.warn('Erro ao verificar alerta para', bill.name, e); }
+    const dueDateOnly = bill.dueDate;
+    const prevDateObj = new Date(dueDateOnly);
+    prevDateObj.setDate(prevDateObj.getDate() - 1);
+    const prevDateStr = prevDateObj.toISOString().split('T')[0];
+    const eveKey = `${bill.id}_eve_${prevDateStr}_${alertTimes.eve}`;
+    if (prevDateStr === todayStr && isWithinTolerance(targetEveMinutes) && !firedAlerts.has(eveKey)) {
+      firedAlerts.add(eveKey); saveFA();
+      showToast(`⏰ ${bill.name} vence AMANHÃ!`);
+      if (settings.sound) playBeep();
+      if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence amanhã!` });
+    }
+    const dueKey = `${bill.id}_due_${dueDateOnly}_${alertTimes.due}`;
+    if (dueDateOnly === todayStr && isWithinTolerance(targetDueMinutes) && !firedAlerts.has(dueKey)) {
+      firedAlerts.add(dueKey); saveFA();
+      showToast(`🚨 ${bill.name} vence HOJE!`);
+      if (settings.sound) playBeep();
+      if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence hoje!` });
+    }
   }
 }
 
-// Inicia o verificador periódico (a cada 60 segundos)
 let alertInterval = null;
 function startAlertWatcher() {
   if (alertInterval) clearInterval(alertInterval);
-  alertInterval = setInterval(() => {
-    if (settings.alerts) checkAlertsNow();
-  }, 60000);
-  checkAlertsNow(); // executa imediatamente
+  alertInterval = setInterval(() => { if (settings.alerts) checkAlertsNow(); }, 60000);
+  checkAlertsNow();
+}
+
+// --------------------- SERVICE WORKER ---------------------
+function registerSW() {
+  if (!('serviceWorker' in navigator)) {
+    document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
+    rescheduleAllAlerts();
+    return;
+  }
+  const swCode = `
+    self.addEventListener('install', e => self.skipWaiting());
+    self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+    self.addEventListener('message', event => {
+      if (event.data.type === 'SHOW_NOTIFICATION') {
+        self.registration.showNotification(event.data.title, {
+          body: event.data.body,
+          icon: '/icon-192.png',
+          vibrate: [200, 100, 200],
+          tag: event.data.body
+        });
+      }
+    });
+    self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const url = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(url, { scope: './' })
+    .then(reg => {
+      swRegistration = reg;
+      document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo';
+      rescheduleAllAlerts();
+    })
+    .catch(() => {
+      document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)';
+      rescheduleAllAlerts();
+    });
 }
 
 // --------------------- FUNÇÕES DE UI (RENDERIZAÇÃO) ---------------------
@@ -1006,6 +1170,7 @@ function updateAlertBanner() {
     titleEl.innerHTML = '✅ TUDO EM DIA';
     subEl.innerHTML = 'Nenhum vencimento para hoje';
   }
+  updateAppBadge();
 }
 
 function makeCard(b) {
@@ -1172,6 +1337,7 @@ function payBill(id) {
   showToast(`✓ ${bill.name} marcada como paga!`);
   if (settings.sound) playBeep();
   if (settings.vibrate && navigator.vibrate) navigator.vibrate(200);
+  rescheduleAllAlerts();
 }
 
 // --------------------- CALENDÁRIO ---------------------
@@ -1263,17 +1429,31 @@ function overlayClick(e) { if (e.target === document.getElementById('modalOverla
 function saveBill() {
   let name = document.getElementById('inpName').value.trim();
   const value = parseFloat(document.getElementById('inpValue').value);
-  const date = document.getElementById('inpDate').value;
+  let date = document.getElementById('inpDate').value;
   const cat = document.getElementById('inpCat').value;
   if (!name) { showToast('⚠ Digite o nome da conta'); return; }
   if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
   name = sanitizeText(name);
-  bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid: false, blurred: settings.blur });
+  const today = new Date().toISOString().split('T')[0];
+  let paid = false;
+  let paidDate = null;
+  let paidAt = null;
+  if (date < today) {
+    if (confirm("⚠ Esta data já passou. Deseja marcar esta conta como PAGA?")) {
+      paid = true;
+      paidDate = today;
+      paidAt = Date.now();
+    } else {
+      showToast("⚠ Por favor, ajuste a data para o futuro.");
+      return;
+    }
+  }
+  bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid: paid, paidDate: paidDate, paidAt: paidAt, blurred: settings.blur });
   saveBills();
   render();
   closeModal();
-  showToast('✓ Conta adicionada!');
-  checkAlertsNow(); // força verificação
+  showToast(paid ? "✓ Conta adicionada como PAGA!" : "✓ Conta adicionada!");
+  rescheduleAllAlerts();
 }
 
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
@@ -1369,7 +1549,7 @@ function togSetting(k) {
   saveSettings(); 
   renderCfg(); 
   showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`);
-  if (k === 'alerts' && settings.alerts) checkAlertsNow();
+  if (k === 'alerts') rescheduleAllAlerts();
 }
 function updateVolume() {
   const slider = document.getElementById('alertVolume');
@@ -1386,9 +1566,12 @@ function reqNotif() {
 function clearAll() {
   if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return;
   bills = [];
+  firedAlerts.clear();
   saveBills();
+  saveFA();
   render();
   renderCfg();
+  rescheduleAllAlerts();
   showToast('✓ Dados apagados');
 }
 function showToast(msg) {
@@ -1396,20 +1579,6 @@ function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
-}
-
-// --------------------- SERVICE WORKER (FALLBACK) ---------------------
-function registerSW() {
-  if (!('serviceWorker' in navigator)) {
-    document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
-    return;
-  }
-  const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => e.waitUntil(self.clients.claim())); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));`;
-  const blob = new Blob([swCode], { type: 'application/javascript' });
-  const url = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(url, { scope: './' })
-    .then(() => { document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo'; })
-    .catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; });
 }
 
 // --------------------- PWA INSTALL ---------------------
@@ -1449,7 +1618,7 @@ function init() {
   calInit();
   render();
   registerSW();
-  startAlertWatcher(); // monitor periódico para disparar alertas
+  startAlertWatcher();
   setInterval(() => updateAlertBanner(), 60000);
   if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
   const volSlider = document.getElementById('alertVolume');
