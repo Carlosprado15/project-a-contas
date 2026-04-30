@@ -16,7 +16,7 @@
 <link id="appleTouchIcon" rel="apple-touch-icon" href="./icon-192.png">
 <title>PROJECT A — Finance Management</title>
 <style>
-/* ========== SEU CSS ORIGINAL COMPLETO (NÃO ALTERADO) ========== */
+/* ========== CSS ORIGINAL COMPLETO (NÃO ALTERADO) ========== */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -35,9 +35,6 @@ html, body {
   user-select:none; -webkit-user-select:none;
 }
 
-/* ═══════════════════════════════
-   SPLIT BACKGROUND
-═══════════════════════════════ */
 .app-shell {
   position:fixed; inset:0;
   display:flex; flex-direction:column;
@@ -56,9 +53,6 @@ html, body {
   pointer-events:none;
 }
 
-/* ═══════════════════════════════
-   HEADER
-═══════════════════════════════ */
 .header {
   position:relative; z-index:10;
   padding:14px 20px 8px; text-align:center;
@@ -77,9 +71,6 @@ html, body {
 .emblem-svg { width:100%; height:100%; filter:drop-shadow(0 4px 12px rgba(0,0,0,.8)); }
 .tagline { font-size:11px; letter-spacing:2.5px; color:#aaa; text-transform:uppercase; margin-bottom:2px; }
 
-/* ═══════════════════════════════
-   SPA SCREENS
-═══════════════════════════════ */
 .screen {
   flex:1; overflow-y:auto; overflow-x:hidden;
   position:relative; z-index:5;
@@ -92,9 +83,6 @@ html, body {
 .screen::-webkit-scrollbar-track { background:rgba(255,255,255,.05); }
 .screen::-webkit-scrollbar-thumb { background:rgba(0,255,255,.3); border-radius:2px; }
 
-/* ═══════════════════════════════
-   ADD BUTTON
-═══════════════════════════════ */
 .add-btn {
   width:100%;
   background:repeating-linear-gradient(45deg,#111 0,#111 2px,#191919 2px,#191919 4px);
@@ -113,9 +101,6 @@ html, body {
 .add-btn-label { font-size:20px; font-weight:600; color:#e0e0e0; letter-spacing:1px; display:block; margin-top:4px; }
 .add-btn-sub   { font-size:12px; color:#888; letter-spacing:1px; display:block; margin-top:2px; }
 
-/* ═══════════════════════════════
-   SECTION LABELS
-═══════════════════════════════ */
 .section-label {
   font-size:11px; font-weight:700; letter-spacing:3px; color:#999; text-transform:uppercase;
   margin:4px 0 8px 2px; padding-bottom:4px; border-bottom:1px solid rgba(255,255,255,.08);
@@ -126,9 +111,6 @@ html, body {
   padding-bottom:8px; border-bottom:1px solid rgba(0,255,255,.15);
 }
 
-/* ═══════════════════════════════
-   BILL CARDS (Home)
-═══════════════════════════════ */
 .bill-card {
   width:100%;
   background:linear-gradient(135deg,rgba(40,40,40,.95) 0%,rgba(55,55,55,.9) 30%,rgba(35,35,35,.95) 60%,rgba(50,50,50,.9) 100%);
@@ -194,7 +176,6 @@ html, body {
 }
 .pay-btn:active { box-shadow:0 0 14px rgba(0,200,83,.5); }
 
-/* Alert banner - NEON CYAN/GREEN STYLE */
 .alert-card {
   width:100%;
   background:linear-gradient(135deg,rgba(0,40,45,.95) 0%,rgba(0,55,60,.9) 50%,rgba(0,40,45,.95) 100%);
@@ -213,12 +194,8 @@ html, body {
 .alert-text .alert-title { font-size:13px; font-weight:700; color:var(--cyan); text-shadow:var(--cyan-glow); letter-spacing:1px; }
 .alert-text .alert-sub   { font-size:11px; color:#88ffff; margin-top:1px; letter-spacing:.5px; }
 
-/* Empty state */
 .empty-state { text-align:center; padding:22px; color:#444; font-size:13px; letter-spacing:1px; }
 
-/* ═══════════════════════════════
-   SCREEN 1 — PAGAMENTOS
-═══════════════════════════════ */
 .filter-row { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
 .filter-btn {
   background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
@@ -254,9 +231,6 @@ html, body {
 .badge-paid    { background:rgba(0,200,83,.12); color:#00e676; border:1px solid rgba(0,200,83,.25); }
 .badge-overdue { background:rgba(255,50,50,.15); color:#ff5252; border:1px solid rgba(255,50,50,.3); }
 
-/* ═══════════════════════════════
-   SCREEN 2 — CALENDÁRIO
-═══════════════════════════════ */
 .cal-nav {
   display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;
 }
@@ -324,9 +298,6 @@ html, body {
 .cal-event-name   { font-size:14px; font-weight:600; color:#ddd; }
 .cal-event-amount { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--cyan); margin-top:1px; }
 
-/* ═══════════════════════════════
-   SCREEN 3 — RESUMO FINANCEIRO
-═══════════════════════════════ */
 .summary-grid {
   display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;
 }
@@ -374,9 +345,6 @@ html, body {
 .cat-cnt  { font-size:11px; color:#555; margin-right:12px; }
 .cat-tot  { font-family:'Share Tech Mono',monospace; font-size:13px; color:var(--cyan); }
 
-/* ═══════════════════════════════
-   SCREEN 4 — CONFIGURAÇÕES
-═══════════════════════════════ */
 .cfg-section { margin-bottom:18px; }
 .cfg-section-title {
   font-size:9px; font-weight:700; letter-spacing:3px; color:#555; text-transform:uppercase;
@@ -392,6 +360,11 @@ html, body {
 }
 .cfg-label { font-size:14px; font-weight:600; color:#ccc; letter-spacing:.5px; }
 .cfg-sub   { font-size:10px; color:#555; margin-top:1px; letter-spacing:.5px; }
+.cfg-time-input {
+  background:rgba(0,0,0,.6); border:1px solid var(--cyan); border-radius:6px;
+  color:var(--cyan); font-family:'Share Tech Mono',monospace; font-size:14px;
+  padding:6px 10px; cursor:pointer; width:110px; text-align:center;
+}
 
 .toggle {
   width:44px; height:24px; border-radius:12px; cursor:pointer;
@@ -440,9 +413,6 @@ html, body {
   margin-top:10px; line-height:1.7;
 }
 
-/* ═══════════════════════════════
-   FOOTER
-═══════════════════════════════ */
 .footer {
   flex-shrink:0; position:relative; z-index:10;
   background:linear-gradient(180deg,rgba(10,10,10,.98) 0%,rgba(0,0,0,1) 100%);
@@ -466,9 +436,6 @@ html, body {
 .f-icon svg { width:100%; height:100%; }
 .f-label { font-size:10px; letter-spacing:1px; color:#666; margin-top:3px; text-transform:uppercase; }
 
-/* ═══════════════════════════════
-   MODAL
-═══════════════════════════════ */
 .modal-overlay {
   position:fixed; inset:0; z-index:100;
   background:rgba(0,0,0,.85); backdrop-filter:blur(4px);
@@ -527,9 +494,6 @@ html, body {
 @keyframes vPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
 .voice-status { font-family:'Share Tech Mono',monospace; font-size:11px; color:#cc88ff; text-align:center; margin-top:8px; min-height:16px; letter-spacing:1px; }
 
-/* ═══════════════════════════════
-   TOAST
-═══════════════════════════════ */
 .toast {
   position:fixed; top:20px; left:50%; transform:translateX(-50%);
   background:rgba(0,40,50,.95); border:1px solid rgba(0,255,255,.3);
@@ -540,7 +504,6 @@ html, body {
 }
 .toast.show { opacity:1; }
 
-/* Flash overlay para alerta */
 .flash-overlay {
   position:fixed; top:0; left:0; right:0; bottom:0; background:white; z-index:9999;
   pointer-events:none; opacity:0; transition:opacity 0.1s ease;
@@ -550,7 +513,6 @@ html, body {
 <body>
 <div class="app-shell">
 
-  <!-- HEADER (mesmo conteúdo original, sem alterações) -->
   <header class="header">
     <div class="logo-text">PROJECT</div>
     <div class="logo-sub">FINANCE MANAGEMENT</div>
@@ -586,7 +548,6 @@ html, body {
     <div class="tagline">Organize. Acompanhe. Pague em Dia.</div>
   </header>
 
-  <!-- SCREEN 0 - INÍCIO -->
   <div class="screen active" id="screen-0">
     <button class="add-btn" onclick="openModal()">
       <span class="add-btn-icon">
@@ -606,13 +567,10 @@ html, body {
       <span class="add-btn-label">Toque para falar a conta</span>
       <span class="add-btn-sub">Aperte para adicionar pagamento</span>
     </button>
-
     <div class="section-label">Próximos Vencimentos</div>
     <div id="upcomingList"></div>
-
     <div class="section-label" style="margin-top:12px">Contas Pagas</div>
     <div id="paidList"></div>
-
     <div class="alert-card" id="alertBanner">
       <div class="alert-icon">
         <svg viewBox="0 0 24 24" width="20" height="20">
@@ -626,7 +584,6 @@ html, body {
     </div>
   </div>
 
-  <!-- SCREEN 1 - PAGAMENTOS -->
   <div class="screen" id="screen-1">
     <div class="page-header">TODOS OS PAGAMENTOS</div>
     <div class="filter-row">
@@ -638,7 +595,6 @@ html, body {
     <div id="pagList"></div>
   </div>
 
-  <!-- SCREEN 2 - CALENDÁRIO -->
   <div class="screen" id="screen-2">
     <div class="cal-nav">
       <button class="cal-nav-btn" onclick="calShift(-1)">‹</button>
@@ -655,7 +611,6 @@ html, body {
     <div id="calEvents"></div>
   </div>
 
-  <!-- SCREEN 3 - RESUMO FINANCEIRO -->
   <div class="screen" id="screen-3">
     <div class="page-header">RESUMO FINANCEIRO</div>
     <div class="summary-grid" id="summaryCards"></div>
@@ -665,7 +620,6 @@ html, body {
     <div id="catBreakdown"></div>
   </div>
 
-  <!-- SCREEN 4 - CONFIGURAÇÕES -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
 
@@ -680,7 +634,7 @@ html, body {
     <div class="cfg-section">
       <div class="cfg-section-title">Notificações</div>
       <div class="cfg-row">
-        <div><div class="cfg-label">Alertas de Vencimento</div><div class="cfg-sub">21h anterior + 9h do dia</div></div>
+        <div><div class="cfg-label">Alertas de Vencimento</div><div class="cfg-sub">Ativar/Desativar todos os alertas</div></div>
         <div class="toggle on" id="tAlerts" onclick="togSetting('alerts')"><div class="toggle-thumb"></div></div>
       </div>
       <div class="cfg-row">
@@ -691,16 +645,20 @@ html, body {
         <div><div class="cfg-label">Vibração</div><div class="cfg-sub">Vibrar no alerta</div></div>
         <div class="toggle on" id="tVibrate" onclick="togSetting('vibrate')"><div class="toggle-thumb"></div></div>
       </div>
+    </div>
+
+    <div class="cfg-section">
+      <div class="cfg-section-title">Horários dos Alertas</div>
       <div class="cfg-row">
-        <div><div class="cfg-label">Duração do Alarme</div><div class="cfg-sub">Curto (1s) ou Longo (3s)</div></div>
-        <select id="alarmDuration" class="cfg-select" onchange="setAlarmDuration(this.value)">
-          <option value="short">Curto (1s)</option>
-          <option value="long" selected>Longo (3s)</option>
-        </select>
+        <div><div class="cfg-label">Alerta na Véspera</div><div class="cfg-sub">Horário no dia anterior ao vencimento</div></div>
+        <input type="time" id="eveTime" class="cfg-time-input" value="21:00">
       </div>
       <div class="cfg-row">
-        <div><div class="cfg-label">Testar Som</div><div class="cfg-sub">Valide o alerta atual</div></div>
-        <button class="cfg-btn cfg-sound" onclick="testSoundNow()">▶ TESTAR ALARME</button>
+        <div><div class="cfg-label">Alerta no Dia</div><div class="cfg-sub">Horário no próprio vencimento</div></div>
+        <input type="time" id="dueTime" class="cfg-time-input" value="09:00">
+      </div>
+      <div class="cfg-row">
+        <button class="cfg-btn cfg-sound" style="flex:1" onclick="saveAlertTimes()">💾 SALVAR HORÁRIOS</button>
       </div>
     </div>
 
@@ -714,8 +672,11 @@ html, body {
         <select id="testBillSelect" class="cfg-select" style="min-width:120px"></select>
       </div>
       <div class="cfg-row">
-        <button class="cfg-btn cfg-sound" style="flex:1; margin-right:5px" onclick="simulateAlert('eve')">📢 PRÉ-AVISO (21h)</button>
-        <button class="cfg-btn cfg-sound" style="flex:1; margin-left:5px" onclick="simulateAlert('day')">🚨 AVISO DO DIA (9h)</button>
+        <button class="cfg-btn cfg-sound" style="flex:1; margin-right:5px" onclick="simulateAlert('eve')">📢 PRÉ-AVISO</button>
+        <button class="cfg-btn cfg-sound" style="flex:1; margin-left:5px" onclick="simulateAlert('day')">🚨 AVISO DO DIA</button>
+      </div>
+      <div class="cfg-row">
+        <button class="cfg-btn cfg-test" style="flex:1" onclick="testAlertNow()">🔔 TESTAR ALERTA EM 10s</button>
       </div>
       <div class="cfg-sub" style="text-align:center; margin-top:8px; color:#00ccaa">Teste o alerta sem esperar as datas reais</div>
     </div>
@@ -729,10 +690,6 @@ html, body {
       <div class="cfg-row">
         <div><div class="cfg-label">Ativar Notificações</div><div class="cfg-sub">Permissão do navegador</div></div>
         <button class="cfg-btn" onclick="reqNotif()">ATIVAR</button>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Testar Notificação</div><div class="cfg-sub">Dispara som e vibração agora</div></div>
-        <button class="cfg-btn cfg-test" onclick="testNotif()">TESTAR</button>
       </div>
       <div class="cfg-row">
         <div><div class="cfg-label">Limpar Tudo</div><div class="cfg-sub">Apagar todas as contas</div></div>
@@ -753,7 +710,6 @@ html, body {
     </p>
   </div>
 
-  <!-- FOOTER -->
   <nav class="footer">
     <div class="footer-btn active" onclick="goTab(0,this)">
       <div class="f-icon"><svg viewBox="0 0 24 24"><defs><linearGradient id="i0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0e0e0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#c0c0c0"/></linearGradient></defs><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="url(#i0)"/></svg></div>
@@ -778,7 +734,6 @@ html, body {
   </nav>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="overlayClick(event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -788,12 +743,9 @@ html, body {
     <div class="inp-grp"><label>Data de Vencimento</label><input type="date" id="inpDate"/></div>
     <div class="inp-grp"><label>Categoria</label>
       <select id="inpCat">
-        <option value="agua">💧 Conta de Água</option>
-        <option value="energia">⚡ Energia Elétrica</option>
-        <option value="aluguel">🏠 Aluguel</option>
-        <option value="condominio">🏢 Condomínio</option>
-        <option value="saude">❤️ Plano de Saúde</option>
-        <option value="internet">📡 Internet</option>
+        <option value="agua">💧 Conta de Água</option><option value="energia">⚡ Energia Elétrica</option>
+        <option value="aluguel">🏠 Aluguel</option><option value="condominio">🏢 Condomínio</option>
+        <option value="saude">❤️ Plano de Saúde</option><option value="internet">📡 Internet</option>
         <option value="outros">📋 Outros</option>
       </select>
     </div>
@@ -808,27 +760,27 @@ html, body {
 
 <script>
 // ============================================================================
-// PROJETO A - CÓDIGO COMPLETAMENTE REVISADO E CORRIGIDO
-// - Todas as variáveis declaradas no escopo global
-// - Tratamento de erros em todas as operações críticas
-// - Fallback para Service Worker (usando setTimeout)
-// - Fluxo de inicialização orquestrado (load → render → schedule)
-// - Função de teste rápido disponível no console: testAlertIn10Seconds()
+// PROJETO A - CÓDIGO COMPLETO COM HORÁRIOS PERSONALIZÁVEIS
+// - Usuário define os horários dos alertas (Véspera e Dia do Vencimento)
+// - Os horários são salvos no localStorage
+// - Função de teste rápido: testAlertIn10Seconds() no console
+// - Botão "Testar Alerta em 10s" na tela de Configurações
 // ============================================================================
 
 // --------------------- DECLARAÇÕES GLOBAIS ---------------------
 let bills = [];
-let settings = { blur: true, alerts: true, sound: true, vibrate: true, alarmDuration: 'long' };
+let settings = { blur: true, alerts: true, sound: true, vibrate: true };
+let alertTimes = { eve: "21:00", due: "09:00" };  // Horários personalizáveis
 let firedAlerts = new Set();
 let currentTab = 0;
 let pagFilter = 'all';
 let calY, calM;
 let recognition = null;
 let isListening = false;
-let audioContext = null;          // referência global para o contexto de áudio ativo
-let scheduledTimeouts = [];       // para limpar timeouts em caso de recarga
+let audioContext = null;
+let scheduledTimeouts = [];
 
-// --------------------- UTILITÁRIOS E SANITIZAÇÃO ---------------------
+// --------------------- UTILITÁRIOS ---------------------
 const sanitizeText = (str) => {
   if (!str) return '';
   return String(str)
@@ -847,7 +799,6 @@ const fmtDate = (iso) => { if (!iso) return ''; const [y, m, d] = iso.split('-')
 const isOD = (b) => !b.paid && b.dueDate < new Date().toISOString().split('T')[0];
 const uid = () => Math.random().toString(36).slice(2, 10);
 
-// Dados estáticos (categorias, ícones, meses)
 const CAT_COLOR = { agua: '#4fc3f7', energia: '#ffe066', aluguel: '#b0b0b0', condominio: '#c0c0c0', saude: '#f48fb1', internet: '#80b0ff', outros: '#aaa' };
 const CAT_LABEL = { agua: 'Água', energia: 'Energia', aluguel: 'Aluguel', condominio: 'Condomínio', saude: 'Saúde', internet: 'Internet', outros: 'Outros' };
 const MONTHS_PT = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
@@ -862,16 +813,29 @@ const ICONS = {
   outros: `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z" fill="#aaa"/></svg>`,
 };
 
-// --------------------- PERSISTÊNCIA (LOCALSTORAGE) ---------------------
-const saveFA = () => {
-  try { localStorage.setItem('pA_fired', JSON.stringify([...firedAlerts])); } catch (e) { console.warn('Erro ao salvar firedAlerts', e); }
+// --------------------- PERSISTÊNCIA ---------------------
+const saveFA = () => { try { localStorage.setItem('pA_fired', JSON.stringify([...firedAlerts])); } catch(e) {} };
+const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stringify(settings)); } catch(e) {} };
+const saveAlertTimes = () => { 
+  try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} 
+  showToast('✓ Horários salvos!');
+  scheduleAlerts(); // Reagenda com os novos horários
 };
-const saveSettings = () => {
-  try { localStorage.setItem('pA_settings', JSON.stringify(settings)); } catch (e) { console.warn('Erro ao salvar settings', e); }
-};
-const saveBills = () => {
-  try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch (e) { console.warn('Erro ao salvar bills', e); }
-};
+const saveBills = () => { try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch(e) {} };
+
+function loadAlertTimes() {
+  try {
+    const saved = localStorage.getItem('pA_alertTimes');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      alertTimes = { ...alertTimes, ...parsed };
+    }
+  } catch(e) {}
+  const eveInput = document.getElementById('eveTime');
+  const dueInput = document.getElementById('dueTime');
+  if (eveInput) eveInput.value = alertTimes.eve;
+  if (dueInput) dueInput.value = alertTimes.due;
+}
 
 function loadSettings() {
   try {
@@ -880,10 +844,11 @@ function loadSettings() {
       const parsed = JSON.parse(saved);
       settings = { ...settings, ...parsed };
     }
-  } catch (e) { console.warn('Erro ao carregar settings', e); }
-  if (!settings.alarmDuration) settings.alarmDuration = 'long';
-  const select = document.getElementById('alarmDuration');
-  if (select) select.value = settings.alarmDuration;
+  } catch(e) {}
+  ['tBlur', 'tAlerts', 'tSound', 'tVibrate'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('on', settings[id.replace('t', '').toLowerCase()]);
+  });
 }
 
 function loadBills() {
@@ -896,15 +861,11 @@ function loadBills() {
     } else {
       seedDefaults();
     }
-  } catch (e) {
-    console.warn('Erro ao carregar bills', e);
-    seedDefaults();
-  }
-  // Carregar firedAlerts
+  } catch(e) { seedDefaults(); }
   try {
     const firedRaw = localStorage.getItem('pA_fired');
     if (firedRaw) firedAlerts = new Set(JSON.parse(firedRaw));
-  } catch (e) { /* ignora */ }
+  } catch(e) {}
 }
 
 function seedDefaults() {
@@ -922,32 +883,30 @@ function seedDefaults() {
   saveBills();
 }
 
-// --------------------- ÁUDIO E VIBRAÇÃO (COM FALLBACK) ---------------------
+function saveCurrentAlertTimesToStorage() {
+  const eveInput = document.getElementById('eveTime');
+  const dueInput = document.getElementById('dueTime');
+  if (eveInput) alertTimes.eve = eveInput.value;
+  if (dueInput) alertTimes.due = dueInput.value;
+  saveAlertTimes();
+}
+
+// --------------------- ÁUDIO E VIBRAÇÃO ---------------------
 function flashScreen() {
   const flash = document.getElementById('flashOverlay');
-  if (flash) {
-    flash.style.opacity = '0.7';
-    setTimeout(() => { flash.style.opacity = '0'; }, 200);
-  }
+  if (flash) { flash.style.opacity = '0.7'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
 }
 
 function playBeep(forceTest = false) {
   if (!settings.sound && !forceTest) return;
   flashScreen();
-  // Fecha contexto anterior se existir
-  if (audioContext) {
-    try { audioContext.close(); } catch (e) { /* ignora */ }
-    audioContext = null;
-  }
+  if (audioContext) { try { audioContext.close(); } catch(e) {} audioContext = null; }
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     const ctx = new AudioCtx();
     audioContext = ctx;
-    const isLong = (settings.alarmDuration === 'long' || forceTest);
     const start = ctx.currentTime;
-    const pattern = isLong
-      ? [{ time: 0, freq: 880 }, { time: 0.6, freq: 880 }, { time: 1.2, freq: 880 }, { time: 1.8, freq: 880 }, { time: 2.4, freq: 880 }]
-      : [{ time: 0, freq: 880 }, { time: 0.5, freq: 880 }];
+    const pattern = [{ time: 0, freq: 880 }, { time: 0.6, freq: 880 }, { time: 1.2, freq: 880 }, { time: 1.8, freq: 880 }, { time: 2.4, freq: 880 }];
     pattern.forEach(p => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -960,95 +919,68 @@ function playBeep(forceTest = false) {
       osc.start(start + p.time);
       osc.stop(start + p.time + 0.4);
     });
-    if (!forceTest && settings.vibrate && navigator.vibrate) {
-      if (isLong) navigator.vibrate([400, 200, 400, 200, 400, 200, 400]);
-      else navigator.vibrate([300, 100, 300]);
-    }
-    const duration = (isLong ? 3000 : 1000) + 200;
-    setTimeout(() => {
-      if (audioContext === ctx) {
-        try { ctx.close(); } catch (e) { }
-        audioContext = null;
-      }
-    }, duration);
-  } catch (e) {
-    console.warn('Erro ao reproduzir som', e);
-  }
+    if (!forceTest && settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400, 200, 400, 200, 400]);
+    setTimeout(() => { if (audioContext === ctx) { try { ctx.close(); } catch(e) {} audioContext = null; } }, 3200);
+  } catch(e) { console.warn('Erro no áudio', e); }
 }
 
-// --------------------- ALERTAS (FALLBACK COM setTimeout) ---------------------
-function scheduleAlertsLegacy() {
-  // Cancela todos os timeouts anteriores
+// --------------------- ALERTAS COM HORÁRIOS PERSONALIZÁVEIS ---------------------
+function scheduleAlerts() {
   for (const tid of scheduledTimeouts) clearTimeout(tid);
   scheduledTimeouts = [];
   if (!settings.alerts) return;
+  
   const now = Date.now();
+  const todayStr = new Date().toISOString().split('T')[0];
+  
   for (const bill of bills) {
     if (bill.paid) continue;
     try {
-      const due = new Date(bill.dueDate + 'T00:00:00');
-      const prev = new Date(due);
-      prev.setDate(prev.getDate() - 1);
-      prev.setHours(21, 0, 0, 0);
-      const day = new Date(due);
-      day.setHours(9, 0, 0, 0);
-      const keyPrev = bill.id + '_eve';
-      const keyDay = bill.id + '_day';
-      if (!firedAlerts.has(keyPrev) && prev.getTime() > now && prev.getTime() - now < 8 * 86400000) {
+      const dueDate = new Date(bill.dueDate + 'T00:00:00');
+      
+      // Alerta da véspera (dia anterior, horário personalizado)
+      const eveDate = new Date(dueDate);
+      eveDate.setDate(eveDate.getDate() - 1);
+      const [eveHour, eveMinute] = alertTimes.eve.split(':').map(Number);
+      eveDate.setHours(eveHour, eveMinute, 0, 0);
+      
+      // Alerta do dia do vencimento (horário personalizado)
+      const dueAlertDate = new Date(dueDate);
+      const [dueHour, dueMinute] = alertTimes.due.split(':').map(Number);
+      dueAlertDate.setHours(dueHour, dueMinute, 0, 0);
+      
+      const keyEve = bill.id + '_eve_' + alertTimes.eve;
+      const keyDue = bill.id + '_due_' + alertTimes.due;
+      
+      if (!firedAlerts.has(keyEve) && eveDate.getTime() > now && eveDate.getTime() - now < 8 * 86400000) {
         const tid = setTimeout(() => {
-          if (!firedAlerts.has(keyPrev)) {
-            firedAlerts.add(keyPrev);
+          if (!firedAlerts.has(keyEve)) {
+            firedAlerts.add(keyEve);
             saveFA();
             showToast(`⏰ ${bill.name} vence AMANHÃ!`);
             if (settings.sound) playBeep();
             if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
             if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence amanhã!` });
           }
-        }, prev.getTime() - now);
+        }, eveDate.getTime() - now);
         scheduledTimeouts.push(tid);
       }
-      if (!firedAlerts.has(keyDay) && day.getTime() > now && day.getTime() - now < 8 * 86400000) {
+      
+      if (!firedAlerts.has(keyDue) && dueAlertDate.getTime() > now && dueAlertDate.getTime() - now < 8 * 86400000) {
         const tid = setTimeout(() => {
-          if (!firedAlerts.has(keyDay)) {
-            firedAlerts.add(keyDay);
+          if (!firedAlerts.has(keyDue)) {
+            firedAlerts.add(keyDue);
             saveFA();
             showToast(`🚨 ${bill.name} vence HOJE!`);
             if (settings.sound) playBeep();
             if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
             if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence hoje!` });
           }
-        }, day.getTime() - now);
+        }, dueAlertDate.getTime() - now);
         scheduledTimeouts.push(tid);
       }
-    } catch (e) { console.warn('Erro ao agendar alerta para', bill.name, e); }
+    } catch(e) { console.warn('Erro ao agendar alerta para', bill.name, e); }
   }
-}
-
-// --------------------- SERVICE WORKER (REGISTRO COM FALLBACK) ---------------------
-function registerSW() {
-  if (!('serviceWorker' in navigator)) {
-    document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
-    scheduleAlertsLegacy();
-    return;
-  }
-  const swCode = `
-    self.addEventListener('install', e => self.skipWaiting());
-    self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
-    self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
-  `;
-  const blob = new Blob([swCode], { type: 'application/javascript' });
-  const url = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(url, { scope: './' })
-    .then(reg => {
-      console.log('SW registrado com sucesso');
-      document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo';
-      // SW não faz agendamento avançado, mas o fallback já cuida
-    })
-    .catch(err => {
-      console.warn('SW falhou, usando fallback in-page', err);
-      document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)';
-      scheduleAlertsLegacy();
-    });
 }
 
 // --------------------- FUNÇÕES DE UI (RENDERIZAÇÃO) ---------------------
@@ -1083,8 +1015,7 @@ function makeCard(b) {
     if (bill) {
       bill.blurred = !bill.blurred;
       saveBills();
-      const names = card.querySelectorAll('.bill-name, .bill-amount');
-      names.forEach(el => el.classList.toggle('blurred', bill.blurred));
+      card.querySelectorAll('.bill-name, .bill-amount').forEach(el => el.classList.toggle('blurred', bill.blurred));
     }
   });
   return card;
@@ -1118,10 +1049,7 @@ function renderPag() {
   if (pagFilter === 'overdue') list = list.filter(b => !b.paid && b.dueDate < today);
   const container = document.getElementById('pagList');
   container.innerHTML = '';
-  if (!list.length) {
-    container.innerHTML = '<div class="empty-state">Nenhuma conta neste filtro.</div>';
-    return;
-  }
+  if (!list.length) { container.innerHTML = '<div class="empty-state">Nenhuma conta neste filtro.</div>'; return; }
   for (const b of list) {
     const overdue = isOD(b);
     let badge, cls;
@@ -1184,8 +1112,10 @@ function renderCfg() {
   const countPaid = bills.filter(b => b.paid).length;
   const countEl = document.getElementById('cfgCount');
   if (countEl) countEl.textContent = countPaid + ' registro' + (countPaid !== 1 ? 's' : '');
-  const durSelect = document.getElementById('alarmDuration');
-  if (durSelect) durSelect.value = settings.alarmDuration;
+  const eveInput = document.getElementById('eveTime');
+  const dueInput = document.getElementById('dueTime');
+  if (eveInput) eveInput.value = alertTimes.eve;
+  if (dueInput) dueInput.value = alertTimes.due;
   const testSelect = document.getElementById('testBillSelect');
   if (testSelect) {
     const pending = bills.filter(b => !b.paid);
@@ -1230,8 +1160,7 @@ function payBill(id) {
   showToast(`✓ ${bill.name} marcada como paga!`);
   if (settings.sound) playBeep();
   if (settings.vibrate && navigator.vibrate) navigator.vibrate(200);
-  // Reagendar alertas (remove os antigos)
-  scheduleAlertsLegacy();
+  scheduleAlerts();
 }
 
 // --------------------- CALENDÁRIO ---------------------
@@ -1293,10 +1222,7 @@ function renderCal() {
     const [y, m] = b.dueDate.split('-').map(Number);
     return y === calY && m === calM + 1;
   }).sort((a, b) => a.dueDate.localeCompare(b.dueDate));
-  if (!monthBills.length) {
-    eventsDiv.innerHTML = '<div class="empty-state">Sem vencimentos neste mês.</div>';
-    return;
-  }
+  if (!monthBills.length) { eventsDiv.innerHTML = '<div class="empty-state">Sem vencimentos neste mês.</div>'; return; }
   for (const b of monthBills) {
     const [yy, mm, dd] = b.dueDate.split('-').map(Number);
     const past = b.dueDate < todayStr;
@@ -1322,9 +1248,7 @@ function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   if (isListening) stopVoice();
 }
-function overlayClick(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
-}
+function overlayClick(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
 function saveBill() {
   let name = document.getElementById('inpName').value.trim();
   const value = parseFloat(document.getElementById('inpValue').value);
@@ -1333,27 +1257,18 @@ function saveBill() {
   if (!name) { showToast('⚠ Digite o nome da conta'); return; }
   if (!date) { showToast('⚠ Selecione a data de vencimento'); return; }
   name = sanitizeText(name);
-  bills.push({
-    id: uid(),
-    name,
-    amount: isNaN(value) ? null : value,
-    dueDate: date,
-    category: cat,
-    paid: false,
-    blurred: settings.blur,
-  });
+  bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid: false, blurred: settings.blur });
   saveBills();
   render();
   closeModal();
   showToast('✓ Conta adicionada!');
-  scheduleAlertsLegacy();
+  scheduleAlerts();
 }
 
-// Reconhecimento de voz
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
 function startVoice() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { showToast('⚠ Voz não suportada neste navegador'); return; }
+  if (!SR) { showToast('⚠ Voz não suportada'); return; }
   recognition = new SR();
   recognition.lang = 'pt-BR';
   recognition.continuous = false;
@@ -1369,10 +1284,7 @@ function startVoice() {
   document.getElementById('voiceBtn').classList.add('listening');
 }
 function stopVoice() {
-  if (recognition) {
-    try { recognition.stop(); } catch (e) { }
-    recognition = null;
-  }
+  if (recognition) { try { recognition.stop(); } catch(e) {} recognition = null; }
   isListening = false;
   document.getElementById('voiceBtn').classList.remove('listening');
 }
@@ -1413,7 +1325,6 @@ function parseVoice(text) {
   stopVoice();
 }
 
-function setAlarmDuration(val) { settings.alarmDuration = val; saveSettings(); showToast(`Alarme: ${val === 'long' ? 'Longo (3s)' : 'Curto (1s)'}`); const s = document.getElementById('alarmDuration'); if (s) s.value = val; }
 function testSoundNow() { playBeep(true); }
 function simulateAlert(type) {
   const select = document.getElementById('testBillSelect');
@@ -1428,18 +1339,25 @@ function simulateAlert(type) {
     new Notification('PROJECT A — SIMULAÇÃO', { body: msg, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
   }
 }
-function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); }
+function testAlertNow() {
+  const pending = bills.filter(b => !b.paid);
+  if (!pending.length) { showToast('⚠ Nenhuma conta pendente para teste'); return; }
+  const bill = pending[0];
+  showToast(`🔔 TESTE RÁPIDO (10s): ${bill.name}`);
+  setTimeout(() => {
+    if (settings.sound) playBeep(true);
+    if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400]);
+    if (Notification.permission === 'granted') {
+      new Notification('PROJECT A — TESTE', { body: `Alerta simulado para ${bill.name}`, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
+    }
+    showToast(`🚨 ALERTA: ${bill.name}`);
+  }, 10000);
+}
+
+function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); if (k === 'alerts') scheduleAlerts(); }
 function reqNotif() {
   if (!('Notification' in window)) { showToast('⚠ Notificações não disponíveis'); return; }
   Notification.requestPermission().then(p => showToast(p === 'granted' ? '✓ Notificações ativadas!' : '⚠ Permissão negada'));
-}
-function testNotif() {
-  if (settings.sound) playBeep(true);
-  if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
-  showToast('🔔 Notificação de teste!');
-  if (Notification.permission === 'granted') {
-    new Notification('PROJECT A — Teste', { body: 'Som e vibração OK!', icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
-  }
 }
 function clearAll() {
   if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return;
@@ -1448,13 +1366,28 @@ function clearAll() {
   render();
   renderCfg();
   showToast('✓ Dados apagados');
-  scheduleAlertsLegacy();
+  scheduleAlerts();
 }
 function showToast(msg) {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// --------------------- SERVICE WORKER (FALLBACK) ---------------------
+function registerSW() {
+  if (!('serviceWorker' in navigator)) {
+    document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
+    scheduleAlerts();
+    return;
+  }
+  const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => e.waitUntil(self.clients.claim())); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));`;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const url = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(url, { scope: './' })
+    .then(() => { document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo'; })
+    .catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; scheduleAlerts(); });
 }
 
 // --------------------- PWA INSTALL ---------------------
@@ -1471,40 +1404,33 @@ function triggerInstall() {
   deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
 }
 
-// --------------------- TESTE RÁPIDO NO CONSOLE ---------------------
+// --------------------- TESTE RÁPIDO GLOBAL ---------------------
 window.testAlertIn10Seconds = function() {
   const pending = bills.filter(b => !b.paid);
-  if (!pending.length) { console.warn('Nenhuma conta pendente para teste'); return; }
+  if (!pending.length) { console.warn('Nenhuma conta pendente'); return; }
   const bill = pending[0];
   showToast(`🔔 TESTE RÁPIDO (10s): ${bill.name}`);
   setTimeout(() => {
     if (settings.sound) playBeep(true);
     if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400]);
-    if (Notification.permission === 'granted') {
-      new Notification('PROJECT A — TESTE', { body: `Alerta simulado para ${bill.name}`, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
-    }
+    if (Notification.permission === 'granted') new Notification('PROJECT A — TESTE', { body: `Alerta para ${bill.name}`, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
     showToast(`🚨 ALERTA: ${bill.name}`);
   }, 10000);
-  console.log('Alarme de teste agendado para daqui 10 segundos. Feche o app/aba e aguarde.');
+  console.log('Alarme de teste agendado para daqui 10 segundos.');
 };
-console.log('Para testar alerta rápido, digite: testAlertIn10Seconds()');
 
-// --------------------- INICIALIZAÇÃO ORQUESTRADA ---------------------
+// --------------------- INICIALIZAÇÃO ---------------------
 function init() {
   loadSettings();
+  loadAlertTimes();
   loadBills();
   calInit();
   render();
   registerSW();
-  scheduleAlertsLegacy();
-  setInterval(() => {
-    if (settings.alerts) scheduleAlertsLegacy();
-    updateAlertBanner();
-  }, 3600000);
+  scheduleAlerts();
+  setInterval(() => { if (settings.alerts) scheduleAlerts(); updateAlertBanner(); }, 3600000);
   setInterval(() => updateAlertBanner(), 60000);
-  if ('Notification' in window && Notification.permission === 'default') {
-    setTimeout(() => Notification.requestPermission(), 2000);
-  }
+  if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
 }
 init();
 </script>
