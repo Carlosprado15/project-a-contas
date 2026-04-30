@@ -196,11 +196,12 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
 </head>
 <body>
 
+<!-- GATE OVERLAY - TELA DE ACESSO COM CHAVE (CORRIGIDA) -->
 <div id="gateOverlay" class="gate-overlay">
   <div class="gate-card">
     <div class="gate-title">🔐 ACCESS CODE</div>
     <input type="password" id="gatePassword" class="gate-input" placeholder="Digite a chave de acesso" autocomplete="off">
-    <button class="gate-btn" onclick="verifyGate()">UNLOCK →</button>
+    <button class="gate-btn" id="gateButton" onclick="verifyGateCorrect()">UNLOCK →</button>
     <div id="gateError" class="gate-error"></div>
   </div>
 </div>
@@ -229,6 +230,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     <div class="tagline">Project A</div>
   </header>
 
+  <!-- SCREEN 0 - INÍCIO (MESMO CONTEÚDO) -->
   <div class="screen active" id="screen-0">
     <button class="add-btn" onclick="openModal()">
       <span class="add-btn-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle"><defs><linearGradient id="mG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0f0f0"/><stop offset="40%" stop-color="#b0b0b0"/><stop offset="70%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#808080"/></linearGradient></defs><rect x="9" y="2" width="6" height="12" rx="3" fill="url(#mG)"/><path d="M5 11c0 3.866 3.134 7 7 7s7-3.134 7-7" stroke="url(#mG)" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="12" y1="18" x2="12" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/><line x1="8"  y1="22" x2="16" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/></svg></span>
@@ -245,12 +247,14 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     </div>
   </div>
 
+  <!-- SCREEN 1 - PAGAMENTOS -->
   <div class="screen" id="screen-1">
     <div class="page-header">TODOS OS PAGAMENTOS</div>
     <div class="filter-row"><button class="filter-btn active" onclick="setFilter(this,'all')">Todos</button><button class="filter-btn" onclick="setFilter(this,'pending')">Pendentes</button><button class="filter-btn" onclick="setFilter(this,'paid')">Pagos</button><button class="filter-btn" onclick="setFilter(this,'overdue')">Vencidos</button></div>
     <div id="pagList"></div>
   </div>
 
+  <!-- SCREEN 2 - CALENDÁRIO -->
   <div class="screen" id="screen-2">
     <div class="cal-nav"><button class="cal-nav-btn" onclick="calShift(-1)">‹</button><div class="cal-month-title" id="calTitle">—</div><button class="cal-nav-btn" onclick="calShift(+1)">›</button></div>
     <div class="cal-dow-row"><div class="cal-dow">D</div><div class="cal-dow">S</div><div class="cal-dow">T</div><div class="cal-dow">Q</div><div class="cal-dow">Q</div><div class="cal-dow">S</div><div class="cal-dow">S</div></div>
@@ -259,6 +263,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     <div id="calEvents"></div>
   </div>
 
+  <!-- SCREEN 3 - RESUMO FINANCEIRO -->
   <div class="screen" id="screen-3">
     <div class="page-header">RESUMO FINANCEIRO</div>
     <div class="summary-grid" id="summaryCards"></div>
@@ -268,6 +273,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     <div id="catBreakdown"></div>
   </div>
 
+  <!-- SCREEN 4 - CONFIGURAÇÕES -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
     <div class="cfg-section">
@@ -329,28 +335,30 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
 
 <script>
 // ============================================================================
-// PROJECT A - VERSÃO LIMPA E FUNCIONAL PARA GITHUB PAGES
-// - Remove botões confusos (instalar app, testar alerta, resetar alertas)
-// - Mantém apenas o verificador automático a cada 30 segundos
-// - Sistema 100% autônomo: o usuário só precisa salvar a conta
+// PROJECT A - GATE CORRIGIDO (RECARREGA A PÁGINA APÓS CHAVE CORRETA)
 // ============================================================================
 
-// GATE ACCESS
-function verifyGate() {
+// GATE CORRETO - força recarregamento da página após liberar
+function verifyGateCorrect() {
   const input = document.getElementById('gatePassword').value;
-  if (input === 'Rennovation15@') {
+  const key = 'Rennovation15@';
+  if (input === key) {
     localStorage.setItem('access_granted', 'true');
-    document.getElementById('gateOverlay').style.display = 'none';
-    initApp();
+    // Recarrega a página para garantir que tudo seja inicializado corretamente
+    window.location.reload();
   } else {
     document.getElementById('gateError').innerText = '❌ Chave inválida. Acesso negado.';
   }
 }
 
-function checkAccess() {
-  if (localStorage.getItem('access_granted') === 'true') {
-    document.getElementById('gateOverlay').style.display = 'none';
+function checkAccessAndInit() {
+  const granted = localStorage.getItem('access_granted');
+  const gate = document.getElementById('gateOverlay');
+  if (granted === 'true') {
+    if (gate) gate.style.display = 'none';
     initApp();
+  } else {
+    if (gate) gate.style.display = 'flex';
   }
 }
 
@@ -797,7 +805,8 @@ function renderCal() {
   }
 }
 
-// MODAL, VOZ, CONFIGURAÇÕESfunction openModal() {
+// MODAL, VOZ, CONFIGURAÇÕES
+function openModal() {
   document.getElementById('inpDate').value = new Date().toISOString().split('T')[0];
   document.getElementById('inpName').value = '';
   document.getElementById('inpValue').value = '';
@@ -866,7 +875,7 @@ function updateGain() { const slider = document.getElementById('alertGain'); if 
 function clearAll() { if (!confirm('Apagar TODAS as contas?')) return; bills = []; firedAlerts.clear(); saveBills(); saveFA(); render(); showToast('✓ Dados apagados'); }
 function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
 
-// INICIALIZAÇÃO - VERIFICADOR A CADA 30 SEGUNDOS
+// INICIALIZAÇÃO
 function initApp() {
   loadSettings(); loadAlertTimes(); loadBills(); calInit(); render();
   if (alertChecker) clearInterval(alertChecker);
@@ -875,11 +884,11 @@ function initApp() {
   if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
   const gainSlider = document.getElementById('alertGain'); if (gainSlider) gainSlider.addEventListener('input', updateGain);
   const testBtn = document.getElementById('testSoundBtn'); if (testBtn) testBtn.addEventListener('click', testSound);
-  // Executa uma verificação imediatamente ao iniciar
   setTimeout(() => checkAlertsNow(), 1000);
 }
 
-checkAccess();
+// Executa a verificação de acesso (mostra gate se necessário)
+checkAccessAndInit();
 </script>
 </body>
 </html>
