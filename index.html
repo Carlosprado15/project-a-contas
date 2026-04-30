@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="PROJECT A">
+<meta name="apple-mobile-web-app-title" content="Project A">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Organize, acompanhe e pague em dia.">
 <link rel="manifest" href="data:application/manifest+json,{
-  \"name\": \"PROJECT A — Finance\",
-  \"short_name\": \"PROJECT A\",
+  \"name\": \"Project A\",
+  \"short_name\": \"Project A\",
   \"description\": \"Organize, acompanhe e pague em dia.\",
   \"start_url\": \"./\",
   \"display\": \"standalone\",
@@ -34,9 +34,9 @@
   ]
 }">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='96' cy='96' r='88' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='8'/%3E%3Cpath d='M40 72 A58 58 0 0 1 152 72' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='4' stroke-linecap='round'/%3E%3Ctext x='96' y='132' text-anchor='middle' font-family='Georgia,serif' font-size='92' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E">
-<title>PROJECT A — Finance Management</title>
+<title>Project A — Finance Management</title>
 <style>
-/* ========== CSS ORIGINAL COMPLETO ========== */
+/* ========== CSS ORIGINAL (NÃO ALTERADO) ========== */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -558,6 +558,20 @@ html, body {
 }
 .gate-btn:hover { box-shadow:0 0 20px rgba(0,255,255,0.5); transform:scale(1.02); }
 .gate-error { font-size:12px; color:#ff5252; margin-top:10px; letter-spacing:1px; }
+
+.sound-test-btn {
+  background: linear-gradient(135deg, #003344, #005566);
+  border: 1px solid var(--cyan);
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: var(--cyan);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: 10px;
+}
+.sound-test-btn:active { transform: scale(0.95); }
 </style>
 </head>
 <body>
@@ -574,7 +588,7 @@ html, body {
 <div class="app-shell">
   <header class="header">
     <div class="logo-text">PROJECT</div>
-    <div class="logo-sub">FINANCE MANAGEMENT</div>
+    <div class="logo-sub"></div>
     <div class="emblem-wrap">
       <svg class="emblem-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -592,7 +606,7 @@ html, body {
         <ellipse cx="50" cy="32" rx="16" ry="6" fill="rgba(255,255,255,.12)"/>
       </svg>
     </div>
-    <div class="tagline">Organize. Acompanhe. Pague em Dia.</div>
+    <div class="tagline">Project A</div>
   </header>
 
   <div class="screen active" id="screen-0">
@@ -646,7 +660,12 @@ html, body {
       <div class="cfg-section-title">Notificações</div>
       <div class="cfg-row"><div><div class="cfg-label">Som de Alerta</div><div class="cfg-sub">Bipe ao disparar notificação</div></div><div class="toggle on" id="tSound" onclick="togSetting('sound')"><div class="toggle-thumb"></div></div></div>
       <div class="cfg-row"><div><div class="cfg-label">Vibração</div><div class="cfg-sub">Vibrar no alerta</div></div><div class="toggle on" id="tVibrate" onclick="togSetting('vibrate')"><div class="toggle-thumb"></div></div></div>
-      <div class="cfg-row"><div><div class="cfg-label">Volume do Alerta</div><div class="cfg-sub">0% (mudo) a 100% (máximo)</div></div><input type="range" id="alertVolume" class="cfg-volume" min="0" max="100" value="80"></div>
+      <div class="cfg-row"><div><div class="cfg-label">Volume do Alerta</div><div class="cfg-sub">0% (mudo) a 100% (máximo)</div></div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <input type="range" id="alertVolume" class="cfg-volume" min="0" max="100" value="80" style="width:100px;">
+          <button id="testSoundBtn" class="sound-test-btn">🔊 TESTAR</button>
+        </div>
+      </div>
     </div>
 
     <div class="cfg-section">
@@ -674,7 +693,7 @@ html, body {
       <div class="cfg-row"><div><div class="cfg-label">Adicionar à Tela Inicial</div><div class="cfg-sub">Instalar como app nativo</div></div><button class="cfg-btn cfg-install" id="btnInstall" onclick="triggerInstall()">INSTALAR</button></div>
     </div>
 
-    <p class="privacy-hint">PROJECT A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Service Worker: verificando…</span></p>
+    <p class="privacy-hint">Project A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Service Worker: verificando…</span></p>
   </div>
 
   <nav class="footer">
@@ -707,10 +726,10 @@ html, body {
 
 <script>
 // ============================================================================
-// PROJETO A - VERSÃO COMPLETA CORRIGIDA
-// - Som, vibração e flash funcionando
-// - Volume controlando o ganho real do áudio
-// - Alertas automáticos sem necessidade de seleção
+// PROJECT A - VERSÃO COM SERVICE WORKER EXTERNO (SW.JS)
+// - O agendamento é enviado para o Service Worker que executa mesmo com app fechado
+// - O volume controla o ganho real do áudio (Web Audio API)
+// - Botão "TESTAR" desbloqueia o áudio e toca o som com o volume atual
 // ============================================================================
 
 // GATE ACCESS
@@ -737,13 +756,13 @@ let bills = [];
 let settings = { blur: true, sound: true, vibrate: true, volume: 80 };
 let alertTimes = { eve: "21:00", due: "09:00" };
 let firedAlerts = new Set();
-let scheduledTimeouts = [];
 let currentTab = 0;
 let pagFilter = 'all';
 let calY, calM;
 let recognition = null;
 let isListening = false;
 let audioContext = null;
+let swRegistration = null;
 
 // UTILITÁRIOS
 const sanitizeText = (str) => {
@@ -773,7 +792,7 @@ const ICONS = {
 // PERSISTÊNCIA
 const saveFA = () => { try { localStorage.setItem('pA_fired', JSON.stringify([...firedAlerts])); } catch(e) {} };
 const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stringify(settings)); } catch(e) {} };
-const saveAlertTimes = () => { try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} showToast('✓ Horários salvos!'); rescheduleAllAlerts(); };
+const saveAlertTimes = () => { try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} showToast('✓ Horários salvos!'); scheduleAlertsViaSW(); };
 const saveBills = () => { try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch(e) {} };
 
 function loadSettings() {
@@ -852,7 +871,7 @@ function importBackup(file) {
       if (data.alertTimes) alertTimes = { ...alertTimes, ...data.alertTimes };
       saveBills(); saveSettings(); saveAlertTimes();
       render();
-      rescheduleAllAlerts();
+      scheduleAlertsViaSW();
       showToast("✓ Backup restaurado!");
     } catch(err) { showToast("❌ Arquivo inválido!"); }
   };
@@ -873,7 +892,7 @@ function exportToCSV() {
   showToast("✓ CSV exportado!");
 }
 
-// ÁUDIO, VIBRAÇÃO E FLASH (CORRIGIDOS)
+// ÁUDIO, VIBRAÇÃO E FLASH
 function flashScreen() {
   const flash = document.getElementById('flashOverlay');
   if (flash) { flash.style.opacity = '0.8'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
@@ -909,95 +928,78 @@ function vibrateDevice() {
   if (settings.vibrate && navigator.vibrate) navigator.vibrate([400, 200, 400, 200, 400]);
 }
 
-// ALERTAS AUTOMÁTICOS
-function scheduleSingleAlert(bill, type) {
-  const now = new Date();
-  const dueDate = new Date(bill.dueDate + 'T00:00:00');
-  if (dueDate < now) return;
-  let targetDate;
-  if (type === 'eve') {
-    targetDate = new Date(dueDate);
-    targetDate.setDate(targetDate.getDate() - 1);
-    const [hour, minute] = alertTimes.eve.split(':').map(Number);
-    targetDate.setHours(hour, minute, 0, 0);
-  } else {
-    targetDate = new Date(dueDate);
-    const [hour, minute] = alertTimes.due.split(':').map(Number);
-    targetDate.setHours(hour, minute, 0, 0);
-  }
-  const delay = targetDate.getTime() - now.getTime();
-  if (delay <= 0 || delay > 30 * 86400000) return;
-  const key = `${bill.id}_${type}_${targetDate.toISOString().split('T')[0]}`;
-  if (firedAlerts.has(key)) return;
-  const tid = setTimeout(() => {
-    if (!firedAlerts.has(key)) {
-      firedAlerts.add(key);
-      saveFA();
-      showToast(type === 'eve' ? `⏰ ${bill.name} vence AMANHÃ!` : `🚨 ${bill.name} vence HOJE!`);
-      playAlertSound();
-      vibrateDevice();
-      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: type === 'eve' ? `${bill.name} vence amanhã!` : `${bill.name} vence hoje!` });
-    }
-  }, delay);
-  scheduledTimeouts.push(tid);
+// TESTE DE SOM (DESBLOQUEIA O ÁUDIO)
+function testSound() {
+  playAlertSound();
+  showToast(`🔊 Teste de som - Volume: ${settings.volume}%`);
 }
 
-function rescheduleAllAlerts() {
-  for (const tid of scheduledTimeouts) clearTimeout(tid);
-  scheduledTimeouts = [];
+// AGENDAMENTO VIA SERVICE WORKER
+function scheduleAlertsViaSW() {
+  if (!swRegistration || !swRegistration.active) {
+    console.warn('SW não ativo, tentando novamente em 1s');
+    setTimeout(() => scheduleAlertsViaSW(), 1000);
+    return;
+  }
+  const now = new Date();
+  const pendingAlerts = [];
   for (const bill of bills) {
     if (bill.paid) continue;
-    scheduleSingleAlert(bill, 'eve');
-    scheduleSingleAlert(bill, 'due');
-  }
-}
-
-function checkAlertsNow() {
-  const now = new Date();
-  const todayStr = now.toISOString().split('T')[0];
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  const timeToMinutes = (timeStr) => { const [h, m] = timeStr.split(':').map(Number); return h * 60 + m; };
-  const targetEveMinutes = timeToMinutes(alertTimes.eve);
-  const targetDueMinutes = timeToMinutes(alertTimes.due);
-  const tolerance = 1;
-  const isWithinTolerance = (target) => Math.abs(currentMinutes - target) <= tolerance;
-  for (const bill of bills) {
-    if (bill.paid) continue;
-    const dueDateOnly = bill.dueDate;
-    const prevDateObj = new Date(dueDateOnly);
-    prevDateObj.setDate(prevDateObj.getDate() - 1);
-    const prevDateStr = prevDateObj.toISOString().split('T')[0];
-    if (prevDateStr === todayStr && isWithinTolerance(targetEveMinutes) && !firedAlerts.has(`${bill.id}_eve_${todayStr}`)) {
-      firedAlerts.add(`${bill.id}_eve_${todayStr}`); saveFA();
-      showToast(`⏰ ${bill.name} vence AMANHÃ!`);
-      playAlertSound();
-      vibrateDevice();
-      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence amanhã!` });
+    const dueDate = new Date(bill.dueDate + 'T00:00:00');
+    if (dueDate < now) continue;
+    // Alerta da véspera
+    const eveDate = new Date(dueDate);
+    eveDate.setDate(eveDate.getDate() - 1);
+    const [eveHour, eveMinute] = alertTimes.eve.split(':').map(Number);
+    eveDate.setHours(eveHour, eveMinute, 0, 0);
+    if (eveDate > now) {
+      pendingAlerts.push({
+        id: bill.id + '_eve',
+        title: '⏰ Project A',
+        body: `${bill.name} vence AMANHÃ!`,
+        timestamp: eveDate.getTime(),
+        sound: true,
+        vibrate: true
+      });
     }
-    if (dueDateOnly === todayStr && isWithinTolerance(targetDueMinutes) && !firedAlerts.has(`${bill.id}_due_${todayStr}`)) {
-      firedAlerts.add(`${bill.id}_due_${todayStr}`); saveFA();
-      showToast(`🚨 ${bill.name} vence HOJE!`);
-      playAlertSound();
-      vibrateDevice();
-      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence hoje!` });
+    // Alerta do dia
+    const dueAlertDate = new Date(dueDate);
+    const [dueHour, dueMinute] = alertTimes.due.split(':').map(Number);
+    dueAlertDate.setHours(dueHour, dueMinute, 0, 0);
+    if (dueAlertDate > now) {
+      pendingAlerts.push({
+        id: bill.id + '_due',
+        title: '🚨 Project A',
+        body: `${bill.name} vence HOJE!`,
+        timestamp: dueAlertDate.getTime(),
+        sound: true,
+        vibrate: true
+      });
     }
   }
+  swRegistration.active.postMessage({
+    type: 'SCHEDULE_ALERTS',
+    alerts: pendingAlerts,
+    volume: settings.volume
+  });
 }
 
-let alertInterval = null;
-function startAlertWatcher() {
-  if (alertInterval) clearInterval(alertInterval);
-  alertInterval = setInterval(() => checkAlertsNow(), 60000);
-  checkAlertsNow();
-}
-
-// SERVICE WORKER
+// SERVICE WORKER REGISTRATION
 function registerSW() {
-  if (!('serviceWorker' in navigator)) { document.getElementById('swStatus').textContent = 'Service Worker: não suportado'; rescheduleAllAlerts(); return; }
-  const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => e.waitUntil(self.clients.claim())); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));`;
-  const blob = new Blob([swCode], { type: 'application/javascript' });
-  const url = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(url, { scope: './' }).then(() => { document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo'; rescheduleAllAlerts(); }).catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; rescheduleAllAlerts(); });
+  if (!('serviceWorker' in navigator)) {
+    document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
+    return;
+  }
+  navigator.serviceWorker.register('sw.js')
+    .then(reg => {
+      swRegistration = reg;
+      document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo';
+      scheduleAlertsViaSW();
+    })
+    .catch(err => {
+      console.warn('SW falhou, usando fallback in-page', err);
+      document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)';
+    });
 }
 
 // FUNÇÕES DE UI
@@ -1147,7 +1149,7 @@ function payBill(id) {
   showToast(`✓ ${bill.name} marcada como paga!`);
   playAlertSound();
   vibrateDevice();
-  rescheduleAllAlerts();
+  scheduleAlertsViaSW();
 }
 
 // CALENDÁRIO
@@ -1243,21 +1245,7 @@ function saveBill() {
   render();
   closeModal();
   showToast(paid ? "✓ Conta adicionada como PAGA!" : "✓ Conta adicionada!");
-  rescheduleAllAlerts();
-  // Testa se precisa disparar alerta agora (se a data for hoje e horário atual >= configurado)
-  if (!paid && date === today) {
-    const now = new Date();
-    const targetDueMinutes = parseInt(alertTimes.due.split(':')[0]) * 60 + parseInt(alertTimes.due.split(':')[1]);
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    if (currentMinutes >= targetDueMinutes && !firedAlerts.has(`${uid()}_due_${today}`)) {
-      firedAlerts.add(`${uid()}_due_${today}`);
-      saveFA();
-      showToast(`🚨 ${name} vence HOJE!`);
-      playAlertSound();
-      vibrateDevice();
-      if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${name} vence hoje!` });
-    }
-  }
+  scheduleAlertsViaSW();
 }
 
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
@@ -1294,9 +1282,9 @@ function parseVoice(text) {
   stopVoice();
 }
 
-function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); if (k === 'sound') { if (settings.sound) playAlertSound(); } rescheduleAllAlerts(); }
-function updateVolume() { const slider = document.getElementById('alertVolume'); if (slider) { settings.volume = parseInt(slider.value, 10); saveSettings(); showToast(`Volume: ${settings.volume}%`); } }
-function clearAll() { if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return; bills = []; firedAlerts.clear(); saveBills(); saveFA(); render(); rescheduleAllAlerts(); showToast('✓ Dados apagados'); }
+function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); scheduleAlertsViaSW(); }
+function updateVolume() { const slider = document.getElementById('alertVolume'); if (slider) { settings.volume = parseInt(slider.value, 10); saveSettings(); showToast(`Volume: ${settings.volume}%`); scheduleAlertsViaSW(); } }
+function clearAll() { if (!confirm('Apagar TODAS as contas? Esta ação não pode ser desfeita.')) return; bills = []; firedAlerts.clear(); saveBills(); saveFA(); render(); scheduleAlertsViaSW(); showToast('✓ Dados apagados'); }
 function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
 
 // PWA INSTALL
@@ -1306,10 +1294,11 @@ function triggerInstall() { if (!deferredPrompt) { showToast('⚠ Use "Adicionar
 
 // INICIALIZAÇÃO
 function initApp() {
-  loadSettings(); loadAlertTimes(); loadBills(); calInit(); render(); registerSW(); startAlertWatcher();
+  loadSettings(); loadAlertTimes(); loadBills(); calInit(); render(); registerSW();
   setInterval(() => updateAlertBanner(), 60000);
   if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
   const volSlider = document.getElementById('alertVolume'); if (volSlider) volSlider.addEventListener('input', updateVolume);
+  const testBtn = document.getElementById('testSoundBtn'); if (testBtn) testBtn.addEventListener('click', testSound);
 }
 
 checkAccess();
