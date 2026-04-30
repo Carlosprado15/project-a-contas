@@ -360,11 +360,12 @@ html, body {
 }
 .cfg-label { font-size:14px; font-weight:600; color:#ccc; letter-spacing:.5px; }
 .cfg-sub   { font-size:10px; color:#555; margin-top:1px; letter-spacing:.5px; }
-.cfg-time-input {
+.cfg-time-input, .cfg-volume {
   background:rgba(0,0,0,.6); border:1px solid var(--cyan); border-radius:6px;
   color:var(--cyan); font-family:'Share Tech Mono',monospace; font-size:14px;
   padding:6px 10px; cursor:pointer; width:110px; text-align:center;
 }
+.cfg-volume { width:100%; margin-top:5px; cursor:pointer; accent-color: var(--cyan); }
 
 .toggle {
   width:44px; height:24px; border-radius:12px; cursor:pointer;
@@ -645,6 +646,10 @@ html, body {
         <div><div class="cfg-label">Vibração</div><div class="cfg-sub">Vibrar no alerta</div></div>
         <div class="toggle on" id="tVibrate" onclick="togSetting('vibrate')"><div class="toggle-thumb"></div></div>
       </div>
+      <div class="cfg-row">
+        <div><div class="cfg-label">Volume do Alerta</div><div class="cfg-sub">0% (mudo) a 100% (máximo)</div></div>
+        <input type="range" id="alertVolume" class="cfg-volume" min="0" max="100" value="80">
+      </div>
     </div>
 
     <div class="cfg-section">
@@ -658,7 +663,8 @@ html, body {
         <input type="time" id="dueTime" class="cfg-time-input" value="09:00">
       </div>
       <div class="cfg-row">
-        <button class="cfg-btn cfg-sound" style="flex:1" onclick="saveAlertTimes()">💾 SALVAR HORÁRIOS</button>
+        <!-- CORREÇÃO 1: chama a função que lê os inputs e salva -->
+        <button class="cfg-btn cfg-sound" style="flex:1" onclick="saveCurrentAlertTimesToStorage()">💾 SALVAR HORÁRIOS</button>
       </div>
     </div>
 
@@ -760,25 +766,23 @@ html, body {
 
 <script>
 // ============================================================================
-// PROJETO A - CÓDIGO COMPLETO COM HORÁRIOS PERSONALIZÁVEIS
-// - Usuário define os horários dos alertas (Véspera e Dia do Vencimento)
-// - Os horários são salvos no localStorage
-// - Função de teste rápido: testAlertIn10Seconds() no console
-// - Botão "Testar Alerta em 10s" na tela de Configurações
+// PROJETO A - ALERTAS CONFIÁVEIS (CORREÇÕES FINAIS)
+// - CORREÇÃO 1: Botão salvar lê os inputs corretamente (saveCurrentAlertTimesToStorage)
+// - CORREÇÃO 2: Verificação com janela de ±1 minuto (evita perda por timing)
+// - CORREÇÃO 3: Chaves firedAlerts incluem a data para não bloquear dias futuros
 // ============================================================================
 
 // --------------------- DECLARAÇÕES GLOBAIS ---------------------
 let bills = [];
-let settings = { blur: true, alerts: true, sound: true, vibrate: true };
-let alertTimes = { eve: "21:00", due: "09:00" };  // Horários personalizáveis
-let firedAlerts = new Set();
+let settings = { blur: true, alerts: true, sound: true, vibrate: true, volume: 80 };
+let alertTimes = { eve: "21:00", due: "09:00" };
+let firedAlerts = new Set();   // chave: "id_tipo_data_hora"
 let currentTab = 0;
 let pagFilter = 'all';
 let calY, calM;
 let recognition = null;
 let isListening = false;
 let audioContext = null;
-let scheduledTimeouts = [];
 
 // --------------------- UTILITÁRIOS ---------------------
 const sanitizeText = (str) => {
@@ -819,9 +823,25 @@ const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stri
 const saveAlertTimes = () => { 
   try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} 
   showToast('✓ Horários salvos!');
-  scheduleAlerts(); // Reagenda com os novos horários
+  checkAlertsNow(); // força verificação imediata após salvar
 };
 const saveBills = () => { try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch(e) {} };
+
+function loadSettings() {
+  try {
+    const saved = localStorage.getItem('pA_settings');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      settings = { ...settings, ...parsed };
+    }
+  } catch(e) {}
+  document.getElementById('tBlur')?.classList.toggle('on', settings.blur);
+  document.getElementById('tAlerts')?.classList.toggle('on', settings.alerts);
+  document.getElementById('tSound')?.classList.toggle('on', settings.sound);
+  document.getElementById('tVibrate')?.classList.toggle('on', settings.vibrate);
+  const volSlider = document.getElementById('alertVolume');
+  if (volSlider) volSlider.value = settings.volume;
+}
 
 function loadAlertTimes() {
   try {
@@ -835,20 +855,6 @@ function loadAlertTimes() {
   const dueInput = document.getElementById('dueTime');
   if (eveInput) eveInput.value = alertTimes.eve;
   if (dueInput) dueInput.value = alertTimes.due;
-}
-
-function loadSettings() {
-  try {
-    const saved = localStorage.getItem('pA_settings');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      settings = { ...settings, ...parsed };
-    }
-  } catch(e) {}
-  ['tBlur', 'tAlerts', 'tSound', 'tVibrate'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.toggle('on', settings[id.replace('t', '').toLowerCase()]);
-  });
 }
 
 function loadBills() {
@@ -865,7 +871,8 @@ function loadBills() {
   try {
     const firedRaw = localStorage.getItem('pA_fired');
     if (firedRaw) firedAlerts = new Set(JSON.parse(firedRaw));
-  } catch(e) {}
+    else firedAlerts.clear();
+  } catch(e) { firedAlerts.clear(); }
 }
 
 function seedDefaults() {
@@ -883,6 +890,7 @@ function seedDefaults() {
   saveBills();
 }
 
+// Lê os inputs e salva no objeto alertTimes e localStorage
 function saveCurrentAlertTimesToStorage() {
   const eveInput = document.getElementById('eveTime');
   const dueInput = document.getElementById('dueTime');
@@ -891,7 +899,7 @@ function saveCurrentAlertTimesToStorage() {
   saveAlertTimes();
 }
 
-// --------------------- ÁUDIO E VIBRAÇÃO ---------------------
+// --------------------- ÁUDIO COM VOLUME AJUSTÁVEL ---------------------
 function flashScreen() {
   const flash = document.getElementById('flashOverlay');
   if (flash) { flash.style.opacity = '0.7'; setTimeout(() => { flash.style.opacity = '0'; }, 200); }
@@ -905,6 +913,7 @@ function playBeep(forceTest = false) {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     const ctx = new AudioCtx();
     audioContext = ctx;
+    const volume = (forceTest ? 100 : settings.volume) / 100;
     const start = ctx.currentTime;
     const pattern = [{ time: 0, freq: 880 }, { time: 0.6, freq: 880 }, { time: 1.2, freq: 880 }, { time: 1.8, freq: 880 }, { time: 2.4, freq: 880 }];
     pattern.forEach(p => {
@@ -914,7 +923,7 @@ function playBeep(forceTest = false) {
       gain.connect(ctx.destination);
       osc.type = 'sawtooth';
       osc.frequency.value = p.freq;
-      gain.gain.setValueAtTime(0.35, start + p.time);
+      gain.gain.setValueAtTime(0.35 * volume, start + p.time);
       gain.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.4);
       osc.start(start + p.time);
       osc.stop(start + p.time + 0.4);
@@ -924,63 +933,64 @@ function playBeep(forceTest = false) {
   } catch(e) { console.warn('Erro no áudio', e); }
 }
 
-// --------------------- ALERTAS COM HORÁRIOS PERSONALIZÁVEIS ---------------------
-function scheduleAlerts() {
-  for (const tid of scheduledTimeouts) clearTimeout(tid);
-  scheduledTimeouts = [];
+// --------------------- VERIFICAÇÃO DE ALERTAS (com janela de ±1 minuto e chave com data) ---------------------
+function checkAlertsNow() {
   if (!settings.alerts) return;
-  
-  const now = Date.now();
-  const todayStr = new Date().toISOString().split('T')[0];
-  
+  const now = new Date();
+  const todayStr = now.toISOString().split('T')[0];
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  // Converte HH:MM para minutos
+  const timeToMinutes = (timeStr) => {
+    const [h, m] = timeStr.split(':').map(Number);
+    return h * 60 + m;
+  };
+
+  const targetEveMinutes = timeToMinutes(alertTimes.eve);
+  const targetDueMinutes = timeToMinutes(alertTimes.due);
+  const tolerance = 1; // 1 minuto de tolerância
+
+  const isWithinTolerance = (target) => Math.abs(currentMinutes - target) <= tolerance;
+
   for (const bill of bills) {
     if (bill.paid) continue;
     try {
-      const dueDate = new Date(bill.dueDate + 'T00:00:00');
-      
-      // Alerta da véspera (dia anterior, horário personalizado)
-      const eveDate = new Date(dueDate);
-      eveDate.setDate(eveDate.getDate() - 1);
-      const [eveHour, eveMinute] = alertTimes.eve.split(':').map(Number);
-      eveDate.setHours(eveHour, eveMinute, 0, 0);
-      
-      // Alerta do dia do vencimento (horário personalizado)
-      const dueAlertDate = new Date(dueDate);
-      const [dueHour, dueMinute] = alertTimes.due.split(':').map(Number);
-      dueAlertDate.setHours(dueHour, dueMinute, 0, 0);
-      
-      const keyEve = bill.id + '_eve_' + alertTimes.eve;
-      const keyDue = bill.id + '_due_' + alertTimes.due;
-      
-      if (!firedAlerts.has(keyEve) && eveDate.getTime() > now && eveDate.getTime() - now < 8 * 86400000) {
-        const tid = setTimeout(() => {
-          if (!firedAlerts.has(keyEve)) {
-            firedAlerts.add(keyEve);
-            saveFA();
-            showToast(`⏰ ${bill.name} vence AMANHÃ!`);
-            if (settings.sound) playBeep();
-            if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
-            if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence amanhã!` });
-          }
-        }, eveDate.getTime() - now);
-        scheduledTimeouts.push(tid);
+      const dueDateOnly = bill.dueDate;
+      // Alerta da véspera
+      const prevDate = new Date(dueDateOnly);
+      prevDate.setDate(prevDate.getDate() - 1);
+      const prevDateStr = prevDate.toISOString().split('T')[0];
+      const eveKey = `${bill.id}_eve_${prevDateStr}_${alertTimes.eve}`;
+      if (prevDateStr === todayStr && isWithinTolerance(targetEveMinutes) && !firedAlerts.has(eveKey)) {
+        firedAlerts.add(eveKey);
+        saveFA();
+        showToast(`⏰ ${bill.name} vence AMANHÃ!`);
+        if (settings.sound) playBeep();
+        if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence amanhã!` });
       }
-      
-      if (!firedAlerts.has(keyDue) && dueAlertDate.getTime() > now && dueAlertDate.getTime() - now < 8 * 86400000) {
-        const tid = setTimeout(() => {
-          if (!firedAlerts.has(keyDue)) {
-            firedAlerts.add(keyDue);
-            saveFA();
-            showToast(`🚨 ${bill.name} vence HOJE!`);
-            if (settings.sound) playBeep();
-            if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
-            if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence hoje!` });
-          }
-        }, dueAlertDate.getTime() - now);
-        scheduledTimeouts.push(tid);
+      // Alerta do dia do vencimento
+      const dueKey = `${bill.id}_due_${dueDateOnly}_${alertTimes.due}`;
+      if (dueDateOnly === todayStr && isWithinTolerance(targetDueMinutes) && !firedAlerts.has(dueKey)) {
+        firedAlerts.add(dueKey);
+        saveFA();
+        showToast(`🚨 ${bill.name} vence HOJE!`);
+        if (settings.sound) playBeep();
+        if (settings.vibrate && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        if (Notification.permission === 'granted') new Notification('PROJECT A', { body: `${bill.name} vence hoje!` });
       }
-    } catch(e) { console.warn('Erro ao agendar alerta para', bill.name, e); }
+    } catch(e) { console.warn('Erro ao verificar alerta para', bill.name, e); }
   }
+}
+
+// Inicia o verificador periódico (a cada 60 segundos)
+let alertInterval = null;
+function startAlertWatcher() {
+  if (alertInterval) clearInterval(alertInterval);
+  alertInterval = setInterval(() => {
+    if (settings.alerts) checkAlertsNow();
+  }, 60000);
+  checkAlertsNow(); // executa imediatamente
 }
 
 // --------------------- FUNÇÕES DE UI (RENDERIZAÇÃO) ---------------------
@@ -1116,6 +1126,8 @@ function renderCfg() {
   const dueInput = document.getElementById('dueTime');
   if (eveInput) eveInput.value = alertTimes.eve;
   if (dueInput) dueInput.value = alertTimes.due;
+  const volSlider = document.getElementById('alertVolume');
+  if (volSlider) volSlider.value = settings.volume;
   const testSelect = document.getElementById('testBillSelect');
   if (testSelect) {
     const pending = bills.filter(b => !b.paid);
@@ -1160,7 +1172,6 @@ function payBill(id) {
   showToast(`✓ ${bill.name} marcada como paga!`);
   if (settings.sound) playBeep();
   if (settings.vibrate && navigator.vibrate) navigator.vibrate(200);
-  scheduleAlerts();
 }
 
 // --------------------- CALENDÁRIO ---------------------
@@ -1262,7 +1273,7 @@ function saveBill() {
   render();
   closeModal();
   showToast('✓ Conta adicionada!');
-  scheduleAlerts();
+  checkAlertsNow(); // força verificação
 }
 
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
@@ -1325,7 +1336,6 @@ function parseVoice(text) {
   stopVoice();
 }
 
-function testSoundNow() { playBeep(true); }
 function simulateAlert(type) {
   const select = document.getElementById('testBillSelect');
   if (!select || !select.value) { showToast('⚠ Selecione uma conta pendente primeiro'); return; }
@@ -1354,7 +1364,21 @@ function testAlertNow() {
   }, 10000);
 }
 
-function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); if (k === 'alerts') scheduleAlerts(); }
+function togSetting(k) { 
+  settings[k] = !settings[k]; 
+  saveSettings(); 
+  renderCfg(); 
+  showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`);
+  if (k === 'alerts' && settings.alerts) checkAlertsNow();
+}
+function updateVolume() {
+  const slider = document.getElementById('alertVolume');
+  if (slider) {
+    settings.volume = parseInt(slider.value, 10);
+    saveSettings();
+    showToast(`Volume: ${settings.volume}%`);
+  }
+}
 function reqNotif() {
   if (!('Notification' in window)) { showToast('⚠ Notificações não disponíveis'); return; }
   Notification.requestPermission().then(p => showToast(p === 'granted' ? '✓ Notificações ativadas!' : '⚠ Permissão negada'));
@@ -1366,7 +1390,6 @@ function clearAll() {
   render();
   renderCfg();
   showToast('✓ Dados apagados');
-  scheduleAlerts();
 }
 function showToast(msg) {
   const toast = document.getElementById('toast');
@@ -1379,7 +1402,6 @@ function showToast(msg) {
 function registerSW() {
   if (!('serviceWorker' in navigator)) {
     document.getElementById('swStatus').textContent = 'Service Worker: não suportado';
-    scheduleAlerts();
     return;
   }
   const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('activate', e => e.waitUntil(self.clients.claim())); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));`;
@@ -1387,7 +1409,7 @@ function registerSW() {
   const url = URL.createObjectURL(blob);
   navigator.serviceWorker.register(url, { scope: './' })
     .then(() => { document.getElementById('swStatus').textContent = 'Service Worker: ✓ ativo'; })
-    .catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; scheduleAlerts(); });
+    .catch(() => { document.getElementById('swStatus').textContent = 'Service Worker: fallback (in-page)'; });
 }
 
 // --------------------- PWA INSTALL ---------------------
@@ -1416,7 +1438,7 @@ window.testAlertIn10Seconds = function() {
     if (Notification.permission === 'granted') new Notification('PROJECT A — TESTE', { body: `Alerta para ${bill.name}`, icon: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2240%22%20fill%3D%22%2300FFFF%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22black%22%20font-size%3D%2248%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E' });
     showToast(`🚨 ALERTA: ${bill.name}`);
   }, 10000);
-  console.log('Alarme de teste agendado para daqui 10 segundos.');
+  console.log('Alarme de teste agendado para daqui 10 segundos. Mantenha o navegador aberto.');
 };
 
 // --------------------- INICIALIZAÇÃO ---------------------
@@ -1427,10 +1449,11 @@ function init() {
   calInit();
   render();
   registerSW();
-  scheduleAlerts();
-  setInterval(() => { if (settings.alerts) scheduleAlerts(); updateAlertBanner(); }, 3600000);
+  startAlertWatcher(); // monitor periódico para disparar alertas
   setInterval(() => updateAlertBanner(), 60000);
   if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
+  const volSlider = document.getElementById('alertVolume');
+  if (volSlider) volSlider.addEventListener('input', updateVolume);
 }
 init();
 </script>
