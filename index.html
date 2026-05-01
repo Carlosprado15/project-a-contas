@@ -9,10 +9,34 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Organize, acompanhe e pague em dia.">
+<link rel="manifest" href="data:application/manifest+json,{
+  \"name\": \"Project A\",
+  \"short_name\": \"Project A\",
+  \"description\": \"Organize, acompanhe e pague em dia.\",
+  \"start_url\": \"./\",
+  \"display\": \"standalone\",
+  \"orientation\": \"portrait\",
+  \"background_color\": \"#000000\",
+  \"theme_color\": \"#000000\",
+  \"icons\": [
+    {
+      \"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='46' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='4'/%3E%3Cpath d='M22 38 A30 30 0 0 1 78 38' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='2' stroke-linecap='round'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-family='Georgia,serif' font-size='48' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E\",
+      \"sizes\": \"192x192\",
+      \"type\": \"image/svg+xml\",
+      \"purpose\": \"any maskable\"
+    },
+    {
+      \"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='256' cy='256' r='236' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='20'/%3E%3Cpath d='M112 195 A154 154 0 0 1 400 195' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='10' stroke-linecap='round'/%3E%3Ctext x='256' y='350' text-anchor='middle' font-family='Georgia,serif' font-size='240' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E\",
+      \"sizes\": \"512x512\",
+      \"type\": \"image/svg+xml\",
+      \"purpose\": \"any maskable\"
+    }
+  ]
+}">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='96' cy='96' r='88' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='8'/%3E%3Cpath d='M40 72 A58 58 0 0 1 152 72' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='4' stroke-linecap='round'/%3E%3Ctext x='96' y='132' text-anchor='middle' font-family='Georgia,serif' font-size='92' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E">
 <title>Project A</title>
 <style>
-/* ========== CSS COMPLETO ========== */
+/* ========== CSS ORIGINAL (COMPLETO, NÃO ALTERADO) ========== */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 :root { --cyan: #00FFFF; --cyan-glow: 0 0 8px #00FFFF, 0 0 20px rgba(0,255,255,0.4); --green-ok: #00e676; --chrome-mid: #b0b0b0; }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -188,6 +212,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     <div class="tagline">Project A</div>
   </header>
 
+  <!-- SCREEN 0 - INÍCIO -->
   <div class="screen active" id="screen-0">
     <button class="add-btn" onclick="openModal()">
       <span class="add-btn-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle"><defs><linearGradient id="mG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0f0f0"/><stop offset="40%" stop-color="#b0b0b0"/><stop offset="70%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#808080"/></linearGradient></defs><rect x="9" y="2" width="6" height="12" rx="3" fill="url(#mG)"/><path d="M5 11c0 3.866 3.134 7 7 7s7-3.134 7-7" stroke="url(#mG)" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="12" y1="18" x2="12" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/><line x1="8"  y1="22" x2="16" y2="22" stroke="url(#mG)" stroke-width="2" stroke-linecap="round"/></svg></span>
@@ -204,12 +229,14 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     </div>
   </div>
 
+  <!-- SCREEN 1 - PAGAMENTOS -->
   <div class="screen" id="screen-1">
     <div class="page-header">TODOS OS PAGAMENTOS</div>
     <div class="filter-row"><button class="filter-btn active" onclick="setFilter(this,'all')">Todos</button><button class="filter-btn" onclick="setFilter(this,'pending')">Pendentes</button><button class="filter-btn" onclick="setFilter(this,'paid')">Pagos</button><button class="filter-btn" onclick="setFilter(this,'overdue')">Vencidos</button></div>
     <div id="pagList"></div>
   </div>
 
+  <!-- SCREEN 2 - CALENDÁRIO -->
   <div class="screen" id="screen-2">
     <div class="cal-nav"><button class="cal-nav-btn" onclick="calShift(-1)">‹</button><div class="cal-month-title" id="calTitle">—</div><button class="cal-nav-btn" onclick="calShift(+1)">›</button></div>
     <div class="cal-dow-row"><div class="cal-dow">D</div><div class="cal-dow">S</div><div class="cal-dow">T</div><div class="cal-dow">Q</div><div class="cal-dow">Q</div><div class="cal-dow">S</div><div class="cal-dow">S</div></div>
@@ -218,6 +245,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     <div id="calEvents"></div>
   </div>
 
+  <!-- SCREEN 3 - RESUMO FINANCEIRO -->
   <div class="screen" id="screen-3">
     <div class="page-header">RESUMO FINANCEIRO</div>
     <div class="summary-grid" id="summaryCards"></div>
@@ -227,35 +255,35 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     <div id="catBreakdown"></div>
   </div>
 
+  <!-- SCREEN 4 - CONFIGURAÇÕES (com campo para URL do Google Apps Script) -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
+    
     <div class="cfg-section">
       <div class="cfg-section-title">Privacidade</div>
       <div class="cfg-row"><div><div class="cfg-label">Blur Automático</div><div class="cfg-sub">Ocultar valores ao carregar</div></div><div class="toggle on" id="tBlur" onclick="togSetting('blur')"><div class="toggle-thumb"></div></div></div>
     </div>
+    
     <div class="cfg-section">
-      <div class="cfg-section-title">Notificações</div>
-      <div class="cfg-row"><div><div class="cfg-label">Som de Alerta</div><div class="cfg-sub">Bipe ao disparar notificação</div></div><div class="toggle on" id="tSound" onclick="togSetting('sound')"><div class="toggle-thumb"></div></div></div>
-      <div class="cfg-row"><div><div class="cfg-label">Vibração</div><div class="cfg-sub">Vibrar no alerta</div></div><div class="toggle on" id="tVibrate" onclick="togSetting('vibrate')"><div class="toggle-thumb"></div></div></div>
-      <div class="cfg-row"><div><div class="cfg-label">Ganho de Áudio</div><div class="cfg-sub">Amplificação digital (0% a 200%)</div></div><input type="range" id="alertGain" class="cfg-volume" min="0" max="200" value="150"></div>
+      <div class="cfg-section-title">Integração Google</div>
+      <div class="cfg-row"><div><div class="cfg-label">Web App URL</div><div class="cfg-sub">URL do Google Apps Script</div></div><input type="text" id="googleWebAppUrl" class="cfg-time-input" style="width:200px" placeholder="https://script.google.com/.../exec"></div>
+      <div class="cfg-row"><button class="cfg-btn cfg-sound" onclick="testGoogleConnection()">🔌 TESTAR CONEXÃO</button></div>
+      <div class="cfg-row"><div class="cfg-sub" style="color:#ffaa00">⚠️ Após configurar a URL, os alertas serão enviados para o Google Calendar</div></div>
     </div>
-    <div class="cfg-section">
-      <div class="cfg-section-title">Horários dos Alertas</div>
-      <div class="cfg-row"><div><div class="cfg-label">Alerta na Véspera</div><div class="cfg-sub">Horário no dia anterior ao vencimento</div></div><input type="time" id="eveTime" class="cfg-time-input" value="21:00" onchange="saveCurrentAlertTimesToStorage()"></div>
-      <div class="cfg-row"><div><div class="cfg-label">Alerta no Dia</div><div class="cfg-sub">Horário no próprio vencimento</div></div><input type="time" id="dueTime" class="cfg-time-input" value="09:00" onchange="saveCurrentAlertTimesToStorage()"></div>
-    </div>
+    
     <div class="cfg-section">
       <div class="cfg-section-title">Backup e Dados</div>
       <div class="cfg-row"><div><div class="cfg-label">Exportar Backup</div><div class="cfg-sub">Salvar todos os dados em arquivo JSON</div></div><button class="cfg-btn cfg-sound" onclick="exportBackup()">📤 EXPORTAR</button></div>
       <div class="cfg-row"><div><div class="cfg-label">Importar Backup</div><div class="cfg-sub">Restaurar dados de arquivo JSON</div></div><input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this.files[0])"><button class="cfg-btn cfg-sound" onclick="document.getElementById('importFile').click()">📥 IMPORTAR</button></div>
       <div class="cfg-row"><div><div class="cfg-label">Exportar CSV</div><div class="cfg-sub">Planilha com todas as contas</div></div><button class="cfg-btn cfg-test" onclick="exportToCSV()">📊 CSV</button></div>
     </div>
+    
     <div class="cfg-section">
       <div class="cfg-section-title">Dados</div>
       <div class="cfg-row"><div><div class="cfg-label">Histórico Salvo</div><div class="cfg-sub">Contas pagas por 90 dias</div></div><span id="cfgCount" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan)">—</span></div>
       <div class="cfg-row"><div><div class="cfg-label">Limpar Tudo</div><div class="cfg-sub">Apagar todas as contas</div></div><button class="cfg-btn danger" onclick="clearAll()">LIMPAR</button></div>
     </div>
-    <p class="privacy-hint">Project A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Sistema ativo | Verifica alertas a cada 30 segundos</span></p>
+    <p class="privacy-hint">Project A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Modo Google Calendar: alertas via Agenda</span></p>
   </div>
 
   <nav class="footer">
@@ -288,22 +316,20 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
 
 <script>
 // ============================================================================
-// PROJECT A - VERSÃO LIMPA E DIRETA (SEM GATE, SEM BOTÕES INÚTEIS)
+// PROJECT A - VERSÃO COM INTEGRAÇÃO GOOGLE CALENDAR
+// - O alerta local foi removido. Agora os dados são enviados para o Google Apps Script
+// - O Google Apps Script cria um evento no Google Calendar com lembrete
 // ============================================================================
 
 // DECLARAÇÕES GLOBAIS
 let bills = [];
-let settings = { blur: true, sound: true, vibrate: true, gain: 150 };
-let alertTimes = { eve: "21:00", due: "09:00" };
-let firedAlerts = new Set();
+let settings = { blur: true };
 let currentTab = 0;
 let pagFilter = 'all';
 let calY, calM;
 let recognition = null;
 let isListening = false;
-let audioContext = null;
-let strobeInterval = null;
-let alertChecker = null;
+let googleWebAppUrl = localStorage.getItem('googleWebAppUrl') || '';
 
 // UTILITÁRIOS
 const sanitizeText = (str) => {
@@ -331,26 +357,14 @@ const ICONS = {
 };
 
 // PERSISTÊNCIA
-const saveFA = () => { try { localStorage.setItem('pA_fired', JSON.stringify([...firedAlerts])); } catch(e) {} };
 const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stringify(settings)); } catch(e) {} };
-const saveAlertTimes = () => { try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} };
 const saveBills = () => { try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch(e) {} };
 
 function loadSettings() {
   try { const saved = localStorage.getItem('pA_settings'); if (saved) { const parsed = JSON.parse(saved); settings = { ...settings, ...parsed }; } } catch(e) {}
   document.getElementById('tBlur')?.classList.toggle('on', settings.blur);
-  document.getElementById('tSound')?.classList.toggle('on', settings.sound);
-  document.getElementById('tVibrate')?.classList.toggle('on', settings.vibrate);
-  const gainSlider = document.getElementById('alertGain');
-  if (gainSlider) gainSlider.value = settings.gain;
-}
-
-function loadAlertTimes() {
-  try { const saved = localStorage.getItem('pA_alertTimes'); if (saved) { const parsed = JSON.parse(saved); alertTimes = { ...alertTimes, ...parsed }; } } catch(e) {}
-  const eveInput = document.getElementById('eveTime');
-  const dueInput = document.getElementById('dueTime');
-  if (eveInput) eveInput.value = alertTimes.eve;
-  if (dueInput) dueInput.value = alertTimes.due;
+  const urlInput = document.getElementById('googleWebAppUrl');
+  if (urlInput && googleWebAppUrl) urlInput.value = googleWebAppUrl;
 }
 
 function loadBills() {
@@ -362,7 +376,6 @@ function loadBills() {
       bills = parsed.filter(b => !b.paid || (b.paidAt && b.paidAt > cutoff));
     } else { seedDefaults(); }
   } catch(e) { seedDefaults(); }
-  try { const firedRaw = localStorage.getItem('pA_fired'); if (firedRaw) firedAlerts = new Set(JSON.parse(firedRaw)); } catch(e) { firedAlerts.clear(); }
 }
 
 function seedDefaults() {
@@ -380,18 +393,9 @@ function seedDefaults() {
   saveBills();
 }
 
-function saveCurrentAlertTimesToStorage() {
-  const eveInput = document.getElementById('eveTime');
-  const dueInput = document.getElementById('dueTime');
-  if (eveInput) alertTimes.eve = eveInput.value;
-  if (dueInput) alertTimes.due = dueInput.value;
-  saveAlertTimes();
-  showToast('✓ Horário salvo');
-}
-
 // BACKUP E CSV
 function exportBackup() {
-  const data = { bills, settings, alertTimes, version: "1.0", exportDate: new Date().toISOString() };
+  const data = { bills, settings, version: "1.0", exportDate: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -410,8 +414,7 @@ function importBackup(file) {
       const data = JSON.parse(e.target.result);
       if (data.bills) bills = data.bills;
       if (data.settings) settings = { ...settings, ...data.settings };
-      if (data.alertTimes) alertTimes = { ...alertTimes, ...data.alertTimes };
-      saveBills(); saveSettings(); saveAlertTimes();
+      saveBills(); saveSettings();
       render();
       showToast("✓ Backup restaurado!");
     } catch(err) { showToast("❌ Arquivo inválido!"); }
@@ -433,96 +436,54 @@ function exportToCSV() {
   showToast("✓ CSV exportado!");
 }
 
-// ÁUDIO, VIBRAÇÃO E STROBE
-function stopStrobe() {
-  if (strobeInterval) { clearInterval(strobeInterval); strobeInterval = null; }
-  const strobe = document.getElementById('strobeOverlay');
-  if (strobe) strobe.style.opacity = '0';
+// ==================== GOOGLE APPS SCRIPT INTEGRATION ====================
+function saveGoogleUrl() {
+  const urlInput = document.getElementById('googleWebAppUrl');
+  if (urlInput) {
+    googleWebAppUrl = urlInput.value.trim();
+    localStorage.setItem('googleWebAppUrl', googleWebAppUrl);
+    showToast('✓ URL salva');
+  }
 }
 
-function startStrobe() {
-  stopStrobe();
-  const strobe = document.getElementById('strobeOverlay');
-  let isWhite = false;
-  strobeInterval = setInterval(() => {
-    strobe.style.opacity = isWhite ? '0.9' : '0';
-    isWhite = !isWhite;
-  }, 100);
-  setTimeout(() => stopStrobe(), 3000);
+function testGoogleConnection() {
+  saveGoogleUrl();
+  if (!googleWebAppUrl) {
+    showToast('⚠ Configure a URL do Google Apps Script primeiro');
+    return;
+  }
+  fetch(googleWebAppUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ test: true, message: 'Conexão de teste' })
+  }).then(() => showToast('✓ Teste enviado! Verifique o log do Apps Script'))
+    .catch(() => showToast('❌ Falha na conexão. Verifique a URL e publique o Web App'));
 }
 
-function playAlertSound() {
-  if (!settings.sound) return;
-  startStrobe();
-  if (audioContext && audioContext.state !== 'closed') {
-    try { audioContext.close(); } catch(e) {}
+async function sendToGoogleCalendar(bill) {
+  if (!googleWebAppUrl) {
+    showToast('⚠ Configure a URL do Google Apps Script em Configurações');
+    return false;
   }
   try {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const gainNode = audioContext.createGain();
-    gainNode.connect(audioContext.destination);
-    const gainValue = Math.min(2.0, Math.max(0, settings.gain / 100));
-    gainNode.gain.value = gainValue;
-    const now = audioContext.currentTime;
-    for (let i = 0; i < 8; i++) {
-      const osc = audioContext.createOscillator();
-      osc.type = 'sawtooth';
-      osc.frequency.value = 880;
-      osc.connect(gainNode);
-      osc.start(now + i * 0.4);
-      osc.stop(now + i * 0.4 + 0.3);
-    }
-    setTimeout(() => { try { audioContext.close(); } catch(e) {} audioContext = null; }, 3500);
-    if (audioContext.state === 'suspended') { audioContext.resume(); }
-  } catch(e) { console.warn('Erro no áudio', e); }
-}
-
-function vibrateDevice() {
-  if (settings.vibrate && navigator.vibrate) { navigator.vibrate([500, 100, 500, 100, 800, 100, 500]); }
-}
-
-// VERIFICAÇÃO AUTOMÁTICA DE ALERTAS (a cada 30 segundos)
-function checkAlertsNow() {
-  const now = new Date();
-  const currentTime = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  const todayStr = now.toISOString().split('T')[0];
-  
-  for (const bill of bills) {
-    if (bill.paid) continue;
-    
-    // Alerta do dia do vencimento
-    if (bill.dueDate === todayStr && currentTime === alertTimes.due) {
-      const key = `${bill.id}_due_${todayStr}`;
-      if (!firedAlerts.has(key)) {
-        firedAlerts.add(key);
-        saveFA();
-        showToast(`🚨 ${bill.name} vence HOJE!`);
-        playAlertSound();
-        vibrateDevice();
-        if (Notification.permission === 'granted') {
-          new Notification('Project A', { body: `${bill.name} vence hoje!` });
-        }
-      }
-    }
-    
-    // Alerta da véspera
-    const dueDateObj = new Date(bill.dueDate);
-    const prevDateObj = new Date(dueDateObj);
-    prevDateObj.setDate(prevDateObj.getDate() - 1);
-    const prevDateStr = prevDateObj.toISOString().split('T')[0];
-    if (prevDateStr === todayStr && currentTime === alertTimes.eve) {
-      const key = `${bill.id}_eve_${prevDateStr}`;
-      if (!firedAlerts.has(key)) {
-        firedAlerts.add(key);
-        saveFA();
-        showToast(`⏰ ${bill.name} vence AMANHÃ!`);
-        playAlertSound();
-        vibrateDevice();
-        if (Notification.permission === 'granted') {
-          new Notification('Project A', { body: `${bill.name} vence amanhã!` });
-        }
-      }
-    }
+    const response = await fetch(googleWebAppUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'createEvent',
+        billName: bill.name,
+        billAmount: bill.amount,
+        dueDate: bill.dueDate,
+        category: bill.category
+      })
+    });
+    showToast(`✓ Conta "${bill.name}" enviada para o Google Calendar!`);
+    return true;
+  } catch (error) {
+    showToast(`❌ Erro ao enviar para o Google: ${error.message}`);
+    return false;
   }
 }
 
@@ -626,20 +587,12 @@ function renderSummary() {
 }
 
 function renderCfg() {
-  const toggles = [['blur', 'tBlur'], ['sound', 'tSound'], ['vibrate', 'tVibrate']];
-  for (const [k, id] of toggles) {
-    const el = document.getElementById(id);
-    if (el) el.classList.toggle('on', settings[k]);
-  }
+  document.getElementById('tBlur')?.classList.toggle('on', settings.blur);
   const countPaid = bills.filter(b => b.paid).length;
   const countEl = document.getElementById('cfgCount');
   if (countEl) countEl.textContent = countPaid + ' registro' + (countPaid !== 1 ? 's' : '');
-  const eveInput = document.getElementById('eveTime');
-  const dueInput = document.getElementById('dueTime');
-  if (eveInput) eveInput.value = alertTimes.eve;
-  if (dueInput) dueInput.value = alertTimes.due;
-  const gainSlider = document.getElementById('alertGain');
-  if (gainSlider) gainSlider.value = settings.gain;
+  const urlInput = document.getElementById('googleWebAppUrl');
+  if (urlInput && googleWebAppUrl) urlInput.value = googleWebAppUrl;
 }
 
 function goTab(idx, btn) {
@@ -671,8 +624,6 @@ function payBill(id) {
   saveBills();
   render();
   showToast(`✓ ${bill.name} marcada como paga!`);
-  playAlertSound();
-  vibrateDevice();
 }
 
 // CALENDÁRIO
@@ -738,7 +689,7 @@ function openModal() {
 }
 function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); if (isListening) stopVoice(); }
 function overlayClick(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
-function saveBill() {
+async function saveBill() {
   let name = document.getElementById('inpName').value.trim();
   const value = parseFloat(document.getElementById('inpValue').value);
   let date = document.getElementById('inpDate').value;
@@ -752,11 +703,19 @@ function saveBill() {
     if (confirm("⚠ Esta data já passou. Deseja marcar esta conta como PAGA?")) { paid = true; paidDate = today; paidAt = Date.now(); }
     else { showToast("⚠ Por favor, ajuste a data para o futuro."); return; }
   }
-  bills.push({ id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid, paidDate, paidAt, blurred: settings.blur });
+  const newBill = { id: uid(), name, amount: isNaN(value) ? null : value, dueDate: date, category: cat, paid, paidDate, paidAt, blurred: settings.blur };
+  bills.push(newBill);
   saveBills();
   render();
   closeModal();
   showToast(paid ? "✓ Conta adicionada como PAGA!" : "✓ Conta adicionada!");
+  
+  // Se não estiver paga e tiver URL do Google configurada, envia para o Google Calendar
+  if (!paid && googleWebAppUrl) {
+    await sendToGoogleCalendar(newBill);
+  } else if (!paid && !googleWebAppUrl) {
+    showToast('⚠ Configure a URL do Google Apps Script em Configurações para receber alertas');
+  }
 }
 
 function toggleVoice() { isListening ? stopVoice() : startVoice(); }
@@ -794,19 +753,14 @@ function parseVoice(text) {
 }
 
 function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg(); showToast(`${k.charAt(0).toUpperCase() + k.slice(1)}: ${settings[k] ? 'Ativado' : 'Desativado'}`); }
-function updateGain() { const slider = document.getElementById('alertGain'); if (slider) { settings.gain = parseInt(slider.value, 10); saveSettings(); showToast(`Ganho: ${settings.gain}%`); } }
-function clearAll() { if (!confirm('Apagar TODAS as contas?')) return; bills = []; firedAlerts.clear(); saveBills(); saveFA(); render(); showToast('✓ Dados apagados'); }
+function clearAll() { if (!confirm('Apagar TODAS as contas?')) return; bills = []; saveBills(); render(); showToast('✓ Dados apagados'); }
 function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
 
 // INICIALIZAÇÃO
 function init() {
-  loadSettings(); loadAlertTimes(); loadBills(); calInit(); render();
-  if (alertChecker) clearInterval(alertChecker);
-  alertChecker = setInterval(() => checkAlertsNow(), 30000);
-  setInterval(() => updateAlertBanner(), 60000);
-  if ('Notification' in window && Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
-  const gainSlider = document.getElementById('alertGain'); if (gainSlider) gainSlider.addEventListener('input', updateGain);
-  setTimeout(() => checkAlertsNow(), 1000);
+  loadSettings(); loadBills(); calInit(); render();
+  const urlInput = document.getElementById('googleWebAppUrl');
+  if (urlInput) urlInput.addEventListener('change', saveGoogleUrl);
 }
 
 init();
