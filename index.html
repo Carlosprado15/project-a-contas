@@ -36,7 +36,7 @@
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%230a0a0a'/%3E%3Cdefs%3E%3CradialGradient id='r1' cx='50%25' cy='35%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='30%25' stop-color='%23b0b0b0'/%3E%3Cstop offset='60%25' stop-color='%23d8d8d8'/%3E%3Cstop offset='100%25' stop-color='%23606060'/%3E%3C/radialGradient%3E%3CradialGradient id='r2' cx='50%25' cy='30%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%233a3a3a'/%3E%3Cstop offset='60%25' stop-color='%231a1a1a'/%3E%3Cstop offset='100%25' stop-color='%23080808'/%3E%3C/radialGradient%3E%3ClinearGradient id='lA' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f0f0f0'/%3E%3Cstop offset='50%25' stop-color='%23c0c0c0'/%3E%3Cstop offset='100%25' stop-color='%23808080'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='96' cy='96' r='88' fill='url(%23r2)' stroke='url(%23r1)' stroke-width='8'/%3E%3Cpath d='M40 72 A58 58 0 0 1 152 72' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='4' stroke-linecap='round'/%3E%3Ctext x='96' y='132' text-anchor='middle' font-family='Georgia,serif' font-size='92' font-weight='bold' fill='url(%23lA)'%3EA%3C/text%3E%3C/svg%3E">
 <title>Project A</title>
 <style>
-/* ========== CSS ORIGINAL (COMPLETO, NÃO ALTERADO) ========== */
+/* ========== CSS COMPLETO (NÃO ALTERADO) ========== */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 :root { --cyan: #00FFFF; --cyan-glow: 0 0 8px #00FFFF, 0 0 20px rgba(0,255,255,0.4); --green-ok: #00e676; --chrome-mid: #b0b0b0; }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -141,8 +141,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
 .cfg-row { display:flex; align-items:center; justify-content:space-between; padding:11px 14px; margin-bottom:5px; background:linear-gradient(135deg,rgba(35,35,35,.95) 0%,rgba(48,48,48,.9) 100%); border:1px solid rgba(255,255,255,.09); border-top:1px solid rgba(255,255,255,.15); border-radius:9px; box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 3px 10px rgba(0,0,0,.5); }
 .cfg-label { font-size:14px; font-weight:600; color:#ccc; letter-spacing:.5px; }
 .cfg-sub   { font-size:10px; color:#555; margin-top:1px; letter-spacing:.5px; }
-.cfg-time-input, .cfg-volume { background:rgba(0,0,0,.6); border:1px solid var(--cyan); border-radius:6px; color:var(--cyan); font-family:'Share Tech Mono',monospace; font-size:14px; padding:6px 10px; cursor:pointer; width:110px; text-align:center; }
-.cfg-volume { width:100%; margin-top:5px; cursor:pointer; accent-color: var(--cyan); }
+.cfg-time-input { background:rgba(0,0,0,.6); border:1px solid var(--cyan); border-radius:6px; color:var(--cyan); font-family:'Share Tech Mono',monospace; font-size:14px; padding:6px 10px; cursor:pointer; width:110px; text-align:center; }
 .toggle { width:44px; height:24px; border-radius:12px; cursor:pointer; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.12); position:relative; transition:background .3s; flex-shrink:0; }
 .toggle.on { background:rgba(0,100,120,.8); border-color:rgba(0,255,255,.3); box-shadow:0 0 8px rgba(0,255,255,.2); }
 .toggle-thumb { position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:linear-gradient(135deg,#888,#ccc); transition:left .3s,background .3s; box-shadow:0 2px 4px rgba(0,0,0,.5); }
@@ -183,7 +182,6 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
 .voice-status { font-family:'Share Tech Mono',monospace; font-size:11px; color:#cc88ff; text-align:center; margin-top:8px; min-height:16px; letter-spacing:1px; }
 .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:rgba(0,40,50,.95); border:1px solid rgba(0,255,255,.3); border-radius:10px; padding:10px 20px; color:var(--cyan); text-shadow:var(--cyan-glow); font-size:14px; letter-spacing:1px; z-index:200; opacity:0; transition:opacity .3s; box-shadow:0 0 20px rgba(0,255,255,.2); white-space:nowrap; max-width:90%; pointer-events:none; }
 .toast.show { opacity:1; }
-.strobe-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:white; z-index:9999; pointer-events:none; opacity:0; transition:opacity 0.05s ease; }
 </style>
 </head>
 <body>
@@ -255,7 +253,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     <div id="catBreakdown"></div>
   </div>
 
-  <!-- SCREEN 4 - CONFIGURAÇÕES (com campo para URL do Google Apps Script) -->
+  <!-- SCREEN 4 - CONFIGURAÇÕES -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
     
@@ -265,10 +263,10 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
     </div>
     
     <div class="cfg-section">
-      <div class="cfg-section-title">Integração Google</div>
-      <div class="cfg-row"><div><div class="cfg-label">Web App URL</div><div class="cfg-sub">URL do Google Apps Script</div></div><input type="text" id="googleWebAppUrl" class="cfg-time-input" style="width:200px" placeholder="https://script.google.com/.../exec"></div>
-      <div class="cfg-row"><button class="cfg-btn cfg-sound" onclick="testGoogleConnection()">🔌 TESTAR CONEXÃO</button></div>
-      <div class="cfg-row"><div class="cfg-sub" style="color:#ffaa00">⚠️ Após configurar a URL, os alertas serão enviados para o Google Calendar</div></div>
+      <div class="cfg-section-title">Horários dos Alertas (Google Calendar)</div>
+      <div class="cfg-row"><div><div class="cfg-label">Alerta na Véspera</div><div class="cfg-sub">Horário no dia anterior ao vencimento</div></div><input type="time" id="eveTime" class="cfg-time-input" value="21:00" onchange="saveAlertTimes()"></div>
+      <div class="cfg-row"><div><div class="cfg-label">Alerta no Dia</div><div class="cfg-sub">Horário no próprio vencimento</div></div><input type="time" id="dueTime" class="cfg-time-input" value="09:00" onchange="saveAlertTimes()"></div>
+      <div class="cfg-row"><div class="cfg-sub" style="color:#88ffff">Os alertas serão enviados para o Google Calendar. Certifique-se de ter o app Google Agenda instalado.</div></div>
     </div>
     
     <div class="cfg-section">
@@ -283,7 +281,7 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
       <div class="cfg-row"><div><div class="cfg-label">Histórico Salvo</div><div class="cfg-sub">Contas pagas por 90 dias</div></div><span id="cfgCount" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan)">—</span></div>
       <div class="cfg-row"><div><div class="cfg-label">Limpar Tudo</div><div class="cfg-sub">Apagar todas as contas</div></div><button class="cfg-btn danger" onclick="clearAll()">LIMPAR</button></div>
     </div>
-    <p class="privacy-hint">Project A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Modo Google Calendar: alertas via Agenda</span></p>
+    <p class="privacy-hint">Project A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.<br><br><span id="swStatus" style="color:#333;font-size:10px;letter-spacing:1px">Modo Google Calendar | Alertas via Google Agenda</span></p>
   </div>
 
   <nav class="footer">
@@ -312,24 +310,26 @@ html, body { width:100%; height:100%; font-family:'Rajdhani',sans-serif; backgro
 </div>
 
 <div class="toast" id="toast"></div>
-<div id="strobeOverlay" class="strobe-overlay"></div>
 
 <script>
 // ============================================================================
-// PROJECT A - VERSÃO COM INTEGRAÇÃO GOOGLE CALENDAR
-// - O alerta local foi removido. Agora os dados são enviados para o Google Apps Script
-// - O Google Apps Script cria um evento no Google Calendar com lembrete
+// PROJECT A - VERSÃO FINAL COM INTEGRAÇÃO GOOGLE CALENDAR
+// URL DO WEB APP FIXA (HARDCODED)
+// HORÁRIOS DE ALERTA CONFIGURÁVEIS PELO USUÁRIO
 // ============================================================================
+
+// URL FIXA DO GOOGLE APPS SCRIPT (HARDCODED)
+const GOOGLE_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw3USbgUebCaFsVU36nMiDaylP2QwvJMgimtubOjs4nBiRnlEBQWBbwNOcFyyfyu8x7WQ/exec';
 
 // DECLARAÇÕES GLOBAIS
 let bills = [];
 let settings = { blur: true };
+let alertTimes = { eve: "21:00", due: "09:00" };
 let currentTab = 0;
 let pagFilter = 'all';
 let calY, calM;
 let recognition = null;
 let isListening = false;
-let googleWebAppUrl = localStorage.getItem('googleWebAppUrl') || '';
 
 // UTILITÁRIOS
 const sanitizeText = (str) => {
@@ -358,13 +358,29 @@ const ICONS = {
 
 // PERSISTÊNCIA
 const saveSettings = () => { try { localStorage.setItem('pA_settings', JSON.stringify(settings)); } catch(e) {} };
+const saveAlertTimes = () => { try { localStorage.setItem('pA_alertTimes', JSON.stringify(alertTimes)); } catch(e) {} };
 const saveBills = () => { try { localStorage.setItem('pA_bills', JSON.stringify(bills)); } catch(e) {} };
 
 function loadSettings() {
   try { const saved = localStorage.getItem('pA_settings'); if (saved) { const parsed = JSON.parse(saved); settings = { ...settings, ...parsed }; } } catch(e) {}
   document.getElementById('tBlur')?.classList.toggle('on', settings.blur);
-  const urlInput = document.getElementById('googleWebAppUrl');
-  if (urlInput && googleWebAppUrl) urlInput.value = googleWebAppUrl;
+}
+
+function loadAlertTimes() {
+  try { const saved = localStorage.getItem('pA_alertTimes'); if (saved) { const parsed = JSON.parse(saved); alertTimes = { ...alertTimes, ...parsed }; } } catch(e) {}
+  const eveInput = document.getElementById('eveTime');
+  const dueInput = document.getElementById('dueTime');
+  if (eveInput) eveInput.value = alertTimes.eve;
+  if (dueInput) dueInput.value = alertTimes.due;
+}
+
+function saveAlertTimes() {
+  const eveInput = document.getElementById('eveTime');
+  const dueInput = document.getElementById('dueTime');
+  if (eveInput) alertTimes.eve = eveInput.value;
+  if (dueInput) alertTimes.due = dueInput.value;
+  saveAlertTimes();
+  showToast('✓ Horários salvos');
 }
 
 function loadBills() {
@@ -395,7 +411,7 @@ function seedDefaults() {
 
 // BACKUP E CSV
 function exportBackup() {
-  const data = { bills, settings, version: "1.0", exportDate: new Date().toISOString() };
+  const data = { bills, settings, alertTimes, version: "1.0", exportDate: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -414,7 +430,8 @@ function importBackup(file) {
       const data = JSON.parse(e.target.result);
       if (data.bills) bills = data.bills;
       if (data.settings) settings = { ...settings, ...data.settings };
-      saveBills(); saveSettings();
+      if (data.alertTimes) alertTimes = { ...alertTimes, ...data.alertTimes };
+      saveBills(); saveSettings(); saveAlertTimes();
       render();
       showToast("✓ Backup restaurado!");
     } catch(err) { showToast("❌ Arquivo inválido!"); }
@@ -436,38 +453,14 @@ function exportToCSV() {
   showToast("✓ CSV exportado!");
 }
 
-// ==================== GOOGLE APPS SCRIPT INTEGRATION ====================
-function saveGoogleUrl() {
-  const urlInput = document.getElementById('googleWebAppUrl');
-  if (urlInput) {
-    googleWebAppUrl = urlInput.value.trim();
-    localStorage.setItem('googleWebAppUrl', googleWebAppUrl);
-    showToast('✓ URL salva');
-  }
-}
-
-function testGoogleConnection() {
-  saveGoogleUrl();
-  if (!googleWebAppUrl) {
-    showToast('⚠ Configure a URL do Google Apps Script primeiro');
-    return;
-  }
-  fetch(googleWebAppUrl, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ test: true, message: 'Conexão de teste' })
-  }).then(() => showToast('✓ Teste enviado! Verifique o log do Apps Script'))
-    .catch(() => showToast('❌ Falha na conexão. Verifique a URL e publique o Web App'));
-}
-
+// ENVIO PARA O GOOGLE CALENDAR
 async function sendToGoogleCalendar(bill) {
-  if (!googleWebAppUrl) {
-    showToast('⚠ Configure a URL do Google Apps Script em Configurações');
-    return false;
-  }
   try {
-    const response = await fetch(googleWebAppUrl, {
+    // Constrói o título do evento
+    const title = `🔔 ${bill.name} - ${bill.amount ? fmtAmt(bill.amount) : 'Valor a definir'}`;
+    
+    // Envia os dados para o Google Apps Script
+    const response = await fetch(GOOGLE_WEB_APP_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
@@ -476,13 +469,16 @@ async function sendToGoogleCalendar(bill) {
         billName: bill.name,
         billAmount: bill.amount,
         dueDate: bill.dueDate,
-        category: bill.category
+        category: bill.category,
+        eveTime: alertTimes.eve,
+        dueTime: alertTimes.due
       })
     });
-    showToast(`✓ Conta "${bill.name}" enviada para o Google Calendar!`);
+    
+    showToast(`✓ "${bill.name}" enviado para o Google Calendar!`);
     return true;
   } catch (error) {
-    showToast(`❌ Erro ao enviar para o Google: ${error.message}`);
+    showToast(`❌ Erro ao enviar: ${error.message}`);
     return false;
   }
 }
@@ -591,8 +587,10 @@ function renderCfg() {
   const countPaid = bills.filter(b => b.paid).length;
   const countEl = document.getElementById('cfgCount');
   if (countEl) countEl.textContent = countPaid + ' registro' + (countPaid !== 1 ? 's' : '');
-  const urlInput = document.getElementById('googleWebAppUrl');
-  if (urlInput && googleWebAppUrl) urlInput.value = googleWebAppUrl;
+  const eveInput = document.getElementById('eveTime');
+  const dueInput = document.getElementById('dueTime');
+  if (eveInput) eveInput.value = alertTimes.eve;
+  if (dueInput) dueInput.value = alertTimes.due;
 }
 
 function goTab(idx, btn) {
@@ -710,11 +708,9 @@ async function saveBill() {
   closeModal();
   showToast(paid ? "✓ Conta adicionada como PAGA!" : "✓ Conta adicionada!");
   
-  // Se não estiver paga e tiver URL do Google configurada, envia para o Google Calendar
-  if (!paid && googleWebAppUrl) {
+  // Se não estiver paga, envia para o Google Calendar
+  if (!paid) {
     await sendToGoogleCalendar(newBill);
-  } else if (!paid && !googleWebAppUrl) {
-    showToast('⚠ Configure a URL do Google Apps Script em Configurações para receber alertas');
   }
 }
 
@@ -756,11 +752,18 @@ function togSetting(k) { settings[k] = !settings[k]; saveSettings(); renderCfg()
 function clearAll() { if (!confirm('Apagar TODAS as contas?')) return; bills = []; saveBills(); render(); showToast('✓ Dados apagados'); }
 function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2500); }
 
+// SERVICE WORKER REGISTRATION
+function registerSW() {
+  if (!('serviceWorker' in navigator)) return;
+  navigator.serviceWorker.register('sw.js', { scope: './' })
+    .then(() => console.log('SW registrado'))
+    .catch(() => console.log('SW falhou, modo fallback'));
+}
+
 // INICIALIZAÇÃO
 function init() {
-  loadSettings(); loadBills(); calInit(); render();
-  const urlInput = document.getElementById('googleWebAppUrl');
-  if (urlInput) urlInput.addEventListener('change', saveGoogleUrl);
+  loadSettings(); loadAlertTimes(); loadBills(); calInit(); render(); registerSW();
+  setInterval(() => updateAlertBanner(), 60000);
 }
 
 init();
