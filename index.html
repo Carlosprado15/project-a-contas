@@ -18,13 +18,13 @@
   \"theme_color\":\"#000000\",
   \"background_color\":\"#000000\",
   \"icons\":[{
-    \"src\":\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23111111'/%3E%3Cpath d='M30 72 L50 28 L70 72 L62 72 L50 48 L38 72 Z' fill='%23b0b0b0' stroke='%2300FFFF' stroke-width='1.2'/%3E%3Cpath d='M50 28 L70 72 M42 56 L58 56' stroke='%2300FFFF' stroke-width='1.2' fill='none'/%3E%3C/svg%3E\",
+    \"src\":\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='f' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%232a2a2a'/%3E%3Cstop offset='100%25' stop-color='%23111111'/%3E%3C/radialGradient%3E%3ClinearGradient id='m' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d0d0d0'/%3E%3Cstop offset='50%25' stop-color='%23909090'/%3E%3Cstop offset='100%25' stop-color='%23e8e8e8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23f)'/%3E%3Cpath d='M30 72 L50 28 L70 72 L62 72 L50 48 L38 72 Z' fill='url(%23m)' stroke='%2300FFFF' stroke-width='1.2'/%3E%3Cpath d='M50 28 L70 72 M42 56 L58 56' stroke='%2300FFFF' stroke-width='1.2' fill='none'/%3E%3C/svg%3E\",
     \"sizes\":\"any\",
     \"type\":\"image/svg+xml\"
   }]
 }">
 <style>
-/* ========== PROJECT A - DESIGN SYSTEM (CSS PURO) ========== */
+/* ========== PROJECT A - DESIGN SYSTEM LUXO ========== */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -47,11 +47,9 @@ html, body {
   font-family: 'Rajdhani', sans-serif;
   background: #000;
   overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
-/* SPLIT BACKGROUND */
+/* SPLIT BACKGROUND LUXUOSO */
 .app-shell {
   position: fixed;
   inset: 0;
@@ -64,18 +62,6 @@ html, body {
     repeating-linear-gradient(45deg, #111 0px, #111 1px, #181818 1px, #181818 3px, #111 3px, #111 4px, #1e1e1e 4px, #1e1e1e 6px) left/50% 100% no-repeat,
     #111;
   overflow: hidden;
-}
-
-.app-shell::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  right: 50%;
-  z-index: 0;
-  background:
-    repeating-linear-gradient(-45deg, transparent 0, transparent 2px, rgba(255,255,255,.015) 2px, rgba(255,255,255,.015) 4px),
-    repeating-linear-gradient(45deg, transparent 0, transparent 2px, rgba(0,0,0,.3) 2px, rgba(0,0,0,.3) 4px);
-  pointer-events: none;
 }
 
 /* HEADER */
@@ -100,16 +86,18 @@ html, body {
   filter: drop-shadow(0 2px 4px rgba(0,0,0,.9));
 }
 
+/* ÍCONE LUXO - FIBRA DE CARBONO + AÇO ESCOVADO + NEON */
 .emblem-wrap {
   margin: 8px auto 5px;
   width: 74px;
   height: 74px;
+  cursor: pointer;
 }
 
 .emblem-svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,.8));
+  filter: drop-shadow(0 0 6px #00FFFF) drop-shadow(0 4px 12px rgba(0,0,0,.8));
 }
 
 .tagline {
@@ -117,27 +105,19 @@ html, body {
   letter-spacing: 2.5px;
   color: #aaa;
   text-transform: uppercase;
-  margin-bottom: 2px;
 }
 
 /* SCREENS */
 .screen {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-  z-index: 5;
   padding: 10px 12px 8px;
-  -webkit-overflow-scrolling: touch;
   display: none;
 }
-
 .screen.active { display: block; }
 .screen::-webkit-scrollbar { width: 3px; }
-.screen::-webkit-scrollbar-track { background: rgba(255,255,255,.05); }
-.screen::-webkit-scrollbar-thumb { background: rgba(0,255,255,.3); border-radius: 2px; }
 
-/* ADD BUTTON */
+/* ADD BUTTON COM MICROFONE */
 .add-btn {
   width: 100%;
   background: repeating-linear-gradient(45deg, #111 0, #111 2px, #191919 2px, #191919 4px);
@@ -145,19 +125,30 @@ html, body {
   border-radius: 14px;
   padding: 14px 20px;
   cursor: pointer;
-  text-align: center;
   margin-bottom: 14px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), inset 0 -1px 0 rgba(0,0,0,.5), 0 6px 20px rgba(0,0,0,.6);
-  transition: transform .1s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 6px 20px rgba(0,0,0,.6);
+  transition: all 0.2s;
 }
 .add-btn:active { transform: scale(.98); }
-.add-btn-icon { display: block; line-height: 1; }
-.add-btn-label { font-size: 20px; font-weight: 600; color: #e0e0e0; letter-spacing: 1px; display: block; margin-top: 4px; }
-.add-btn-sub { font-size: 12px; color: #888; letter-spacing: 1px; }
+.voice-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #1a0a20 0%, #2d1040 50%, #1a0a20 100%);
+  border-radius: 50%;
+  margin-right: 12px;
+  vertical-align: middle;
+  box-shadow: 0 0 10px rgba(160,0,255,.3);
+}
+.voice-icon svg { width: 22px; height: 22px; }
+.add-btn-label { font-size: 20px; font-weight: 600; color: #e0e0e0; display: inline-block; vertical-align: middle; }
+.add-btn-sub { font-size: 12px; color: #888; display: block; margin-top: 8px; letter-spacing: 1px; }
 
 /* BILL CARDS */
 .bill-card {
-  background: linear-gradient(135deg, rgba(40,40,40,.95) 0%, rgba(55,55,55,.9) 30%, rgba(35,35,35,.95) 60%, rgba(50,50,50,.9) 100%);
+  background: linear-gradient(135deg, rgba(40,40,40,.95) 0%, rgba(55,55,55,.9) 100%);
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 10px;
   margin-bottom: 7px;
@@ -165,7 +156,7 @@ html, body {
   align-items: center;
   padding: 10px 12px;
   cursor: pointer;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), inset 0 -1px 0 rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.7);
+  box-shadow: 0 4px 14px rgba(0,0,0,.7);
 }
 .bill-card:active { transform: scale(.98); }
 .bill-icon {
@@ -178,83 +169,78 @@ html, body {
   justify-content: center;
   margin-right: 12px;
 }
-.bill-info { flex: 1; min-width: 0; }
+.bill-info { flex: 1; }
 .bill-name { font-size: 16px; font-weight: 600; color: #e8e8e8; }
 .bill-date { font-size: 11px; color: #777; margin-top: 1px; }
-.bill-amount { font-family: 'Share Tech Mono', monospace; font-size: 15px; color: var(--cyan); text-shadow: var(--cyan-glow); font-weight: 700; white-space: nowrap; margin-left: 8px; }
+.bill-amount { font-family: 'Share Tech Mono', monospace; font-size: 15px; color: var(--cyan); text-shadow: var(--cyan-glow); font-weight: 700; }
 .bill-name.blurred, .bill-amount.blurred { filter: blur(12px); }
-.bill-card.paid { background: linear-gradient(135deg, rgba(25,40,25,.95) 0%, rgba(35,50,35,.9) 50%, rgba(25,35,25,.95) 100%); }
+.bill-card.paid { background: linear-gradient(135deg, rgba(25,40,25,.95) 0%, rgba(35,50,35,.9) 100%); }
 .bill-card.paid .bill-name { color: #aaa; }
-.bill-card.paid .bill-amount { color: rgba(0,200,200,.4); text-shadow: none; text-decoration: line-through; }
+.bill-card.paid .bill-amount { color: rgba(0,200,200,.4); text-decoration: line-through; text-shadow: none; }
 .pay-btn {
-  background: linear-gradient(135deg, #1a3a1a 0%, #2a5a2a 50%, #1a3a1a 100%);
+  background: linear-gradient(135deg, #1a3a1a 0%, #2a5a2a 100%);
   border: 1px solid #00c853;
   border-radius: 6px;
   color: #00e676;
   font-size: 12px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 4px 12px;
   cursor: pointer;
   margin-left: 8px;
 }
 
 /* ALERT CARD */
 .alert-card {
-  background: linear-gradient(135deg, rgba(0,40,45,.95) 0%, rgba(0,55,60,.9) 50%, rgba(0,40,45,.95) 100%);
+  background: linear-gradient(135deg, rgba(0,40,45,.95) 0%, rgba(0,55,60,.9) 100%);
   border: 1px solid rgba(0,255,255,.4);
   border-radius: 10px;
   display: flex;
   align-items: center;
   padding: 10px 12px;
-  margin-top: 6px;
-  box-shadow: 0 0 12px rgba(0,255,255,.3);
+  margin-top: 10px;
 }
-.alert-icon { width: 38px; height: 38px; margin-right: 12px; background: linear-gradient(135deg, #003a3a 0%, #005050 50%, #003a3a 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-.alert-text .alert-title { font-size: 13px; font-weight: 700; color: var(--cyan); text-shadow: var(--cyan-glow); }
-.alert-text .alert-sub { font-size: 11px; color: #88ffff; }
+.alert-icon { width: 38px; height: 38px; margin-right: 12px; background: #003a3a; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.alert-title { font-size: 13px; font-weight: 700; color: var(--cyan); text-shadow: var(--cyan-glow); }
 
-/* FILTERS & PAG ROW */
+/* FILTER & PAG ROW */
 .filter-row { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
 .filter-btn { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 6px; color: #777; font-size: 11px; font-weight: 700; padding: 4px 14px; cursor: pointer; }
 .filter-btn.active { background: rgba(0,50,60,.8); border-color: rgba(0,255,255,.3); color: var(--cyan); text-shadow: var(--cyan-glow); }
 .pag-row {
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, rgba(38,38,38,.95) 0%, rgba(50,50,50,.9) 50%, rgba(38,38,38,.95) 100%);
+  background: linear-gradient(135deg, rgba(38,38,38,.95) 0%, rgba(50,50,50,.9) 100%);
   border-radius: 9px;
   padding: 10px 12px;
   margin-bottom: 6px;
 }
-.pag-info { flex: 1; }
 .pag-name { font-size: 15px; font-weight: 600; color: #ddd; }
 .pag-date { font-size: 10px; color: #666; }
-.pag-amt { font-family: 'Share Tech Mono', monospace; font-size: 14px; color: var(--cyan); text-shadow: var(--cyan-glow); margin-left: 8px; }
-.badge-pending, .badge-paid, .badge-overdue { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 4px; margin-left: 8px; }
+.pag-amt { font-family: monospace; font-size: 14px; color: var(--cyan); margin-left: 8px; }
+.badge-pending, .badge-paid, .badge-overdue { font-size: 9px; padding: 2px 7px; border-radius: 4px; margin-left: 8px; }
 .badge-pending { background: rgba(0,255,255,.15); color: var(--cyan); }
 .badge-paid { background: rgba(0,200,83,.12); color: #00e676; }
 .badge-overdue { background: rgba(255,50,50,.15); color: #ff5252; }
 
 /* CALENDAR */
-.cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.cal-nav { display: flex; justify-content: space-between; margin-bottom: 12px; }
 .cal-month-title { font-family: 'Orbitron', sans-serif; font-size: 13px; color: var(--cyan); text-shadow: var(--cyan-glow); }
 .cal-nav-btn { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 6px; color: #aaa; padding: 4px 14px; cursor: pointer; }
-.cal-dow-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
-.cal-dow { text-align: center; font-size: 9px; font-weight: 700; color: #555; text-transform: uppercase; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 14px; }
-.cal-cell { aspect-ratio: 1; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #444; cursor: pointer; position: relative; }
+.cal-dow-row { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; margin-bottom: 4px; text-align: center; font-size: 9px; font-weight: 700; color: #555; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 14px; }
+.cal-cell { aspect-ratio: 1; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #444; cursor: pointer; background: transparent; }
 .cal-cell.today { background: rgba(0,255,255,.15); color: var(--cyan); border: 1px solid var(--cyan); }
 .cal-cell.has-bill { background: rgba(0,50,60,.75); color: var(--cyan); border: 1px solid rgba(0,255,255,.25); }
 .cal-cell.overdue-day { background: rgba(60,0,0,.7); color: #ff5252; }
-.cal-event-row { display: flex; align-items: center; padding: 9px 12px; margin-bottom: 5px; background: linear-gradient(135deg, rgba(35,35,35,.95) 0%, rgba(48,48,48,.9) 100%); border-radius: 8px; cursor: pointer; }
-.cal-event-day { font-family: 'Share Tech Mono', monospace; font-size: 22px; font-weight: 700; color: var(--cyan); text-shadow: var(--cyan-glow); width: 36px; text-align: center; }
-.cal-event-info { flex: 1; margin-left: 10px; }
+.cal-event-row { display: flex; align-items: center; padding: 9px 12px; margin-bottom: 5px; background: rgba(35,35,35,.95); border-radius: 8px; cursor: pointer; }
+.cal-event-day { font-family: monospace; font-size: 22px; font-weight: 700; color: var(--cyan); width: 36px; text-align: center; }
 .cal-event-name { font-size: 14px; font-weight: 600; color: #ddd; }
 
 /* SUMMARY */
 .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-.summary-card { background: linear-gradient(135deg, rgba(38,38,38,.95) 0%, rgba(52,52,52,.9) 100%); border-radius: 10px; padding: 14px 12px; }
-.s-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #555; text-transform: uppercase; margin-bottom: 6px; }
-.s-value { font-family: 'Share Tech Mono', monospace; font-size: 17px; font-weight: 700; color: var(--cyan); text-shadow: var(--cyan-glow); }
+.summary-card { background: rgba(38,38,38,.95); border-radius: 10px; padding: 14px 12px; }
+.s-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+.s-value { font-family: monospace; font-size: 17px; font-weight: 700; color: var(--cyan); text-shadow: var(--cyan-glow); }
 .s-value.green { color: #00e676; }
 .s-value.red { color: #ff5252; }
 
@@ -262,11 +248,14 @@ html, body {
 .bar-wrap { margin-bottom: 12px; }
 .bar-lbl { display: flex; justify-content: space-between; font-size: 11px; color: #777; margin-bottom: 5px; }
 .bar-track { height: 8px; background: rgba(255,255,255,.06); border-radius: 4px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--cyan), rgba(0,200,200,.6)); transition: width .8s cubic-bezier(.16,1,.3,1); }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--cyan), rgba(0,200,200,.6)); transition: width .8s; }
 
-/* CONFIG */
+/* CONFIGURAÇÕES COMPLETAS */
+.cfg-section { margin-bottom: 18px; }
+.cfg-section-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; color: #555; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.06); }
 .cfg-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; margin-bottom: 5px; background: linear-gradient(135deg, rgba(35,35,35,.95) 0%, rgba(48,48,48,.9) 100%); border-radius: 9px; }
 .cfg-label { font-size: 14px; font-weight: 600; color: #ccc; }
+.cfg-sub { font-size: 10px; color: #555; margin-top: 1px; }
 .cfg-time-input { background: rgba(0,0,0,.6); border: 1px solid var(--cyan); border-radius: 6px; color: var(--cyan); font-family: monospace; font-size: 14px; padding: 6px 10px; width: 110px; text-align: center; }
 .toggle { width: 44px; height: 24px; border-radius: 12px; cursor: pointer; background: rgba(255,255,255,.1); position: relative; }
 .toggle.on { background: rgba(0,100,120,.8); border-color: rgba(0,255,255,.3); }
@@ -277,10 +266,10 @@ html, body {
 
 /* FOOTER */
 .footer { flex-shrink: 0; background: linear-gradient(180deg, rgba(10,10,10,.98) 0%, rgba(0,0,0,1) 100%); border-top: 1px solid rgba(255,255,255,.12); display: flex; }
-.footer-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 4px 10px; cursor: pointer; }
+.footer-btn { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 8px 4px 10px; cursor: pointer; }
 .footer-btn.active .f-label { color: var(--cyan); text-shadow: var(--cyan-glow); }
 .f-icon { width: 28px; height: 28px; }
-.f-icon svg { width: 100%; height: 100%; }
+.f-icon svg { width: 100%; height: 100%; fill: #e0e0e0; }
 .f-label { font-size: 10px; letter-spacing: 1px; color: #666; text-transform: uppercase; }
 
 /* MODAL */
@@ -292,14 +281,14 @@ html, body {
 .inp-grp { margin-bottom: 12px; }
 .inp-grp label { font-size: 11px; letter-spacing: 2px; color: #777; display: block; margin-bottom: 4px; }
 .inp-grp input, .inp-grp select { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 10px 14px; color: #e0e0e0; font-family: 'Rajdhani', sans-serif; }
-.voice-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #1a0a20 0%, #2d1040 50%, #1a0a20 100%); border: 1px solid rgba(180,0,255,.3); border-radius: 10px; color: #cc88ff; font-weight: 700; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
 .btn-cancel, .btn-save { flex: 1; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
-.btn-save { background: linear-gradient(135deg, #003344 0%, #005566 50%, #003344 100%); border: 1px solid rgba(0,255,255,.3); color: var(--cyan); }
+.btn-save { background: linear-gradient(135deg, #003344 0%, #005566 100%); border: 1px solid rgba(0,255,255,.3); color: var(--cyan); }
 .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,40,50,.95); border: 1px solid rgba(0,255,255,.3); border-radius: 10px; padding: 10px 20px; color: var(--cyan); z-index: 200; opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap; }
 .toast.show { opacity: 1; }
 .empty-state { text-align: center; padding: 22px; color: #444; }
-.section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #999; margin: 4px 0 8px 2px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #999; margin: 4px 0 8px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.voice-status { font-size: 11px; color: #cc88ff; text-align: center; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -308,80 +297,90 @@ html, body {
   <header class="header">
     <div class="logo-text">PROJECT</div>
     <div class="emblem-wrap">
-      <svg class="emblem-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <svg class="emblem-svg" viewBox="0 0 100 100">
         <defs>
-          <radialGradient id="fibra" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#2a2a2a"/><stop offset="100%" stop-color="#111111"/>
+          <radialGradient id="carbonFiber" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#2a2a2a"/>
+            <stop offset="100%" stop-color="#111111"/>
           </radialGradient>
-          <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#d0d0d0"/><stop offset="50%" stop-color="#909090"/><stop offset="100%" stop-color="#e8e8e8"/>
+          <linearGradient id="brushedSteel" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e8e8e8"/>
+            <stop offset="30%" stop-color="#b0b0b0"/>
+            <stop offset="60%" stop-color="#d4d4d4"/>
+            <stop offset="100%" stop-color="#909090"/>
           </linearGradient>
-          <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#00FFFF"/>
-            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00FFFF"/>
+          <filter id="neonAura" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#00FFFF" flood-opacity="1"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#00FFFF" flood-opacity="0.6"/>
           </filter>
         </defs>
-        <rect width="100" height="100" rx="22" fill="url(#fibra)"/>
-        <path d="M30 72 L50 28 L70 72 L62 72 L50 48 L38 72 Z" fill="url(#metal)" stroke="#00FFFF" stroke-width="1.2" filter="url(#neonGlow)"/>
-        <path d="M50 28 L70 72 M42 56 L58 56" stroke="#00FFFF" stroke-width="1.2" fill="none" filter="url(#neonGlow)"/>
+        <rect width="100" height="100" rx="22" fill="url(#carbonFiber)" stroke="#333" stroke-width="1"/>
+        <path d="M30 72 L50 28 L70 72 L62 72 L50 48 L38 72 Z" fill="url(#brushedSteel)" stroke="#00FFFF" stroke-width="1.5" filter="url(#neonAura)"/>
+        <path d="M50 28 L70 72 M42 56 L58 56" stroke="#00FFFF" stroke-width="1.8" fill="none" filter="url(#neonAura)"/>
       </svg>
     </div>
     <div class="tagline">Project A</div>
   </header>
 
+  <!-- HOME -->
   <div class="screen active" id="screen-0">
     <button class="add-btn" id="openModalBtn">
-      <span class="add-btn-icon">📢</span>
+      <span class="voice-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" fill="#cc88ff"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" fill="#cc88ff"/></svg>
+      </span>
       <span class="add-btn-label">Toque para falar a conta</span>
-      <span class="add-btn-sub">Aperte para adicionar pagamento</span>
+      <span class="add-btn-sub">Microfone ativo — fale o nome, valor e data</span>
     </button>
+    <div id="voiceStatus" class="voice-status"></div>
     <div class="section-label">Próximos Vencimentos</div>
     <div id="upcomingList"></div>
-    <div class="section-label" style="margin-top:12px">Contas Pagas</div>
+    <div class="section-label">Contas Pagas</div>
     <div id="paidList"></div>
-    <div class="alert-card" id="alertBanner"></div>
+    <div id="alertBanner" class="alert-card"></div>
   </div>
 
+  <!-- PAGAMENTOS -->
   <div class="screen" id="screen-1">
     <div class="page-header">TODOS OS PAGAMENTOS</div>
     <div class="filter-row"><button class="filter-btn active" data-filter="all">Todos</button><button class="filter-btn" data-filter="pending">Pendentes</button><button class="filter-btn" data-filter="paid">Pagos</button><button class="filter-btn" data-filter="overdue">Vencidos</button></div>
     <div id="pagList"></div>
   </div>
 
+  <!-- CALENDÁRIO -->
   <div class="screen" id="screen-2">
     <div class="cal-nav"><button class="cal-nav-btn" id="prevMonth">‹</button><div class="cal-month-title" id="monthTitle"></div><button class="cal-nav-btn" id="nextMonth">›</button></div>
-    <div class="cal-dow-row"><div class="cal-dow">D</div><div class="cal-dow">S</div><div class="cal-dow">T</div><div class="cal-dow">Q</div><div class="cal-dow">Q</div><div class="cal-dow">S</div><div class="cal-dow">S</div></div>
-    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-dow-row"><div>D</div><div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div></div>
+    <div id="calGrid" class="cal-grid"></div>
     <div class="section-label">Vencimentos do Mês</div>
     <div id="calEvents"></div>
   </div>
 
+  <!-- RESUMO -->
   <div class="screen" id="screen-3"><div class="page-header">RESUMO FINANCEIRO</div><div id="summaryCards"></div><div class="section-label">Comprometimento</div><div id="summaryBars"></div><div class="section-label">Por Categoria</div><div id="catBreakdown"></div></div>
 
+  <!-- CONFIGURAÇÕES COMPLETAS -->
   <div class="screen" id="screen-4">
     <div class="page-header">CONFIGURAÇÕES</div>
     <div class="cfg-section"><div class="cfg-section-title">Privacidade</div><div class="cfg-row"><div><div class="cfg-label">Blur Automático</div><div class="cfg-sub">Ocultar valores ao carregar</div></div><div class="toggle" id="blurToggle"><div class="toggle-thumb"></div></div></div></div>
-    <div class="cfg-section"><div class="cfg-section-title">Backup</div><div class="cfg-row"><div><div class="cfg-label">Exportar Backup</div></div><button class="cfg-btn" id="exportBackup">📤 EXPORTAR</button></div><div class="cfg-row"><div><div class="cfg-label">Importar Backup</div></div><button class="cfg-btn" id="importBtn">📥 IMPORTAR</button><input type="file" id="importFile" accept=".json" style="display:none"></div><div class="cfg-row"><div><div class="cfg-label">Exportar CSV</div></div><button class="cfg-btn" id="exportCSV">📊 CSV</button></div></div>
-    <div class="cfg-section"><div class="cfg-section-title">Dados</div><div class="cfg-row"><div><div class="cfg-label">Limpar Tudo</div></div><button class="cfg-btn danger" id="clearAllBtn">LIMPAR</button></div></div>
+    <div class="cfg-section"><div class="cfg-section-title">Horários dos Alertas</div><div class="cfg-row"><div><div class="cfg-label">Alerta na Véspera</div><div class="cfg-sub">Horário no dia anterior ao vencimento</div></div><input type="time" id="eveTime" class="cfg-time-input" value="21:00"></div><div class="cfg-row"><div><div class="cfg-label">Alerta no Dia</div><div class="cfg-sub">Horário no próprio vencimento</div></div><input type="time" id="dueTime" class="cfg-time-input" value="09:00"></div></div>
+    <div class="cfg-section"><div class="cfg-section-title">Backup e Dados</div><div class="cfg-row"><div><div class="cfg-label">Exportar Backup</div></div><button class="cfg-btn" id="exportBackup">📤 EXPORTAR</button></div><div class="cfg-row"><div><div class="cfg-label">Importar Backup</div></div><button class="cfg-btn" id="importBtn">📥 IMPORTAR</button><input type="file" id="importFile" accept=".json" style="display:none"></div><div class="cfg-row"><div><div class="cfg-label">Exportar CSV</div></div><button class="cfg-btn" id="exportCSV">📊 CSV</button></div><div class="cfg-row"><div><div class="cfg-label">Limpar Tudo</div></div><button class="cfg-btn danger" id="clearAllBtn">LIMPAR</button></div></div>
     <p class="privacy-hint">Project A não compartilha dados.<br>Todas as informações ficam apenas neste dispositivo.</p>
   </div>
 
-  <nav class="footer"><div class="footer-btn active" data-screen="0"><div class="f-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="#e0e0e0"/></svg></div><span class="f-label">Início</span></div>
-  <div class="footer-btn" data-screen="1"><div class="f-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" fill="#e0e0e0"/></svg></div><span class="f-label">Pagamentos</span></div>
+  <nav class="footer"><div class="footer-btn active" data-screen="0"><div class="f-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div><span class="f-label">Início</span></div>
+  <div class="footer-btn" data-screen="1"><div class="f-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/></svg></div><span class="f-label">Pagamentos</span></div>
   <div class="footer-btn" data-screen="2"><div class="f-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2" fill="none" stroke="#e0e0e0" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#e0e0e0"/><rect x="8" y="14" width="4" height="4" rx="1" fill="#e0e0e0"/></svg></div><span class="f-label">Calendário</span></div>
-  <div class="footer-btn" data-screen="3"><div class="f-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.52 16.48 1 14.67 1c-1.04 0-1.96.52-2.67 1.28L12 2.28l-.09-.1C11.23 1.48 10.3 1 9.33 1 7.52 1 6 2.52 6 4.64c0 .48.1.92.18 1.36H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z" fill="#e0e0e0"/></svg></div><span class="f-label">Contas</span></div>
-  <div class="footer-btn" data-screen="4"><div class="f-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="#e0e0e0"/></svg></div><span class="f-label">Configurações</span></div></nav>
+  <div class="footer-btn" data-screen="3"><div class="f-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.52 16.48 1 14.67 1c-1.04 0-1.96.52-2.67 1.28L12 2.28l-.09-.1C11.23 1.48 10.3 1 9.33 1 7.52 1 6 2.52 6 4.64c0 .48.1.92.18 1.36H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div><span class="f-label">Contas</span></div>
+  <div class="footer-btn" data-screen="4"><div class="f-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div><span class="f-label">Configurações</span></div></nav>
 </div>
 
-<div class="modal-overlay" id="modalOverlay"><div class="modal-sheet"><div class="modal-handle"></div><div class="modal-title">ADICIONAR CONTA</div><div class="inp-grp"><label>Nome</label><input type="text" id="billName" placeholder="Ex: Conta de Luz"></div><div class="inp-grp"><label>Valor (R$)</label><input type="number" id="billAmount" placeholder="0,00" step="0.01"></div><div class="inp-grp"><label>Vencimento</label><input type="date" id="billDue"></div><div class="inp-grp"><label>Categoria</label><select id="billCategory"><option>Conta de Água</option><option>Energia Elétrica</option><option>Aluguel</option><option>Condomínio</option><option>Plano de Saúde</option><option>Internet</option><option>Outros</option></select></div><div class="modal-actions"><button class="btn-cancel" id="modalCancel">CANCELAR</button><button class="btn-save" id="modalSave">SALVAR</button></div></div></div>
+<div class="modal-overlay" id="modalOverlay"><div class="modal-sheet"><div class="modal-handle"></div><div class="modal-title">ADICIONAR CONTA</div><div class="inp-grp"><label>Nome da Conta</label><input type="text" id="billName" placeholder="Ex: Conta de Luz"></div><div class="inp-grp"><label>Valor (R$)</label><input type="number" id="billAmount" placeholder="0,00" step="0.01"></div><div class="inp-grp"><label>Data de Vencimento</label><input type="date" id="billDue"></div><div class="inp-grp"><label>Categoria</label><select id="billCategory"><option>Conta de Água</option><option>Energia Elétrica</option><option>Aluguel</option><option>Condomínio</option><option>Plano de Saúde</option><option>Internet</option><option>Outros</option></select></div><div class="modal-actions"><button class="btn-cancel" id="modalCancel">CANCELAR</button><button class="btn-save" id="modalSave">SALVAR</button></div></div></div>
 <div class="toast"></div>
 
 <script>
-// DATA MODEL
-let bills = [];
-let blurEnabled = true;
-let currentMonth = new Date();
-let currentFilter = 'all';
+let bills = [], blurEnabled = true, currentMonth = new Date(), currentFilter = 'all';
+const recognition = 'webkitSpeechRecognition' in window ? new webkitSpeechRecognition() : null;
+if(recognition) { recognition.continuous = false; recognition.lang = 'pt-BR'; recognition.interimResults = false; }
 
 function loadData() {
   const saved = localStorage.getItem('projectA_bills');
@@ -393,195 +392,45 @@ function loadData() {
 }
 function saveBills() { localStorage.setItem('projectA_bills', JSON.stringify(bills)); renderAll(); }
 function setBlur(val) { blurEnabled = val; localStorage.setItem('projectA_blur', val); document.getElementById('blurToggle').classList.toggle('on', val); renderAll(); }
-
 function toast(msg) { const t = document.querySelector('.toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-
-function openGoogleCalendar(bill) {
-  const dueDate = new Date(bill.due);
-  const yyyy = dueDate.getFullYear();
-  const mm = String(dueDate.getMonth() + 1).padStart(2,'0');
-  const dd = String(dueDate.getDate()).padStart(2,'0');
-  const dateStr = `${yyyy}${mm}${dd}`;
-  const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(bill.name)}&dates=${dateStr}/${dateStr}&details=Lembrete+Project+A`;
-  window.open(url, '_blank');
-}
-
-function formatMoney(val) { return val.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
-function dueStatus(dueStr) {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const due = new Date(dueStr); due.setHours(0,0,0,0);
-  if(due < today) return 'overdue';
-  return 'pending';
-}
+function openGoogleCalendar(bill) { const d = new Date(bill.due), yyyy = d.getFullYear(), mm = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0'); window.open(`https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(bill.name)}&dates=${yyyy}${mm}${dd}/${yyyy}${mm}${dd}&details=Lembrete+Project+A`, '_blank'); }
+function formatMoney(v) { return v.toLocaleString('pt-BR', {style:'currency',currency:'BRL'}); }
+function addBill(name, amount, due, cat) { bills.push({ id: Date.now().toString(), name, amount: parseFloat(amount), due, cat: cat || 'Outros', paid: false }); saveBills(); }
 
 function renderHome() {
   const now = new Date(); now.setHours(0,0,0,0);
   const upcoming = bills.filter(b => !b.paid && new Date(b.due) >= now).sort((a,b)=>new Date(a.due)-new Date(b.due));
-  const paid = bills.filter(b => b.paid).sort((a,b)=>new Date(b.due)-new Date(a.due)).slice(0,5);
+  const paid = bills.filter(b => b.paid).slice(0,5);
   const overdueCount = bills.filter(b => !b.paid && new Date(b.due) < now).length;
-  document.getElementById('alertBanner').innerHTML = overdueCount ? `<div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">ATENÇÃO</div><div class="alert-sub">${overdueCount} conta(s) vencida(s)</div></div>` : `<div class="alert-icon">✅</div><div class="alert-text"><div class="alert-title">SISTEMA ONLINE</div><div class="alert-sub">Todas as contas em dia</div></div>`;
+  document.getElementById('alertBanner').innerHTML = `<div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">${overdueCount ? overdueCount+' conta(s) vencida(s)' : 'SISTEMA ONLINE'}</div></div>`;
   const blurClass = blurEnabled ? 'blurred' : '';
-  document.getElementById('upcomingList').innerHTML = upcoming.length ? upcoming.map(b => `<div class="bill-card" data-id="${b.id}"><div class="bill-icon">💰</div><div class="bill-info"><div class="bill-name ${blurClass}">${b.name}</div><div class="bill-date">Vence ${new Date(b.due).toLocaleDateString()}</div></div><div class="bill-amount ${blurClass}">${formatMoney(b.amount)}</div><button class="pay-btn" data-id="${b.id}">PAGAR</button></div>`).join('') : '<div class="empty-state">Nenhum vencimento pendente.</div>';
-  document.getElementById('paidList').innerHTML = paid.length ? paid.map(b => `<div class="bill-card paid"><div class="bill-icon">✅</div><div class="bill-info"><div class="bill-name ${blurClass}">${b.name}</div><div class="bill-date">Paga em ${new Date(b.paidAt || b.due).toLocaleDateString()}</div></div><div class="bill-amount ${blurClass}" style="text-decoration:line-through">${formatMoney(b.amount)}</div></div>`).join('') : '<div class="empty-state">Nenhuma conta paga ainda.</div>';
+  document.getElementById('upcomingList').innerHTML = upcoming.length ? upcoming.map(b => `<div class="bill-card" data-id="${b.id}"><div class="bill-icon">💰</div><div class="bill-info"><div class="bill-name ${blurClass}">${b.name}</div><div class="bill-date">${new Date(b.due).toLocaleDateString()}</div></div><div class="bill-amount ${blurClass}">${formatMoney(b.amount)}</div><button class="pay-btn" data-id="${b.id}">PAGAR</button></div>`).join('') : '<div class="empty-state">Nenhum vencimento pendente.</div>';
+  document.getElementById('paidList').innerHTML = paid.length ? paid.map(b => `<div class="bill-card paid"><div class="bill-icon">✅</div><div class="bill-info"><div class="bill-name ${blurClass}">${b.name}</div></div><div class="bill-amount ${blurClass}">${formatMoney(b.amount)}</div></div>`).join('') : '<div class="empty-state">Nenhuma conta paga.</div>';
   document.querySelectorAll('.pay-btn').forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); const id = btn.dataset.id; const bill = bills.find(b=>b.id==id); if(bill) { bill.paid = true; bill.paidAt = new Date().toISOString(); saveBills(); toast('Conta marcada como paga!'); } }));
   document.querySelectorAll('.bill-card').forEach(card => card.addEventListener('click', (e) => { if(e.target.classList.contains('pay-btn')) return; const id = card.dataset.id; const bill = bills.find(b=>b.id==id); if(bill && !bill.paid) openGoogleCalendar(bill); }));
 }
-
-function renderPayments() {
-  let filtered = bills;
-  if(currentFilter === 'pending') filtered = bills.filter(b => !b.paid && dueStatus(b.due) !== 'overdue');
-  else if(currentFilter === 'paid') filtered = bills.filter(b => b.paid);
-  else if(currentFilter === 'overdue') filtered = bills.filter(b => !b.paid && dueStatus(b.due) === 'overdue');
-  const blurClass = blurEnabled ? 'blurred' : '';
-  document.getElementById('pagList').innerHTML = filtered.length ? filtered.map(b => {
-    let status = b.paid ? 'paid' : (dueStatus(b.due) === 'overdue' ? 'overdue' : 'pending');
-    let badge = status === 'paid' ? '<span class="badge-paid">PAGO</span>' : (status === 'overdue' ? '<span class="badge-overdue">VENCIDO</span>' : '<span class="badge-pending">PENDENTE</span>');
-    return `<div class="pag-row"><div class="pag-info"><div class="pag-name ${blurClass}">${b.name}</div><div class="pag-date">${new Date(b.due).toLocaleDateString()}</div></div><div class="pag-amt ${blurClass}">${formatMoney(b.amount)}</div>${badge}</div>`;
-  }).join('') : '<div class="empty-state">Nenhuma conta.</div>';
-}
-
-function renderCalendar() {
-  const year = currentMonth.getFullYear();
-  const month = currentMonth.getMonth();
-  const firstDay = new Date(year, month, 1);
-  const startDayOfWeek = firstDay.getDay();
-  const daysInMonth = new Date(year, month+1, 0).getDate();
-  const today = new Date(); today.setHours(0,0,0,0);
-  let cells = [];
-  for(let i=0; i<startDayOfWeek; i++) cells.push('<div class="cal-cell"></div>');
-  for(let d=1; d<=daysInMonth; d++) {
-    const date = new Date(year, month, d);
-    const dateStr = date.toISOString().slice(0,10);
-    const hasBill = bills.some(b => b.due === dateStr && !b.paid);
-    const isOverdue = date < today && bills.some(b => b.due === dateStr && !b.paid);
-    const isToday = date.toDateString() === today.toDateString();
-    let cls = 'cal-cell';
-    if(isToday) cls += ' today';
-    if(hasBill) cls += ' has-bill';
-    if(isOverdue) cls += ' overdue-day';
-    cells.push(`<div class="${cls}" data-date="${dateStr}">${d}</div>`);
-  }
-  document.getElementById('calGrid').innerHTML = cells.join('');
-  document.getElementById('monthTitle').innerText = firstDay.toLocaleDateString('pt-BR', {month:'long', year:'numeric'}).toUpperCase();
-  const monthBills = bills.filter(b => new Date(b.due).getMonth() === month && new Date(b.due).getFullYear() === year && !b.paid).sort((a,b)=>new Date(a.due)-new Date(b.due));
-  document.getElementById('calEvents').innerHTML = monthBills.length ? monthBills.map(b => `<div class="cal-event-row" data-id="${b.id}"><div class="cal-event-day">${new Date(b.due).getDate()}</div><div class="cal-event-info"><div class="cal-event-name">${b.name}</div><div class="cal-event-amount">${formatMoney(b.amount)}</div></div></div>`).join('') : '<div class="empty-state">Nenhum vencimento este mês</div>';
-  document.querySelectorAll('.cal-event-row').forEach(el => el.addEventListener('click', () => { const id = el.dataset.id; const bill = bills.find(b=>b.id==id); if(bill) openGoogleCalendar(bill); }));
-  document.querySelectorAll('.cal-cell[data-date]').forEach(cell => cell.addEventListener('click', () => { const date = cell.dataset.date; const billOnDay = bills.find(b=>b.due===date && !b.paid); if(billOnDay) openGoogleCalendar(billOnDay); else toast('Nenhuma conta neste dia'); }));
-}
-
-function renderSummary() {
-  const totalPending = bills.filter(b=>!b.paid).reduce((s,b)=>s+b.amount,0);
-  const totalPaid = bills.filter(b=>b.paid).reduce((s,b)=>s+b.amount,0);
-  const totalOverdue = bills.filter(b=>!b.paid && dueStatus(b.due)==='overdue').reduce((s,b)=>s+b.amount,0);
-  document.getElementById('summaryCards').innerHTML = `<div class="summary-card"><div class="s-label">PENDENTE</div><div class="s-value ${blurEnabled?'blurred':''}">${formatMoney(totalPending)}</div></div><div class="summary-card"><div class="s-label">VENCIDO</div><div class="s-value red ${blurEnabled?'blurred':''}">${formatMoney(totalOverdue)}</div></div><div class="summary-card"><div class="s-label">PAGO (MÊS)</div><div class="s-value green ${blurEnabled?'blurred':''}">${formatMoney(totalPaid)}</div></div><div class="summary-card"><div class="s-label">TOTAL CONTAS</div><div class="s-value ${blurEnabled?'blurred':''}">${bills.length}</div></div>`;
-  const percent = totalPending ? Math.min(100, (totalOverdue/totalPending)*100) : 0;
-  document.getElementById('summaryBars').innerHTML = `<div class="bar-wrap"><div class="bar-lbl"><span>Risco de Inadimplência</span><span>${Math.round(percent)}%</span></div><div class="bar-track"><div class="bar-fill ${percent>50?'red':''}" style="width:${percent}%"></div></div></div>`;
-  const catMap = new Map();
-  bills.filter(b=>!b.paid).forEach(b=>catMap.set(b.cat||'Outros', (catMap.get(b.cat||'Outros')||0) + b.amount));
-  document.getElementById('catBreakdown').innerHTML = Array.from(catMap.entries()).map(([k,v])=>`<div class="cat-row"><div class="cat-dot" style="background:var(--cyan)"></div><div class="cat-name">${k}</div><div class="cat-tot ${blurEnabled?'blurred':''}">${formatMoney(v)}</div></div>`).join('') || '<div class="empty-state">Sem categorias</div>';
-}
-
+function renderPayments() { let f = bills; if(currentFilter==='pending') f=bills.filter(b=>!b.paid && new Date(b.due)>=new Date()); else if(currentFilter==='paid') f=bills.filter(b=>b.paid); else if(currentFilter==='overdue') f=bills.filter(b=>!b.paid && new Date(b.due)<new Date()); const blurClass=blurEnabled?'blurred':''; document.getElementById('pagList').innerHTML=f.length?f.map(b=>{let s=b.paid?'paid':(new Date(b.due)<new Date()?'overdue':'pending'); let badge=s==='paid'?'<span class="badge-paid">PAGO</span>':(s==='overdue'?'<span class="badge-overdue">VENCIDO</span>':'<span class="badge-pending">PENDENTE</span>'); return `<div class="pag-row"><div class="pag-info"><div class="pag-name ${blurClass}">${b.name}</div><div class="pag-date">${new Date(b.due).toLocaleDateString()}</div></div><div class="pag-amt ${blurClass}">${formatMoney(b.amount)}</div>${badge}</div>`;}).join(''):'<div class="empty-state">Nenhuma conta.</div>';}
+function renderCalendar() { const y=currentMonth.getFullYear(), m=currentMonth.getMonth(), first=new Date(y,m,1), start=first.getDay(), days=new Date(y,m+1,0).getDate(), today=new Date(); today.setHours(0,0,0,0); let cells=[]; for(let i=0;i<start;i++) cells.push('<div class="cal-cell"></div>'); for(let d=1;d<=days;d++){ const date=new Date(y,m,d), ds=date.toISOString().slice(0,10), has=bills.some(b=>b.due===ds&&!b.paid), isOver=date<today&&bills.some(b=>b.due===ds&&!b.paid), isT=date.toDateString()===today.toDateString(); let cls='cal-cell'; if(isT) cls+=' today'; if(has) cls+=' has-bill'; if(isOver) cls+=' overdue-day'; cells.push(`<div class="${cls}" data-date="${ds}">${d}</div>`); } document.getElementById('calGrid').innerHTML=cells.join(''); document.getElementById('monthTitle').innerText=first.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).toUpperCase(); const monthBills=bills.filter(b=>new Date(b.due).getMonth()===m&&new Date(b.due).getFullYear()===y&&!b.paid).sort((a,b)=>new Date(a.due)-new Date(b.due)); document.getElementById('calEvents').innerHTML=monthBills.length?monthBills.map(b=>`<div class="cal-event-row" data-id="${b.id}"><div class="cal-event-day">${new Date(b.due).getDate()}</div><div class="cal-event-info"><div class="cal-event-name">${b.name}</div><div class="cal-event-amount">${formatMoney(b.amount)}</div></div></div>`).join(''):'<div class="empty-state">Nenhum vencimento</div>'; document.querySelectorAll('.cal-event-row').forEach(el=>el.addEventListener('click',()=>{const id=el.dataset.id; const b=bills.find(b=>b.id==id); if(b) openGoogleCalendar(b); })); document.querySelectorAll('.cal-cell[data-date]').forEach(cell=>cell.addEventListener('click',()=>{const date=cell.dataset.date; const b=bills.find(b=>b.due===date&&!b.paid); if(b) openGoogleCalendar(b); else toast('Nenhuma conta neste dia');}));}
+function renderSummary() { const pending=bills.filter(b=>!b.paid).reduce((s,b)=>s+b.amount,0), overdue=bills.filter(b=>!b.paid&&new Date(b.due)<new Date()).reduce((s,b)=>s+b.amount,0), paid=bills.filter(b=>b.paid).reduce((s,b)=>s+b.amount,0); document.getElementById('summaryCards').innerHTML=`<div class="summary-card"><div class="s-label">PENDENTE</div><div class="s-value ${blurEnabled?'blurred':''}">${formatMoney(pending)}</div></div><div class="summary-card"><div class="s-label">VENCIDO</div><div class="s-value red ${blurEnabled?'blurred':''}">${formatMoney(overdue)}</div></div><div class="summary-card"><div class="s-label">PAGO</div><div class="s-value green ${blurEnabled?'blurred':''}">${formatMoney(paid)}</div></div>`; const percent=pending?Math.min(100,(overdue/pending)*100):0; document.getElementById('summaryBars').innerHTML=`<div class="bar-wrap"><div class="bar-lbl"><span>Risco</span><span>${Math.round(percent)}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${percent}%"></div></div></div>`; const cat=new Map(); bills.filter(b=>!b.paid).forEach(b=>cat.set(b.cat||'Outros',(cat.get(b.cat||'Outros')||0)+b.amount)); document.getElementById('catBreakdown').innerHTML=Array.from(cat.entries()).map(([k,v])=>`<div class="cat-row"><div>${k}</div><div class="cat-tot ${blurEnabled?'blurred':''}">${formatMoney(v)}</div></div>`).join('')||'<div class="empty-state">Sem categorias</div>';}
 function renderAll() { renderHome(); renderPayments(); renderCalendar(); renderSummary(); }
 
-function addBill(name, amount, due, cat) {
-  const id = Date.now().toString();
-  bills.push({ id, name, amount: parseFloat(amount), due, cat: cat || 'Outros', paid: false });
-  saveBills();
-}
+// MICROFONE
+document.getElementById('openModalBtn').addEventListener('click', () => { if(recognition) { recognition.start(); document.getElementById('voiceStatus').innerText = '🎤 Ouvindo... Fale o nome, valor e data (ex: Luz 150 reais dia 15)'; recognition.onresult = (e) => { const text = e.results[0][0].transcript; document.getElementById('voiceStatus').innerText = `🗣️ "${text}"`; const matchValue = text.match(/(\d+)[\s]*reais?/i); const matchDay = text.match(/dia[\s]+(\d+)/i); const name = text.split(/\d+/)[0].trim(); if(matchValue && matchDay && name) { const amount = parseFloat(matchValue[1]); const day = parseInt(matchDay[1]); const now = new Date(); const dueDate = new Date(now.getFullYear(), now.getMonth(), day); if(dueDate < now) dueDate.setMonth(now.getMonth()+1); const dueStr = dueDate.toISOString().slice(0,10); addBill(name, amount, dueStr, 'Outros'); toast(`Conta "${name}" adicionada por voz!`); } else toast('Não entendi. Use: "Luz 150 reais dia 15"'); }; recognition.onerror = () => { document.getElementById('voiceStatus').innerText = '❌ Microfone não disponível'; }; } else toast('Seu navegador não suporta voz'); });
 
-// MODAL LOGIC
-const modal = document.getElementById('modalOverlay');
-function openModal() { modal.classList.add('open'); }
-function closeModal() { modal.classList.remove('open'); }
-document.getElementById('openModalBtn').addEventListener('click', openModal);
-document.getElementById('modalCancel').addEventListener('click', closeModal);
-document.getElementById('modalSave').addEventListener('click', () => {
-  const name = document.getElementById('billName').value.trim();
-  const amount = parseFloat(document.getElementById('billAmount').value);
-  const due = document.getElementById('billDue').value;
-  const cat = document.getElementById('billCategory').value;
-  if(!name || isNaN(amount) || !due) { toast('Preencha todos os campos'); return; }
-  addBill(name, amount, due, cat);
-  closeModal();
-  document.getElementById('billName').value = '';
-  document.getElementById('billAmount').value = '';
-  document.getElementById('billDue').value = '';
-});
+// MODAL
+const modal = document.getElementById('modalOverlay'); function openModal() { modal.classList.add('open'); } function closeModal() { modal.classList.remove('open'); } document.getElementById('openModalBtn').addEventListener('click', openModal); document.getElementById('modalCancel').addEventListener('click', closeModal); document.getElementById('modalSave').addEventListener('click', () => { const name=document.getElementById('billName').value.trim(), amount=parseFloat(document.getElementById('billAmount').value), due=document.getElementById('billDue').value, cat=document.getElementById('billCategory').value; if(name&&!isNaN(amount)&&due) { addBill(name,amount,due,cat); closeModal(); document.getElementById('billName').value=''; document.getElementById('billAmount').value=''; document.getElementById('billDue').value=''; toast('Conta adicionada!'); } else toast('Preencha todos os campos'); });
 
-// Filters
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.filter;
-    renderPayments();
-  });
-});
-
-// Calendar nav
-document.getElementById('prevMonth').addEventListener('click', () => { currentMonth.setMonth(currentMonth.getMonth()-1); renderCalendar(); });
-document.getElementById('nextMonth').addEventListener('click', () => { currentMonth.setMonth(currentMonth.getMonth()+1); renderCalendar(); });
-
-// Navigation footer
-document.querySelectorAll('.footer-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const screenId = btn.dataset.screen;
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(`screen-${screenId}`).classList.add('active');
-    document.querySelectorAll('.footer-btn').forEach(f => f.classList.remove('active'));
-    btn.classList.add('active');
-    if(screenId === '2') renderCalendar();
-    if(screenId === '3') renderSummary();
-  });
-});
-
-// Blur toggle
-document.getElementById('blurToggle').addEventListener('click', () => setBlur(!blurEnabled));
-
-// Backup
-document.getElementById('exportBackup').addEventListener('click', () => {
-  const dataStr = JSON.stringify({ bills, blurEnabled });
-  const blob = new Blob([dataStr], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `projectA_backup_${new Date().toISOString().slice(0,19)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('Backup exportado');
-});
-document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
-document.getElementById('importFile').addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    try {
-      const data = JSON.parse(ev.target.result);
-      if(data.bills) bills = data.bills;
-      if(typeof data.blurEnabled === 'boolean') setBlur(data.blurEnabled);
-      saveBills();
-      toast('Backup importado');
-    } catch(e) { toast('Arquivo inválido'); }
-  };
-  reader.readAsText(file);
-});
-document.getElementById('exportCSV').addEventListener('click', () => {
-  let csv = "Nome,Valor,Data Vencimento,Pago\n";
-  bills.forEach(b => csv += `"${b.name}",${b.amount},${b.due},${b.paid ? 'SIM' : 'NÃO'}\n`);
-  const blob = new Blob([csv], {type:'text/csv'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `projectA_contas.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('CSV exportado');
-});
-document.getElementById('clearAllBtn').addEventListener('click', () => {
-  if(confirm('Apagar TODAS as contas? Essa ação é irreversível.')) { bills = []; saveBills(); toast('Todos os dados removidos'); }
-});
-
+// FILTERS
+document.querySelectorAll('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentFilter=btn.dataset.filter; renderPayments();}));
+document.getElementById('prevMonth').addEventListener('click',()=>{currentMonth.setMonth(currentMonth.getMonth()-1); renderCalendar();});
+document.getElementById('nextMonth').addEventListener('click',()=>{currentMonth.setMonth(currentMonth.getMonth()+1); renderCalendar();});
+document.querySelectorAll('.footer-btn').forEach(btn=>btn.addEventListener('click',()=>{const id=btn.dataset.screen; document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(`screen-${id}`).classList.add('active'); document.querySelectorAll('.footer-btn').forEach(f=>f.classList.remove('active')); btn.classList.add('active'); if(id==='2') renderCalendar(); if(id==='3') renderSummary();}));
+document.getElementById('blurToggle').addEventListener('click',()=>setBlur(!blurEnabled));
+document.getElementById('exportBackup').addEventListener('click',()=>{const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({bills,blurEnabled})],{type:'application/json'})); a.download=`backup_${Date.now()}.json`; a.click(); toast('Backup exportado');});
+document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change',e=>{const f=e.target.files[0]; if(f){const r=new FileReader(); r.onload=ev=>{try{const d=JSON.parse(ev.target.result); if(d.bills) bills=d.bills; if(typeof d.blurEnabled==='boolean')setBlur(d.blurEnabled); saveBills(); toast('Importado');}catch(e){toast('Erro');}}; r.readAsText(f);}});
+document.getElementById('exportCSV').addEventListener('click',()=>{let csv="Nome,Valor,Data,Pago\n"; bills.forEach(b=>csv+=`"${b.name}",${b.amount},${b.due},${b.paid?'SIM':'NÃO'}\n`); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='contas.csv'; a.click(); toast('CSV exportado');});
+document.getElementById('clearAllBtn').addEventListener('click',()=>{if(confirm('Apagar tudo?')){bills=[]; saveBills(); toast('Todos os dados removidos');}});
 loadData();
 </script>
 </body>
