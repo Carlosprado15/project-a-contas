@@ -610,11 +610,20 @@ html, body {
 }
 .btn-save:active { box-shadow:0 0 20px rgba(0,255,255,.3); }
 
-/* voice-btn continua abaixo */
-  font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:700; letter-spacing:2px;
+/* ═══════════════════════════════
+   BOTÃO USAR VOZ
+═══════════════════════════════ */
+.voice-btn {
+  width:100%; padding:13px;
+  background:linear-gradient(135deg,#1a0a28 0%,#2d1045 50%,#1a0a28 100%);
+  border:1px solid rgba(180,0,255,.4); border-radius:12px;
+  color:#cc88ff; text-shadow:0 0 8px rgba(200,100,255,.6);
+  font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700; letter-spacing:2px;
   cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;
-  box-shadow:0 0 10px rgba(160,0,255,.15); transition:box-shadow .2s; margin-top:10px;
+  box-shadow:0 0 10px rgba(160,0,255,.15); transition:box-shadow .2s, border-color .2s;
+  margin-top:10px;
 }
+.voice-btn:active { box-shadow:0 0 22px rgba(180,0,255,.45); }
 .voice-btn.listening {
   box-shadow:0 0 20px rgba(160,0,255,.5),0 0 40px rgba(160,0,255,.2);
   border-color:rgba(200,50,255,.6); animation:vPulse 1.2s ease-in-out infinite;
@@ -635,29 +644,32 @@ html, body {
 }
 .toast.show { opacity:1; }
 
-/* Flash overlay para alerta — NEON CYAN PULSANTE */
+/* Flash overlay para alerta — NEON CYAN PULSANTE FORTE */
 .flash-overlay {
   position:fixed; top:0; left:0; right:0; bottom:0;
-  background:radial-gradient(ellipse at center, rgba(0,255,255,0.35) 0%, rgba(0,255,255,0.12) 50%, transparent 80%);
+  background:radial-gradient(ellipse at center, rgba(0,255,255,0.55) 0%, rgba(0,255,255,0.25) 45%, transparent 75%);
   z-index:9999; pointer-events:none; opacity:0;
   transition:opacity 0.15s ease;
 }
 @keyframes neonPulse {
-  0%   { opacity:0; box-shadow: inset 0 0 60px rgba(0,255,255,0.0); }
-  20%  { opacity:1; box-shadow: inset 0 0 80px rgba(0,255,255,0.5), inset 0 0 200px rgba(0,255,255,0.25); }
-  50%  { opacity:0.5; box-shadow: inset 0 0 40px rgba(0,255,255,0.3); }
-  70%  { opacity:1; box-shadow: inset 0 0 80px rgba(0,255,255,0.5), inset 0 0 200px rgba(0,255,255,0.25); }
-  100% { opacity:0; box-shadow: inset 0 0 0px rgba(0,255,255,0.0); }
+  0%   { opacity:0;   box-shadow:inset 0 0 0px   rgba(0,255,255,0.0); }
+  15%  { opacity:1;   box-shadow:inset 0 0 120px rgba(0,255,255,0.7), inset 0 0 300px rgba(0,255,255,0.35); }
+  35%  { opacity:0.4; box-shadow:inset 0 0 60px  rgba(0,255,255,0.3); }
+  55%  { opacity:1;   box-shadow:inset 0 0 120px rgba(0,255,255,0.7), inset 0 0 300px rgba(0,255,255,0.35); }
+  75%  { opacity:0.4; box-shadow:inset 0 0 60px  rgba(0,255,255,0.3); }
+  90%  { opacity:1;   box-shadow:inset 0 0 100px rgba(0,255,255,0.5); }
+  100% { opacity:0;   box-shadow:inset 0 0 0px   rgba(0,255,255,0.0); }
 }
 .flash-overlay.neon-alert {
-  animation: neonPulse 1.2s ease-in-out;
+  animation: neonPulse 3s ease-in-out;
 }
 @keyframes shellGlow {
-  0%,100% { box-shadow: none; }
-  30%,70% { box-shadow: 0 0 0 3px rgba(0,255,255,0.8), 0 0 40px rgba(0,255,255,0.4), 0 0 80px rgba(0,255,255,0.2); }
+  0%,100% { box-shadow:none; }
+  15%,55%,90% { box-shadow:0 0 0 4px rgba(0,255,255,1), 0 0 60px rgba(0,255,255,0.6), 0 0 120px rgba(0,255,255,0.3); }
+  35%,75% { box-shadow:0 0 0 2px rgba(0,255,255,0.5), 0 0 30px rgba(0,255,255,0.2); }
 }
 .app-shell.neon-alert-shell {
-  animation: shellGlow 1.2s ease-in-out;
+  animation: shellGlow 3s ease-in-out;
 }
 
 /* GATE OVERLAY */
@@ -1301,9 +1313,8 @@ function flashScreen(isAlertMode = false) {
   const shell = document.querySelector('.app-shell');
   if (!flash) return;
   if (isAlertMode) {
-    // Flash neon cyan pulsante tela cheia para alertas reais
     flash.classList.remove('neon-alert');
-    void flash.offsetWidth; // forçar reflow
+    void flash.offsetWidth;
     flash.classList.add('neon-alert');
     if (shell) {
       shell.classList.remove('neon-alert-shell');
@@ -1313,20 +1324,17 @@ function flashScreen(isAlertMode = false) {
     setTimeout(() => {
       flash.classList.remove('neon-alert');
       if (shell) shell.classList.remove('neon-alert-shell');
-    }, 1300);
-    // Vibração de alerta: padrão forte [500,200,500]
-    if (settings.vibrate && navigator.vibrate) navigator.vibrate([500, 200, 500]);
+    }, 3100);
   } else {
-    // Flash rápido para feedback de som
-    flash.style.opacity = '0.45';
-    setTimeout(() => { flash.style.opacity = '0'; }, 180);
+    flash.style.opacity = '0.6';
+    setTimeout(() => { flash.style.opacity = '0'; }, 250);
   }
 }
 
 function playBeep(forceTest = false) {
-  if(!settings.sound && !forceTest) return;
+  if (!settings.sound && !forceTest) return;
   flashScreen(forceTest);
-  if(window.currentAlertAudio) {
+  if (window.currentAlertAudio) {
     try { window.currentAlertAudio.close(); } catch(e) {}
     window.currentAlertAudio = null;
   }
@@ -1334,30 +1342,50 @@ function playBeep(forceTest = false) {
   const ctx = new AudioCtx();
   window.currentAlertAudio = ctx;
   const start = ctx.currentTime;
-  // Padrão fixo: 3 pulsos crescentes, duração ~2.5s — perceptível mas não irritante
+
+  // 5 pulsos crescentes em volume e frequência — impacto máximo
   const pattern = [
-    {time:0,   freq:660, vol:0.25},
-    {time:0.7, freq:880, vol:0.35},
-    {time:1.4, freq:1100, vol:0.45}
+    { time:0.0,  freq:440,  vol:0.5  },
+    { time:0.5,  freq:550,  vol:0.65 },
+    { time:1.0,  freq:660,  vol:0.75 },
+    { time:1.5,  freq:880,  vol:0.85 },
+    { time:2.1,  freq:1100, vol:1.0  },
   ];
+
   pattern.forEach(p => {
-    const osc = ctx.createOscillator();
+    // Onda principal — sawtooth (mais agressivo)
+    const osc  = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain);
     gain.connect(ctx.destination);
     osc.type = 'sawtooth';
     osc.frequency.value = p.freq;
-    gain.gain.setValueAtTime(p.vol, start + p.time);
-    gain.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.55);
+    gain.gain.setValueAtTime(0.0001, start + p.time);
+    gain.gain.linearRampToValueAtTime(p.vol, start + p.time + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.42);
     osc.start(start + p.time);
-    osc.stop(start + p.time + 0.55);
+    osc.stop(start + p.time + 0.45);
+
+    // Segunda onda — square harmonico para mais corpo
+    const osc2  = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.connect(gain2);
+    gain2.connect(ctx.destination);
+    osc2.type = 'square';
+    osc2.frequency.value = p.freq * 0.5;
+    gain2.gain.setValueAtTime(0.0001, start + p.time);
+    gain2.gain.linearRampToValueAtTime(p.vol * 0.4, start + p.time + 0.05);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.42);
+    osc2.start(start + p.time);
+    osc2.stop(start + p.time + 0.45);
   });
+
   setTimeout(() => {
-    if(window.currentAlertAudio === ctx) {
+    if (window.currentAlertAudio === ctx) {
       try { ctx.close(); } catch(e) {}
       window.currentAlertAudio = null;
     }
-  }, 2800);
+  }, 3000);
 }
 
 // ==================== ATUALIZA BANNER ====================
@@ -1745,25 +1773,28 @@ function triggerNeonAlert(bill, alertType) {
   const msg = alertType === 'eve'
     ? `⏰ ${bill.name} vence AMANHÃ! (${fmtAmt(bill.amount)})`
     : `🚨 ${bill.name} vence HOJE! (${fmtAmt(bill.amount)})`;
-  // 1. Flash Neon Cyan tela cheia
-  const flash = document.getElementById('flashOverlay');
-  const shell = document.querySelector('.app-shell');
-  if (flash) {
-    flash.classList.remove('neon-alert');
-    void flash.offsetWidth;
-    flash.classList.add('neon-alert');
-    if (shell) { shell.classList.remove('neon-alert-shell'); void shell.offsetWidth; shell.classList.add('neon-alert-shell'); }
-    setTimeout(() => { flash.classList.remove('neon-alert'); if(shell) shell.classList.remove('neon-alert-shell'); }, 1300);
+
+  // 1. Flash Neon Cyan tela cheia — 3 pulsos, 3 segundos
+  flashScreen(true);
+
+  // 2. Vibração forte e longa — padrão de alerta urgente
+  if (settings.vibrate && navigator.vibrate) {
+    navigator.vibrate([600,150,600,150,600,150,800]);
   }
-  // 2. Vibração forte
-  if (settings.vibrate && navigator.vibrate) navigator.vibrate([500, 200, 500]);
-  // 3. Som simultâneo
+
+  // 3. Som alto com 4 pulsos crescentes
   if (settings.sound) playBeep(false);
+
   // 4. Toast
   showToast(msg);
+
   // 5. Notificação do sistema
   if (Notification.permission === 'granted') {
-    new Notification('PROJECT A', { body: msg });
+    new Notification('🚨 PROJECT A — Vencimento', {
+      body: msg,
+      requireInteraction: true,
+      vibrate: [600,150,600,150,600]
+    });
   }
 }
 // checkTimeAlerts consolidado acima em ALERTAS REAIS
