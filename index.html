@@ -250,7 +250,9 @@ html, body {
 .today-bill-amt {
   font-family:'Share Tech Mono',monospace; font-size:13px;
   color:var(--cyan); text-shadow:var(--cyan-glow); white-space:nowrap;
+  filter:blur(5px); user-select:none; transition:filter .3s ease;
 }
+.today-bill-amt.revealed { filter:blur(0); }
 
 /* Empty state */
 .empty-state { text-align:center; padding:22px; color:#444; font-size:13px; letter-spacing:1px; }
@@ -794,11 +796,11 @@ html, body {
     <div class="cfg-section">
       <div class="cfg-section-title">⏰ Horários de Alerta</div>
       <div class="cfg-row">
-        <div><div class="cfg-label">Pré-aviso</div><div class="cfg-sub">Horário do alerta na véspera do vencimento</div></div>
+        <div><div class="cfg-label">Véspera de Vencimento</div><div class="cfg-sub">Horário do alerta na véspera do vencimento</div></div>
         <input type="time" id="eveTime" value="21:00" class="cfg-select" style="color:#00FFFF;background:rgba(0,255,255,0.07);border:1px solid rgba(0,255,255,0.3);border-radius:6px;padding:4px 8px;font-family:'Share Tech Mono',monospace;font-size:13px;" onchange="saveAlertTimes()">
       </div>
       <div class="cfg-row">
-        <div><div class="cfg-label">Aviso de Vencimento</div><div class="cfg-sub">Horário do alerta no dia do vencimento</div></div>
+        <div><div class="cfg-label">Dia do Vencimento</div><div class="cfg-sub">Horário do alerta no dia do vencimento</div></div>
         <input type="time" id="dueTime" value="09:00" class="cfg-select" style="color:#00FFFF;background:rgba(0,255,255,0.07);border:1px solid rgba(0,255,255,0.3);border-radius:6px;padding:4px 8px;font-family:'Share Tech Mono',monospace;font-size:13px;" onchange="saveAlertTimes()">
       </div>
       <div class="cfg-sub" style="text-align:center;margin-top:4px;color:#00ccaa">Flash Cyan + Vibração + Som nos horários escolhidos</div>
@@ -809,10 +811,6 @@ html, body {
       <div class="cfg-row">
         <div><div class="cfg-label">Histórico Salvo</div><div class="cfg-sub">Contas pagas por 90 dias</div></div>
         <span id="cfgCount" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cyan)">—</span>
-      </div>
-      <div class="cfg-row">
-        <div><div class="cfg-label">Permissão de Notificações</div><div class="cfg-sub">Necessária para alertas em segundo plano</div></div>
-        <button class="cfg-btn" onclick="reqNotif()">ATIVAR</button>
       </div>
       <div class="cfg-row">
         <div><div class="cfg-label">Limpar Tudo</div><div class="cfg-sub">Apagar todas as contas</div></div>
@@ -1381,9 +1379,17 @@ function updateAlertBanner() {
       dueToday.forEach(b => {
         const row = document.createElement('div');
         row.className = 'today-bill-row';
-        row.innerHTML = `<div class="today-bill-dot"></div><div class="today-bill-name">${esc(b.name)}</div><div class="today-bill-amt">${fmtAmt(b.amount)}</div>`;
+        row.innerHTML = `<div class="today-bill-dot"></div><div class="today-bill-name">${esc(b.name)}</div><div class="today-bill-amt" title="Toque para revelar">${fmtAmt(b.amount)}</div>`;
+        // Toque revela/oculta o valor
+        const amt = row.querySelector('.today-bill-amt');
+        amt.addEventListener('click', () => amt.classList.toggle('revealed'));
         todayBillList.appendChild(row);
       });
+      // Hint discreto
+      const hint = document.createElement('div');
+      hint.style.cssText = 'font-size:10px;color:#00897b;text-align:center;padding:5px 0 8px;letter-spacing:.5px;';
+      hint.textContent = '🔒 Toque no valor para revelar';
+      todayBillList.appendChild(hint);
     }
   } else {
     alertTitle.innerHTML = isPortuguese ? '✅ TUDO EM DIA' : '✅ ALL CLEAR';
@@ -1679,12 +1685,19 @@ function checkTimeAlerts() {
 }
 
 // ==================== BOOT ====================
-checkAccess(); // Verifica se já tem acesso
+checkAccess();
 loadSettings(); loadBills(); calInit(); render(); scheduleAlerts(); loadAlertTimes();
 setInterval(()=>{ if(settings.alerts) scheduleAlerts(); updateAlertBanner(); }, 3600000);
 setInterval(() => updateAlertBanner(), 60000);
-setInterval(() => checkTimeAlerts(), 60000); // Monitor de horários — verifica a cada minuto
-if('Notification' in window && Notification.permission==='default') setTimeout(()=>Notification.requestPermission(),2000);
+setInterval(() => checkTimeAlerts(), 60000);
+// Solicitar permissão de notificação automaticamente — sem botão
+(function reqNotifAuto(){
+  if('Notification' in window){
+    if(Notification.permission === 'default'){
+      setTimeout(()=> Notification.requestPermission(), 1500);
+    }
+  }
+})();
 registerSW();
 applyTranslations(); // Aplica traduções
 </script>
