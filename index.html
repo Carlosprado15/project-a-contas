@@ -1341,51 +1341,47 @@ function playBeep(forceTest = false) {
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
   const ctx = new AudioCtx();
   window.currentAlertAudio = ctx;
-  const start = ctx.currentTime;
 
-  // 5 pulsos crescentes em volume e frequência — impacto máximo
-  const pattern = [
-    { time:0.0,  freq:440,  vol:0.5  },
-    { time:0.5,  freq:550,  vol:0.65 },
-    { time:1.0,  freq:660,  vol:0.75 },
-    { time:1.5,  freq:880,  vol:0.85 },
-    { time:2.1,  freq:1100, vol:1.0  },
-  ];
+  // ── SINO ELEGANTE ──
+  // Três batidas de sino com harmônicos reais e decaimento natural
+  function bateSino(tempoInicio, frequencia, volume) {
+    const t = tempoInicio;
 
-  pattern.forEach(p => {
-    // Onda principal — sawtooth (mais agressivo)
-    const osc  = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.type = 'sawtooth';
-    osc.frequency.value = p.freq;
-    gain.gain.setValueAtTime(0.0001, start + p.time);
-    gain.gain.linearRampToValueAtTime(p.vol, start + p.time + 0.05);
-    gain.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.42);
-    osc.start(start + p.time);
-    osc.stop(start + p.time + 0.45);
+    // Harmônicos do sino: fundamental + 2ª + 3ª parcial
+    const harmonicos = [
+      { freq: frequencia,       vol: volume        },
+      { freq: frequencia * 2.76, vol: volume * 0.5  },
+      { freq: frequencia * 5.40, vol: volume * 0.25 },
+    ];
 
-    // Segunda onda — square harmonico para mais corpo
-    const osc2  = ctx.createOscillator();
-    const gain2 = ctx.createGain();
-    osc2.connect(gain2);
-    gain2.connect(ctx.destination);
-    osc2.type = 'square';
-    osc2.frequency.value = p.freq * 0.5;
-    gain2.gain.setValueAtTime(0.0001, start + p.time);
-    gain2.gain.linearRampToValueAtTime(p.vol * 0.4, start + p.time + 0.05);
-    gain2.gain.exponentialRampToValueAtTime(0.0001, start + p.time + 0.42);
-    osc2.start(start + p.time);
-    osc2.stop(start + p.time + 0.45);
-  });
+    harmonicos.forEach(h => {
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = h.freq;
+      // Ataque rápido, decaimento lento — comportamento real de sino
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.linearRampToValueAtTime(h.vol, t + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 2.2);
+      osc.start(t);
+      osc.stop(t + 2.3);
+    });
+  }
+
+  const s = ctx.currentTime;
+  // 3 batidas — Dó → Mi → Sol (acorde de alerta memorável)
+  bateSino(s + 0.0,  523.25, 0.9);  // Dó 5
+  bateSino(s + 0.55, 659.25, 0.85); // Mi 5
+  bateSino(s + 1.1,  783.99, 0.95); // Sol 5 — mais forte no final
 
   setTimeout(() => {
     if (window.currentAlertAudio === ctx) {
       try { ctx.close(); } catch(e) {}
       window.currentAlertAudio = null;
     }
-  }, 3000);
+  }, 3800);
 }
 
 // ==================== ATUALIZA BANNER ====================
